@@ -9,14 +9,10 @@ public class Index {
         return "index-admin";
 	}
 	
-	@RequestMapping(value = "/home-1")
-    public String home1() {
-        return "home-1";
-    }
 
     @RequestMapping(value = "/")
-    public String home() {
-        return "home-3";
+    public String index() {
+        return "index";
     }
     
     @RequestMapping("/login")
@@ -39,9 +35,9 @@ public class Index {
 	    return "shop-product-grid-fullwidth";
 	}
 	
-	@RequestMapping("/shop-single-fullwidth")
-	public String showShop4() {
-	    return "shop-single-fullwidth";
+	@RequestMapping("/product")
+	public String product() {
+	    return "product";
 	}
 	
 	@RequestMapping("/shop-cart")

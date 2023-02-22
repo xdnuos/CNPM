@@ -4,7 +4,7 @@
         <properties>
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="hibernate.connection.username" value="sa"/>
-            <property name="hibernate.connection.password" value="221455"/>
+            <property name="hibernate.connection.password" value="471701"/>
             <property name="hibernate.connection.url" value="jdbc:sqlserver://localhost:1433; Database=QL;encrypt=true;trustServerCertificate=true;"/>
         </properties>
     </persistence-unit>

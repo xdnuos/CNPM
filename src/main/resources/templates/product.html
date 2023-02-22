@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head"></head>
+<body>
+<!-- Document Wrapper
+	============================================= -->
+<div id="wrapper" class="wrapper clearfix">
+<header th:replace="layout :: header"></header>
+	<section id="shopgrid" class="shop shop-single">
+		<div class="container shop-content">
+
+<!-- 			cái này sửa để khi add sp vô giỏ thì hiện lên hoặc làm dialog giống shoppe cho dễ -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-xs-12 col-sm-12 col-md-12"> -->
+<!-- 					Alert Message -->
+<!-- 					<div class="alert"> -->
+<!-- 						<div class="alert-icon"> -->
+<!-- 							<i class="fa fa-check-circle"></i> -->
+<!-- 						</div> -->
+<!-- 						<div class="alert-content"> -->
+<!-- 							<h4>Item Was Successfully Added To Your Cart.</h4> -->
+<!-- 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellentesque cursus arcu id magna euismod in elementum purus molestie.</p> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					.aret end -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			<!-- .row end -->
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-5">
+					<div class="prodcut-images">
+						<div class="product-img-slider">
+							<img src="./images/shop/full/1.jpg" alt="product image">
+							<img src="./images/shop/full/2.jpg" alt="product image">
+							<img src="./images/shop/full/3.jpg" alt="product image">
+							<img src="./images/shop/full/4.jpg" alt="product image">
+							<img src="./images/shop/full/3.jpg" alt="product image">
+						</div>
+						<div class="product-img-nav">
+							<img src="./images/shop/full/5.jpg" alt="product image">
+							<img src="./images/shop/full/6.jpg" alt="product image">
+							<img src="./images/shop/full/7.jpg" alt="product image">
+							<img src="./images/shop/full/8.jpg" alt="product image">
+							<img src="./images/shop/full/7.jpg" alt="product image">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-7">
+					<div class="product-title text-center-xs">
+						<h3>Cold Air System</h3>
+					</div>
+					
+					<div class="product-price pull-left pull-none-xs">
+						<p>$150.00</p>
+					</div>
+					<br>
+					<br>
+					<div class="product-desc text-center-xs">
+						<p class="mb-0">Lorem ipsum dolor sit amet, mauris suspendisse viverra eleifend tortor tellus suscipit, tortor aliquet at nulla mus, dignissim neque, nulla neque. Ultrices proin mi urna nibh ut, aenean sollicitudin etiam libero nisl, ultrices ridiculus in magna purus consequuntur, ipsum donec orci ad vitae pede, id odio.</p>
+					</div>
+					<!-- .product-desc end -->
+					
+					<hr class="mt-30 mb-30">
+					<div class="product-details text-center-xs">
+						<h5>Other Details :</h5>
+						<ul class="list-unstyled">
+							<li>Product : <span>Air System</span></li>
+							<li>Code : <span>#0214</span></li>
+							<li>Availabiltity : <span>Available</span></li>
+							<li>Brand : <span>Opel</span></li>
+						</ul>
+					</div>
+					<!-- .product-details end -->
+					<hr class="mt-30 mb-30">
+					<div class="product-action">
+						<div class="product-quantity pull-left pull-none-xs">
+							<span class="qua">Quantity:</span>
+							<span>
+							<a href="#"><i class="fa fa-minus"></i></a>
+							<input type="text" value="2" id="pro-qunt" readonly>
+							<a href="#"><i class="fa fa-plus"></i></a>
+							</span>	
+						</div>
+					</div>
+					<a class="btn btn-primary btn-add-cart" href="#">add to cart</a>
+					<hr class="mt-30 mb-30">
+					<div class="product-share  text-center-xs">
+						<h5 class="share-title">share product: </h5>
+						<a class="share-facebook" href="#"><i class="fa fa-facebook"></i></a>
+						<a class="share-twitter" href="#"><i class="fa fa-twitter"></i></a>
+						<a class="share-google-plus" href="#"><i class="fa fa-google-plus"></i></a>
+						<a class="share-pinterest" href="#"><i class="fa fa-pinterest"></i></a>
+						<a class="share-dribbble" href="#"><i class="fa fa-dribbble"></i></a>
+					</div>
+					<!-- .product-share end -->
+				</div>
+			</div>
+			<!-- .row end -->
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="product-tabs">
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active">
+								<a href="#description" aria-controls="description" role="tab" data-toggle="tab">description</a>
+							</li>
+							<li role="presentation">
+								<a href="#details" aria-controls="details" role="tab" data-toggle="tab">details</a>
+							</li>
+						</ul>
+						
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="description">
+								<p>Lorem ipsum dolor sit amet, mauris suspendisse viverra eleifend tortor tellus suscipit, tortor aliquet at nulla mus, dignissim neque, nulla neque. Ultrices proin mi urna nibh ut, aenean sollicitudin etiam libero nisl, ultrices ridiculus in magna purus consequuntur, ipsum donec orci ad vitae pede, id odio.</p>
+								<p>Lorem ipsum dolor sit amet, mauris suspendisse viverra eleifend tortor tellus suscipit, tortor aliquet at nulla mus, dignissim neque, nulla neque. Ultrices proin mi urna nibh ut, aenean sollicitudin etiam libero nisl, ultrices ridiculus in magna purus consequuntur, ipsum donec orci ad vitae pede, id odio.</p>
+							</div>
+							<!-- #description end -->
+							<div role="tabpanel" class="tab-pane" id="details">
+								<h5>Technical Details</h5>
+								<table class="table table-striped">
+									<tbody>
+										<tr>
+											<td>Part Number</td>
+											<td>60-MCTE</td>
+										</tr>
+										<tr>
+											<td>Item Weight</td>
+											<td>54 pounds</td>
+										</tr>
+										<tr>
+											<td>Product Dimensions</td>
+											<td>92.8 x 92.8 x 92.8 inches</td>
+										</tr>
+										<tr>
+											<td>Item model number</td>
+											<td>60-MCTE</td>
+										</tr>
+										<tr>
+											<td>Item Package Quantity</td>
+											<td>1</td>
+										</tr>
+										<tr>
+											<td>Number of Handles</td>
+											<td>1</td>
+										</tr>
+										<tr>
+											<td>Batteries Required?</td>
+											<td>No</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- #details end -->
+							<!-- #reviews end -->
+						</div>
+						<!-- #tab-content end -->
+					</div>
+					<!-- .product-tabs end -->
+				</div>
+			</div>
+			<!-- .row end -->
+			<!-- Pager -->
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 pager">
+					<div class="page-prev">
+						<a href="#"><i class="fa fa-angle-left"></i></a>
+					</div>
+					<div class="page-next">
+						<a href="#"><i class="fa fa-angle-right"></i></a>
+					</div>
+				</div>
+			</div>
+			<!-- .row end -->
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="widget-related-product">
+						<div class="widget-title">
+							<h4>Related Products</h4>
+						</div>
+						<div class="widget-content">
+							<div class="row">
+								<!-- Product #1 -->
+								<div class="col-xs-12 col-sm-6 col-md-3 product">
+									<div class="product-img">
+										<img  src="./images/shop/grid/1.jpg" alt="Product"/>
+										<div class="product-hover">
+											<div class="product-action">
+												<a class="btn btn-primary" href="#">Add To Cart</a>
+												<a class="btn btn-primary" href="#">Item Details</a>
+											</div>
+										</div>
+										<!-- .product-overlay end -->
+									</div>
+									<!-- .product-img end -->
+									<div class="product-bio">
+										<div class="prodcut-cat">
+											<a href="#">Opel</a>
+										</div>
+										<!-- .product-cat end -->
+										<div class="prodcut-title">
+											<h3>
+												<a href="#">Brake Discs</a>
+											</h3>
+										</div>
+										<!-- .product-title end -->
+										<div class="product-price">
+											<span class="symbole">$</span><span>68.00</span>
+										</div>
+										<!-- .product-price end -->
+										
+									</div>
+									<!-- .product-bio end -->
+								</div>
+								<!-- .product end -->
+								
+								<!-- Product #2 -->
+								<div class="col-xs-12 col-sm-6 col-md-3 product">
+									<div class="product-img">
+										<img  src="./images/shop/grid/2.jpg" alt="Product"/>
+										<div class="product-hover">
+											<div class="product-action">
+												<a class="btn btn-primary" href="#">Add To Cart</a>
+												<a class="btn btn-primary" href="#">Item Details</a>
+											</div>
+										</div>
+										<!-- .product-overlay end -->
+									</div>
+									<!-- .product-img end -->
+									<div class="product-bio">
+										<div class="prodcut-cat">
+											<a href="#">Subaru</a>
+										</div>
+										<!-- .product-cat end -->
+										<div class="prodcut-title">
+											<h3>
+												<a href="#">OIL FILTER</a>
+											</h3>
+										</div>
+										<!-- .product-title end -->
+										<div class="product-price">
+											<span class="symbole">$</span><span>40.00</span>
+										</div>
+										<!-- .product-price end -->
+										
+									</div>
+									<!-- .product-bio end -->
+								</div>
+								<!-- .product end -->
+								
+								<!-- Product #3 -->
+								<div class="col-xs-12 col-sm-6 col-md-3 product">
+									<div class="product-img">
+										<img  src="./images/shop/grid/3.jpg" alt="Product"/>
+										<div class="product-hover">
+											<div class="product-action">
+												<a class="btn btn-primary" href="#">Add To Cart</a>
+												<a class="btn btn-primary" href="#">Item Details</a>
+											</div>
+										</div>
+										<!-- .product-overlay end -->
+									</div>
+									<!-- .product-img end -->
+									<div class="product-bio">
+										<div class="prodcut-cat">
+											<a href="#">Opel</a>
+										</div>
+										<!-- .product-cat end -->
+										<div class="prodcut-title">
+											<h3>
+												<a href="#">Belt Car Engine</a>
+											</h3>
+										</div>
+										<!-- .product-title end -->
+										<div class="product-price">
+											<span class="symbole">$</span><span>180.00</span>
+										</div>
+										<!-- .product-price end -->
+										
+									</div>
+									<!-- .product-bio end -->
+								</div>
+								<!-- .product end -->
+								
+								<!-- Product #4 -->
+								<div class="col-xs-12 col-sm-6 col-md-3 product">
+									<div class="product-img">
+										<img  src="./images/shop/grid/4.jpg" alt="Product"/>
+										<div class="product-hover">
+											<div class="product-action">
+												<a class="btn btn-primary" href="#">Add To Cart</a>
+												<a class="btn btn-primary" href="#">Item Details</a>
+											</div>
+										</div>
+										<!-- .product-overlay end -->
+									</div>
+									<!-- .product-img end -->
+									<div class="product-bio">
+										<div class="prodcut-cat">
+											<a href="#">Mercedes</a>
+										</div>
+										<!-- .product-cat end -->
+										<div class="prodcut-title">
+											<h3>
+												<a href="#">Tire Chains</a>
+											</h3>
+										</div>
+										<!-- .product-title end -->
+										<div class="product-price">
+											<span class="symbole">$</span><span>230.00</span>
+										</div>
+										<!-- .product-price end -->
+										
+									</div>
+									<!-- .product-bio end -->
+								</div>
+								<!-- .product end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- .product-related end -->
+		</div>
+		<!-- .container end -->
+	</section>
+	<!-- #blog end -->
+	
+	<footer th:replace="layout :: footer"></footer>
+</div>
+<!-- #wrapper end -->
+
+<!-- Footer Scripts
+============================================= -->
+<script src="./js/jquery-2.2.4.min.js"></script>
+<script src="./js/plugins.js"></script>
+<script src="./js/functions.js"></script>
+</body>
+</html>
