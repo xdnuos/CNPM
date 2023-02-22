@@ -24,29 +24,24 @@ public class Index {
 	public String showRegistrationForm() {
 	    return "register";
 	}
-    
-	@RequestMapping("/shop-product-grid-left-sidebar")
-	public String showShop2() {
-	    return "shop-product-grid-left-sidebar";
-	}
-	
-	@RequestMapping("/shop-product-grid-fullwidth")
-	public String showShop3() {
-	    return "shop-product-grid-fullwidth";
-	}
 	
 	@RequestMapping("/product")
 	public String product() {
 	    return "product";
 	}
 	
-	@RequestMapping("/shop-cart")
-	public String showShop_cart() {
-	    return "shop-cart";
+	@RequestMapping("/cart")
+	public String cart() {
+	    return "cart";
 	}
 	
-	@RequestMapping(value = "/about")
-    public String about() {
-        return "about";
+	@RequestMapping(value = "/contact")
+    public String contact() {
+        return "contact";
+    }
+	
+	@RequestMapping(value = "/user")
+    public String user() {
+        return "user";
     }
 }

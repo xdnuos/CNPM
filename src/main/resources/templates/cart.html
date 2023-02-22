@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+<!-- Document Wrapper
+	============================================= -->
+<div id="wrapper" class="wrapper clearfix">
+	<header th:replace="layout :: header"></header>
+	<section id="shopcart" class="shop shop-cart">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12  col-sm-12  col-md-12">
+					<div class="cart-table table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr class="cart-product">
+									<th class="cart-product-item">Product</th>
+									<th class="cart-product-price">Price</th>
+									<th class="cart-product-quantity">Quantity</th>
+									<th class="cart-product-total">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="cart-product">
+									<td class="cart-product-item"><div class="cart-product-remove">
+											<i class="fa fa-close"></i>
+										</div>
+										<div class="cart-product-img">
+											<img src="./images/shop/thumb/1.jpg" alt="product"/>
+										</div>
+										<div class="cart-product-name">
+											<h6>Belt Car Engine</h6>
+										</div></td>
+									<td class="cart-product-price">$ 10.00</td>
+									<td class="cart-product-quantity"><div class="product-quantity">
+											<a href="#"><i class="fa fa-minus"></i></a>
+											<input type="text" value="2" id="pro1-qunt" readonly>
+											<a href="#"><i class="fa fa-plus"></i></a>
+										</div></td>
+									<td class="cart-product-total">$ 20.00</td>
+								</tr>
+								<tr class="cart-product">
+									<td class="cart-product-item"><div class="cart-product-remove">
+											<a href="#"><i class="fa fa-close"></i></a>
+										</div>
+										<div class="cart-product-img">
+											<img src="./images/shop/thumb/2.jpg" alt="product"/>
+										</div>
+										<div class="cart-product-name">
+											<h6>OIL FILTER</h6>
+										</div></td>
+									<td class="cart-product-price">$ 40.00</td>
+									<td class="cart-product-quantity"><div class="product-quantity">
+											<a href="#"><i class="fa fa-minus"></i></a>
+											<input type="text" value="3" id="pro2-qunt" readonly>
+											<a href="#"><i class="fa fa-plus"></i></a>
+										</div></td>
+									<td class="cart-product-total">$ 120.00</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- .cart-table end -->
+				</div>
+				<!-- .col-md-12 end -->
+				<div class="col-xs-12  col-sm-12  col-md-6 mb-30-xs mb-30-sm">
+					<div class="cart-shiping">
+						<h6>Calculate Shipping :</h6>
+						<div class="row">
+							<form>
+								<p class="col-xs-4 col-md-4 adress-p">Tỉnh/Thành Phố</p>
+								<div class="col-xs-8 col-md-8">
+									<i class="fa fa-angle-down"></i>
+									<select class="form-control">
+										<option value="USA">USA</option>
+									</select>
+								</div>
+								<p class="col-xs-4 col-md-4 adress-p">Quận/Huyện</p>
+								<div class="col-xs-8 col-md-8">
+									<i class="fa fa-angle-down"></i>
+									<select class="form-control">
+										<option value="default">State/ Country</option>
+										<option value="AL">Alabama</option>
+									</select>
+								</div>
+								<p class="col-xs-4 col-md-4 adress-p">Phường/Xã</p>
+								<div class="col-xs-8 col-md-8">
+									<i class="fa fa-angle-down"></i>
+									<select class="form-control">
+										<option value="default">State/ Country</option>
+										<option value="AL">Alabama</option>
+									</select>
+								</div>
+								<p class="col-xs-4 col-md-4 adress-p">Số nhà</p>
+								<div class="col-xs-8 col-md-8">
+									<input>
+								</div>
+								<div class="col-md-12">
+									<button type="submit" class="btn btn-primary pull-right pull-none-xs">Xác nhận</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<!-- .cart-shiping end -->
+				</div>
+				<!-- .col-md-6 end -->
+				<div class="col-xs-12  col-sm-12  col-md-6">
+					<div class="cart-total-amount">
+						<h6>Cart Totals :</h6>
+						<ul class="list-unstyled">
+							<li>Cart Subtotal :<span class="pull-right text-right">$ 140.00</span></li>
+							<li>Shipping :<span class="pull-right text-right">Free Shipping</span></li>
+							<li>Order Total :<span class="pull-right text-right">$ 140.00</span></li>
+						</ul>
+						<div class="text-right">
+							<a class="btn btn-primary text-right" href="#">Checkout</a>
+						</div>
+						
+					</div>
+					<!-- .cart-total-amount end -->
+				</div>
+				<!-- .col-md-6 end -->
+			</div>
+			<!-- .row end -->
+		</div>
+		<!-- .container end -->
+	</section>
+	<!-- #shopcart end -->
+	
+	<footer th:replace="layout :: footer"></footer>
+	
+</div>
+<!-- #wrapper end -->
+
+<!-- Footer Scripts
+============================================= -->
+<script src="./js/jquery-2.2.4.min.js"></script>
+<script src="./js/plugins.js"></script>
+<script src="./js/functions.js"></script>
+</body>
+</html>
