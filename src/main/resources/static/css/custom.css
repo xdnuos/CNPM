@@ -116,3 +116,21 @@
   background: #fff;
   min-height: 460px;
 }
+.form-message {
+    text-align: left;
+}
+.form-group.invalid .form-control {
+    border-color: #f33a58;
+}
+.form-group.invalid .form-message {
+    color: #f33a58;
+}
+.form-message {
+    font-size: 10px;
+    line-height: 15px;
+    padding: 4px 0 0;
+}
+.thead{
+	color: #5b9bd1;
+	background-color: #ecf0f1;
+	}

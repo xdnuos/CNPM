@@ -13,12 +13,14 @@
 						<div class="modal-body">
 							<h6>Welcome Back</h6>
 							<div class="sign-form">
-								<form class="mb-0">
+								<form class="mb-0" action="/checklogin" id="login">
 									<div class="form-group">
-										<input type="text" class="form-control" id="username" placeholder="User Name">
+										<input type="text" class="form-control" id="email" name="email" placeholder="Email">
+										<span class="form-message"></span>
 									</div>
 									<div class="form-group">
-										<input type="password" class="form-control" id="pwd" placeholder="Password">
+										<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+										<span class="form-message"></span>
 									</div>
 									<div class="checkbox pull-left">
 										<label>
@@ -28,7 +30,9 @@
 									<div class="pull-right lost-pass">
 										<a href="#">Forget Password?</a>
 									</div>
+						
 									<button type="submit" class="btn btn-primary btn-block">Sign In</button>
+									<p style="color: red" th:text="${ERROR}"></p>
 								</form>
 								<div class="form-links text-center">
 									<a href="register">Create New Account</a>
@@ -47,13 +51,30 @@
 		<footer th:replace="layout :: footer"></footer>
 
 	</div>
-	<!-- #wrapper end -->
+	<script>
+        
+        document.addEventListener('DOMContentLoaded', function () { 
+   
+        Validator({
+        form: '#login',
+        formGroupSelector: '.form-group',
+        errorSelector: '.form-message',
+        rules: [
+          Validator.isEmail('#email'),
+          Validator.minLength('#password', 6),
+        ],
+      });
+    });  
+    </script>
+    <script src="./js/validator.js"></script>
+	 #wrapper end -->
 
 	<!-- Footer Scripts
 ============================================= -->
 	<script src="./js/jquery-2.2.4.min.js"></script>
 	<script src="./js/plugins.js"></script>
 	<script src="./js/functions.js"></script>
+	<script src="./js/validator.js"></script>
 </body>
 
 </html>
