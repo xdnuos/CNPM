@@ -107,3 +107,16 @@ html{
     object-fit: contain;
     margin-right: 10px;
   }
+  
+  a:link, a:visited {
+  text-decoration: none;
+  cursor: auto;
+}
+
+#cart-icon{
+	margin-right:50px;
+}
+
+.disable{
+	display:none;
+}
