@@ -2,7 +2,7 @@ package ptit.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
-import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -11,26 +11,28 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="order")
+@Table(name="orders")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private long orderID;
 
-	private Object adress;
+	private String adress;
 
-	private Object fullname;
+	private String fullname;
 
-	private Object note;
+	private String note;
 
-	private Timestamp orderDate;
+	private Calendar orderDate;
 
 	private String payment;
 
 	private String phone;
 
-	private long staffID;
+	@ManyToOne
+	@JoinColumn(name="staffID")
+	private Staff staff;
 
 	private boolean status;
 
@@ -58,31 +60,31 @@ public class Order implements Serializable {
 		return this.adress;
 	}
 
-	public void setAdress(Object adress) {
+	public void setAdress(String adress) {
 		this.adress = adress;
 	}
 
-	public Object getFullname() {
+	public String getFullname() {
 		return this.fullname;
 	}
 
-	public void setFullname(Object fullname) {
+	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
 
-	public Object getNote() {
+	public String getNote() {
 		return this.note;
 	}
 
-	public void setNote(Object note) {
+	public void setNote(String note) {
 		this.note = note;
 	}
 
-	public Timestamp getOrderDate() {
+	public Calendar getOrderDate() {
 		return this.orderDate;
 	}
 
-	public void setOrderDate(Timestamp orderDate) {
+	public void setOrderDate(Calendar orderDate) {
 		this.orderDate = orderDate;
 	}
 
@@ -102,13 +104,6 @@ public class Order implements Serializable {
 		this.phone = phone;
 	}
 
-	public long getStaffID() {
-		return this.staffID;
-	}
-
-	public void setStaffID(long staffID) {
-		this.staffID = staffID;
-	}
 
 	public boolean getStatus() {
 		return this.status;
@@ -146,6 +141,14 @@ public class Order implements Serializable {
 		orderItem.setOrder(null);
 
 		return orderItem;
+	}
+	
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
 	}
 
 }

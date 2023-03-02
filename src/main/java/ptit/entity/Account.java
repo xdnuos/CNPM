@@ -30,27 +30,39 @@ public class Account implements Serializable {
 	
 	@Column(nullable = false)
 	private Boolean status;
-//	@ManyToOne
-//	@JoinColumn(name="permissionID")
-//	private Permission permissionID;
 	
-	@OneToMany(mappedBy="accountID",fetch=FetchType.EAGER)
-	private Collection<Staff> staff;
-
+	@ManyToOne
+	@JoinColumn(name="permissionID")
+	private Permission permission;
+	
+//    @OneToOne(mappedBy = "account")
+//    private Staff staff;
+//    
+//    @OneToOne(mappedBy = "account")
+//    private Customer customer;
+    
 	public Account() {
 		
 	}
 
+
+
+
+
 public Account(BigInteger accountID, String email, String password, Date create_date, Boolean status,
-			Collection<Staff> staff) {
-		
+			Permission permission, Staff staff, Customer customer) {
+		super();
 		this.accountID = accountID;
 		this.email = email;
 		this.password = password;
 		this.create_date = create_date;
 		this.status = status;
-		this.staff = staff;
+		this.permission = permission;
+//		this.staff = staff;
+//		this.customer = customer;
 	}
+
+
 
 
 
@@ -102,13 +114,29 @@ public void setStatus(Boolean status) {
 	this.status = status;
 }
 
-	public Collection<Staff> getStaff() {
-		return staff;
-	}
+public Permission getPermission() {
+	return permission;
+}
 
-	public void setStaff(Collection<Staff> staff) {
-		this.staff = staff;
-	}
+public void setPermission(Permission permission) {
+	this.permission = permission;
+}
+
+//public Staff getStaff() {
+//	return staff;
+//}
+//
+//public void setStaff(Staff staff) {
+//	this.staff = staff;
+//}
+//
+//public Customer getCustomer() {
+//	return customer;
+//}
+//
+//public void setCustomer(Customer customer) {
+//	this.customer = customer;
+//}
 	
 	
 }

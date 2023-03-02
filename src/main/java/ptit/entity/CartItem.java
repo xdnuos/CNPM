@@ -19,7 +19,9 @@ public class CartItem implements Serializable {
 
 	private BigDecimal price;
 
-	private long productID;
+	@ManyToOne
+	@JoinColumn(name="productID")
+	private Product product;
 
 	private long quantity;
 
@@ -47,12 +49,12 @@ public class CartItem implements Serializable {
 		this.price = price;
 	}
 
-	public long getProductID() {
-		return this.productID;
+	public Product getProduct() {
+		return this.product;
 	}
 
-	public void setProductID(long productID) {
-		this.productID = productID;
+	public void Product(Product product) {
+		this.product = product;
 	}
 
 	public long getQuantity() {

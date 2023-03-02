@@ -2,6 +2,8 @@ package ptit.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
 
@@ -17,13 +19,15 @@ public class Customer implements Serializable {
 	@Id
 	private long customerID;
 
-	private long accountID;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "accountID")
+	private Account account;
+	
+	private String adress;
 
-	private Object adress;
+	private Date birth;
 
-	private Object birth;
-
-	private Object fullname;
+	private String fullname;
 
 	private String phone;
 
@@ -37,6 +41,14 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy="customer")
 	private List<Order> orders;
 
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
 	public Customer() {
 	}
 
@@ -48,19 +60,11 @@ public class Customer implements Serializable {
 		this.customerID = customerID;
 	}
 
-	public long getAccountID() {
-		return this.accountID;
-	}
-
-	public void setAccountID(long accountID) {
-		this.accountID = accountID;
-	}
-
 	public Object getAdress() {
 		return this.adress;
 	}
 
-	public void setAdress(Object adress) {
+	public void setAdress(String adress) {
 		this.adress = adress;
 	}
 
@@ -68,7 +72,7 @@ public class Customer implements Serializable {
 		return this.birth;
 	}
 
-	public void setBirth(Object birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
@@ -76,7 +80,7 @@ public class Customer implements Serializable {
 		return this.fullname;
 	}
 
-	public void setFullname(Object fullname) {
+	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
 

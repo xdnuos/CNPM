@@ -19,7 +19,9 @@ public class OrderItem implements Serializable {
 
 	private BigDecimal price;
 
-	private long productID;
+	@ManyToOne
+	@JoinColumn(name="productID")
+	private Product product;
 
 	private int quantity;
 
@@ -47,14 +49,6 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 
-	public long getProductID() {
-		return this.productID;
-	}
-
-	public void setProductID(long productID) {
-		this.productID = productID;
-	}
-
 	public int getQuantity() {
 		return this.quantity;
 	}
@@ -69,6 +63,14 @@ public class OrderItem implements Serializable {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 }
