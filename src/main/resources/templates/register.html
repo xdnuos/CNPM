@@ -15,25 +15,30 @@
 						<div class="modal-body">
 							<h6>Register</h6>
 							<div class="register-form">
-								<form class="mb-0">
+								<form class="mb-0" action="/checkregister" id="register">
 									<div class="form-group">
-										<input type="text" class="form-control" id="username" placeholder="User Name">
+										<input type="text" class="form-control" id="username" name="username" placeholder="User Name">
+										<span class ="form-message"></span>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" id="email" placeholder="Email">
+										<input type="text" class="form-control" id="email" name="email" placeholder="Email">
+										<span class ="form-message"></span>
 									</div>
 									<div class="form-group">
-										<input type="password" class="form-control" id="pwd" placeholder="Password">
+										<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+										<span class ="form-message"></span>
 									</div>
 									<div class="form-group">
-										<input type="password" class="form-control" id="pwdc"
+										<input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
 											placeholder="Confirm Password">
+											<span class ="form-message"></span>
 									</div>
 									<div class="checkbox">
 										<label>
 											<input type="checkbox">
 											I Agree To
 											<a href="#">The Terms Of Use ?</a>
+											<p style="color: red" th:text="${ERROR}"></p>
 										</label>
 									</div>
 									<button type="submit" class="btn btn-primary btn-block mt-30">Register</button>
@@ -55,6 +60,27 @@
 		<footer th:replace="layout :: footer"></footer>
 
 	</div>
+	<script>
+    	document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+          form: '#register',
+          formGroupSelector: '.form-group',
+          errorSelector: '.form-message',
+          rules: [
+            Validator.isRequired('#username', 'Vui lòng nhập tên đầy đủ của bạn'),
+            Validator.isEmail('#email'),
+            Validator.minLength('#password', 6),
+            Validator.isRequired('#password_confirmation'),
+            Validator.isConfirmed('#password_confirmation', function () {
+              return document.querySelector('#register #password').value;
+            }, 'Mật khẩu nhập lại không chính xác')
+          ],
+        });
+      });
+      
+    </script>
+    <script src="./js/validator.js"></script>
 	<!-- #wrapper end -->
 
 	<!-- Footer Scripts

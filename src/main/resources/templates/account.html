@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="wrapper clearfix">
+		<header th:replace="layout :: header"></header>
+		<!-- 	code here -->
+		<section id="register" class="register"></section>
+		<div class="container">
+			<div class="row profile">
+				<div class="col-md-3">
+					<div class="profile-sidebar">
+						<!-- SIDEBAR USERPIC -->
+						<div class="profile-userpic">
+							<!--  <img src=""
+								class="img-responsive" alt="">-->
+						</div>
+						<!-- END SIDEBAR USERPIC -->
+						<!-- SIDEBAR USER TITLE -->
+						<div class="profile-usertitle">
+							<div Fclass="profile-usertitle-name">
+								Marcus Doe
+							</div>
+							<div class="profile-usertitle-job">
+								Developer
+							</div>
+						</div>
+						<!-- END SIDEBAR BUTTONS -->
+						<!-- SIDEBAR MENU -->
+						<div class="profile-usermenu">
+							<ul class="nav">
+								<li class="active">
+									<a href="#">
+										<i class="glyphicon glyphicon-home"></i>
+										Overview </a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="glyphicon glyphicon-user"></i>
+										Account Settings </a>
+								</li>
+								<li>
+									<a href="#" target="_blank">
+										<i class="glyphicon glyphicon-ok"></i>
+										Tasks </a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="glyphicon glyphicon-flag"></i>
+										Help </a>
+								</li>
+							</ul>
+						</div>
+						<!-- END MENU -->
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="profile-content">
+						<h2>Account</h2>
+						<table class="table table-sm">
+							<thead class="thead"> 
+								<tr>
+									<th>accountID</th>
+									<th>email</th>
+									<th>password</th>
+									<th>status</th>
+									<th>createDate</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="ac:${account}">
+									<td width="115" th:text="${ac.accountID}"/>
+									<td width="170" th:text="${ac.email}"/>
+									<td th:text="${ac.password}"/>
+									
+									<td th:text="${ac.status}"/>
+									<td th:text="${ac.create_date}"/>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section id="register" class="register"></section>
+		<!-- 	end code -->
+		<footer th:replace="layout :: footer"></footer>
+	</div>
+	<script src="./js/jquery-2.2.4.min.js"></script>
+	<script src="./js/plugins.js"></script>
+	<script src="./js/functions.js"></script>
+</body>
+
+</html>
