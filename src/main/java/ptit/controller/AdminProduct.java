@@ -9,4 +9,9 @@ public class AdminProduct {
 	public String index() {
 		return "admin/product";
 	}
+	
+	@RequestMapping(value = "/admin/addproduct")
+	public String addProduct() {
+		return "admin/addproduct";
+	}
 }

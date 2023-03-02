@@ -87,13 +87,15 @@
 	var element = document.getElementById("product");
 	element.classList.add("active");
 	
-	var add = document.getElementById("cart-icon");
+	var add = document.getElementById("li-btn-add");
 	
 	add.classList.remove("disable");
 	
 	function foo(){
-		return window.location.href='/admin/addstaff'
+		return window.location.href='/admin/addproduct'
 	}
+
+	document.querySelector('#btn-add').innerHTML = 'Thêm sản phẩm';
     </script>
 </body>
 
