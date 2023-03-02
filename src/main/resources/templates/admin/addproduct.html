@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="admin/layout :: head"></head>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row g-0">
+      <div th:replace="admin/layout :: navleft"></div>
+      <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
+        <div class="container">
+          <nav th:replace="admin/layout :: navtop"></nav>
+          <!-- CODE HERE -->
+          <div class="col-md-8 order-md-1 mx-auto">
+            <h4 class="mb-3">Thêm sản phẩm</h4>
+            <form class="needs-validation" novalidate="">
+              <div class="row">
+                <div class="mb-3">
+                  <label for="firstName">Tên sản phẩm</label>
+                  <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                  <div class="invalid-feedback">
+                    Valid first name is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="mb-3 col-md-5">
+                  <label for="number">Giá sản phẩm</label>
+                  <input type="number" class="form-control" id="price">
+                  <div class="invalid-feedback">
+                    Please enter a valid email address for shipping updates.
+                  </div>
+                </div>
+                <div class="mb-3 col-md-2">
+                  <label for="number">Số lượng</label>
+                  <input type="number" class="form-control" id="quantity">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="address">Mô tả</label>
+                <textarea class="form-control" id="desc" name="desc" rows="4" cols="50"></textarea>
+                <div class="invalid-feedback">
+                  Please enter your shipping address.
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="country">Danh mục</label>
+                  <select class="custom-select d-block w-100" id="country" required="">
+                    <option value="">Choose...</option>
+                    <option>United States</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="state">Nhà sản suất</label>
+                  <select class="custom-select d-block w-100" id="state" required="">
+                    <option value="">Choose...</option>
+                    <option>California</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="upload__box">
+                  <div class="upload__btn-box">
+                    <label class="upload__btn">
+                      <p>Upload images</p>
+                      <input type="file" multiple="" data-max_length="20" class="upload__inputfile">
+                    </label>
+                  </div>
+                  <div class="upload__img-wrap"></div>
+                </div>
+              </div>
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/admin/js/scripts.js"></script>
+  <script>
+
+    var form = document.getElementById("search-form");
+    form.remove();
+
+    document.getElementById("nav-top").style.justifyContent = "flex-end";
+  </script>
+</body>
+
+</html>
