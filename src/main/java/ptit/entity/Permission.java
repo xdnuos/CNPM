@@ -1,78 +1,73 @@
-//package ptit.entity;
-//
-//
-//import java.util.Collection;
-//
-//import jakarta.persistence.Column;
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.FetchType;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
-//import jakarta.persistence.Id;
-//import jakarta.persistence.OneToMany;
-//import jakarta.persistence.Table;
-//
-//@Entity
-//@Table(name ="permission")
-//public class Permission {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name ="permissionID")
-//	private int permissionID;
-//	
-//	@Column(name ="email")
-//	private String email;
-//	
-//	@Column(name ="role")
-//	private int role;
-//	
-//	@OneToMany(mappedBy="permissionID",fetch=FetchType.EAGER)
-//	private Collection<Account> account;
-//
-//	public Permission() {
-//		
-//	}
-//
-//	public Permission(int permissionID, String email, int role, Collection<Account> account) {
-//		super();
-//		this.permissionID = permissionID;
-//		this.email = email;
-//		this.role = role;
-//		this.account = account;
-//	}
-//
-//	public int getPermissionID() {
-//		return permissionID;
-//	}
-//
-//	public void setPermissionID(int permissionID) {
-//		this.permissionID = permissionID;
-//	}
-//
-//	public String getEmail() {
-//		return email;
-//	}
-//
-//	public void setEmail(String email) {
-//		this.email = email;
-//	}
-//
-//	public int getRole() {
-//		return role;
-//	}
-//
-//	public void setRole(int role) {
-//		this.role = role;
-//	}
-//
-//	public Collection<Account> getAccount() {
-//		return account;
-//	}
-//
-//	public void setAccount(Collection<Account> account) {
-//		this.account = account;
-//	}
-//	
-//	
-//	
-//}
+package ptit.entity;
+
+import java.io.Serializable;
+import java.util.Collection;
+
+import jakarta.persistence.*;
+
+
+/**
+ * The persistent class for the permission database table.
+ * 
+ */
+@Entity
+@Table(name="permission")
+public class Permission implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	private int permissionID;
+	
+	@OneToMany(mappedBy = "permission", cascade = CascadeType.ALL)
+    private Collection<Account> account;
+	
+	public Collection<Account> getAccount() {
+		return account;
+	}
+
+	public void setAccount(Collection<Account> account) {
+		this.account = account;
+	}
+
+	private String email;
+
+	private String name;
+
+	private int role;
+
+	public Permission() {
+	}
+
+	public int getPermissionID() {
+		return this.permissionID;
+	}
+
+	public void setPermissionID(int permissionID) {
+		this.permissionID = permissionID;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getRole() {
+		return this.role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
+}

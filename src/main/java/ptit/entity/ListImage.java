@@ -3,7 +3,7 @@ package ptit.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="category")
+@Table(name="listImage")
 public class ListImage {
 	
 	@Id

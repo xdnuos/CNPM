@@ -2,6 +2,7 @@ package ptit.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +17,7 @@ public class Staff implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger staffID;
 	
-	@Column(name = "fullname", unique = true, length = 225)
+	@Column(name = "fullname", length = 225)
 	private String fullname;
 	
 	@Column(nullable = false)
@@ -32,18 +33,25 @@ public class Staff implements Serializable{
 	@Column(name ="cccd")
 	private String cccd;
 	
-	@ManyToOne
-	@JoinColumn(name="accountID")
-	private Account accountID;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "accountID")
+	private Account account;
 
+	@OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    private Collection<Order> order;
+	
 	public Staff() {
 		
 	}
 
 	
 
+
+
+
+
 	public Staff(BigInteger staffID, String fullname, Boolean sex, String phone, Date birth, String cccd,
-			Account accountID) {
+			Account account) {
 		super();
 		this.staffID = staffID;
 		this.fullname = fullname;
@@ -51,8 +59,12 @@ public class Staff implements Serializable{
 		this.phone = phone;
 		this.birth = birth;
 		this.cccd = cccd;
-		this.accountID = accountID;
+		this.account = account;
 	}
+
+
+
+
 
 
 
@@ -104,17 +116,16 @@ public class Staff implements Serializable{
 		this.cccd = cccd;
 	}
 
-	public Account getAccountID() {
-		return accountID;
+
+
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setAccountID(Account accountID) {
-		this.accountID = accountID;
-	}
-    
 
-	
-	
-	
-	
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
 }

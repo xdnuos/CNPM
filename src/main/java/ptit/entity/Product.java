@@ -45,6 +45,12 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Collection<ListImage> listImages;
 	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Collection<OrderItem> oderItem;
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Collection<CartItem> cartItem;
+	
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
