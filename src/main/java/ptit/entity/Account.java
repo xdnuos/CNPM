@@ -31,8 +31,8 @@ public class Account implements Serializable {
 	@Column(nullable = false)
 	private Boolean status;
 	
-	@ManyToOne
-	@JoinColumn(name="permissionID")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "permissionID", nullable = false)
 	private Permission permission;
 	
 //    @OneToOne(mappedBy = "account")
