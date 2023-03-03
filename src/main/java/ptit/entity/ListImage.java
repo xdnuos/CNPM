@@ -13,7 +13,7 @@ public class ListImage {
 	@Column(name = "images")
 	private String images;
 	
-    @ManyToOne 
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productID")
     private Product product;
 

@@ -19,14 +19,14 @@ public class OrderItem implements Serializable {
 
 	private BigDecimal price;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="productID")
 	private Product product;
 
 	private int quantity;
 
 	//bi-directional many-to-one association to Order
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="orderID")
 	private Order order;
 

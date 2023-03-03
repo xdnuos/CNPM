@@ -37,7 +37,7 @@ public class Staff implements Serializable{
 	@JoinColumn(name = "accountID")
 	private Account account;
 
-	@OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL)
     private Collection<Order> order;
 	
 	public Staff() {

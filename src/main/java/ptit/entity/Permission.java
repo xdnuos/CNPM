@@ -18,7 +18,7 @@ public class Permission implements Serializable {
 	@Id
 	private int permissionID;
 	
-	@OneToMany(mappedBy = "permission", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "permission", cascade = CascadeType.ALL)
     private Collection<Account> account;
 	
 	public Collection<Account> getAccount() {

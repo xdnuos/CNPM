@@ -42,13 +42,13 @@ public class Product implements Serializable{
     @ManyToMany(mappedBy = "products")
     private Collection<Category> categories;
     
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Collection<ListImage> listImages;
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Collection<OrderItem> oderItem;
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Collection<CartItem> cartItem;
 	
 	public Product() {
