@@ -20,15 +20,16 @@ public class Cart implements Serializable {
 
 	private String cookie;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp createDate;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="customerID")
 	private Customer customer;
 
 	//bi-directional many-to-one association to CartItem
-	@OneToMany(mappedBy="cart")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="cart")
 	private List<CartItem> cartItems;
 
 	public Cart() {
