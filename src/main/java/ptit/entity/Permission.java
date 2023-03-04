@@ -18,7 +18,7 @@ public class Permission implements Serializable {
 	@Id
 	private int permissionID;
 	
-	@OneToMany(mappedBy = "permission", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "permission", cascade = CascadeType.ALL)
     private Collection<Account> account;
 	
 	public Collection<Account> getAccount() {
@@ -28,8 +28,6 @@ public class Permission implements Serializable {
 	public void setAccount(Collection<Account> account) {
 		this.account = account;
 	}
-
-	private String email;
 
 	private String name;
 
@@ -44,14 +42,6 @@ public class Permission implements Serializable {
 
 	public void setPermissionID(int permissionID) {
 		this.permissionID = permissionID;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getName() {

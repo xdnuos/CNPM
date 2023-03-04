@@ -16,7 +16,7 @@ public class Account implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="accountID")
-	private BigInteger accountID;
+	private Long accountID;
 	
 	@Column(name ="email")
 	private String email;
@@ -31,8 +31,8 @@ public class Account implements Serializable {
 	@Column(nullable = false)
 	private Boolean status;
 	
-	@ManyToOne
-	@JoinColumn(name="permissionID")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "permissionID", nullable = false)
 	private Permission permission;
 	
 //    @OneToOne(mappedBy = "account")
@@ -45,11 +45,7 @@ public class Account implements Serializable {
 		
 	}
 
-
-
-
-
-public Account(BigInteger accountID, String email, String password, Date create_date, Boolean status,
+public Account(Long accountID, String email, String password, Date create_date, Boolean status,
 			Permission permission, Staff staff, Customer customer) {
 		super();
 		this.accountID = accountID;
@@ -58,13 +54,9 @@ public Account(BigInteger accountID, String email, String password, Date create_
 		this.create_date = create_date;
 		this.status = status;
 		this.permission = permission;
-//		this.staff = staff;
+		//this.staff = staff;
 //		this.customer = customer;
 	}
-
-
-
-
 
 //	public Permission getPermissionID() {
 //		return permissionID;
@@ -74,16 +66,18 @@ public Account(BigInteger accountID, String email, String password, Date create_
 //		this.permissionID = permissionID;
 //	}
 
-	public BigInteger getAccountID() {
-	return accountID;
-}
-
-public void setAccountID(BigInteger accountID) {
-	this.accountID = accountID;
-}
+	
 
 public String getEmail() {
 	return email;
+}
+
+public Long getAccountID() {
+	return accountID;
+}
+
+public void setAccountID(Long accountID) {
+	this.accountID = accountID;
 }
 
 public void setEmail(String email) {

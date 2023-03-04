@@ -1,23 +1,26 @@
 package ptit.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="listImage")
-public class ListImage {
+public class ListImage implements Serializable{
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long listImageID;
 	
-	@Column(name = "images")
-	private String images;
+	@Lob
+	@Column(name = "images",length = Integer.MAX_VALUE, nullable = true)
+	private byte[] images;
 	
-    @ManyToOne 
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productID")
     private Product product;
 
-	public ListImage(Long listImageID, String images, Long productID, Product product) {
+	public ListImage(Long listImageID, byte[] images, Long productID, Product product) {
 		super();
 		this.listImageID = listImageID;
 		this.images = images;
@@ -32,11 +35,11 @@ public class ListImage {
 		this.listImageID = listImageID;
 	}
 
-	public String getImages() {
+	public byte[] getImages() {
 		return images;
 	}
 
-	public void setImages(String images) {
+	public void setImages(byte[] images) {
 		this.images = images;
 	}
 

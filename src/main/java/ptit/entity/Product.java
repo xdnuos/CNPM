@@ -2,7 +2,8 @@ package ptit.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.validation.constraints.*;
 
@@ -12,6 +13,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="product")
 public class Product implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @Column(name = "productID")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,43 +39,30 @@ public class Product implements Serializable{
     @Column(name="status")
     private boolean status;
     
-    @ManyToMany(mappedBy = "products")
-    private Collection<Manufacturer> manufacturers;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "product_manufactor",
+	joinColumns = @JoinColumn(name = "productID"),
+	inverseJoinColumns = @JoinColumn(name = "manufacturerID"))
+    private List<Manufacturer> manufacturers = new ArrayList<>();
     
-    @ManyToMany(mappedBy = "products")
-    private Collection<Category> categories;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "product_category",
+    joinColumns = @JoinColumn(name = "productID"),
+    inverseJoinColumns = @JoinColumn(name = "categoryID"))
+    private List<Category> category = new ArrayList<>();
     
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Collection<ListImage> listImages;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ListImage> listImages = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Collection<OrderItem> oderItem;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+    private List<OrderItem> oderItem = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Collection<CartItem> cartItem;
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+    private List<CartItem> cartItem = new ArrayList<>();
+
 	public Product() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-
-	public Product(Long productID, @Size(min = 1, max = 100) String name,
-			@Digits(integer = 9, fraction = 3) BigDecimal price, @Size(min = 20, max = 300) String description,
-			int quantity, boolean status, Collection<Manufacturer> manufacturers, Collection<Category> categories,
-			Collection<ListImage> listImages) {
-		super();
-		this.productID = productID;
-		this.name = name;
-		this.price = price;
-		this.description = description;
-		this.quantity = quantity;
-		this.status = status;
-		this.manufacturers = manufacturers;
-		this.categories = categories;
-		this.listImages = listImages;
-	}
-
 
 	public Long getProductID() {
 		return productID;
@@ -122,29 +112,47 @@ public class Product implements Serializable{
 		this.status = status;
 	}
 
-	public Collection<Manufacturer> getManufacturers() {
+	public List<Manufacturer> getManufacturers() {
 		return manufacturers;
 	}
 
-	public void setManufacturers(Collection<Manufacturer> manufacturers) {
-		this.manufacturers = manufacturers;
+	public void setManufacturers(Manufacturer newManufacturer) {
+		List<Manufacturer> listManu = new ArrayList<>();
+		listManu.add(newManufacturer);
+		this.manufacturers = listManu;
 	}
 
-	public Collection<Category> getCategories() {
-		return categories;
+	public List<Category> getCategory() {
+		return category;
 	}
 
-	public void setCategories(Collection<Category> categories) {
-		this.categories = categories;
+	public void setCategory(Category newCategory) {
+		List<Category> listCate = new ArrayList<>();
+		listCate.add(newCategory);
+		this.category = listCate;
 	}
 
-	public Collection<ListImage> getListImages() {
+	public List<ListImage> getListImages() {
 		return listImages;
 	}
 
-	public void setListImages(Collection<ListImage> listImages) {
+	public void setListImages(List<ListImage> listImages) {
 		this.listImages = listImages;
 	}
-	
-	
+
+	public List<OrderItem> getOderItem() {
+		return oderItem;
+	}
+
+	public void setOderItem(List<OrderItem> oderItem) {
+		this.oderItem = oderItem;
+	}
+
+	public List<CartItem> getCartItem() {
+		return cartItem;
+	}
+
+	public void setCartItem(List<CartItem> cartItem) {
+		this.cartItem = cartItem;
+	}
 }

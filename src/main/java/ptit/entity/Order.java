@@ -16,6 +16,7 @@ public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long orderID;
 
 	private String adress;
@@ -30,19 +31,19 @@ public class Order implements Serializable {
 
 	private String phone;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="staffID")
 	private Staff staff;
 
 	private boolean status;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="customerID")
 	private Customer customer;
 
 	//bi-directional many-to-one association to OrderItem
-	@OneToMany(mappedBy="order")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="order")
 	private List<OrderItem> orderItems;
 
 	public Order() {

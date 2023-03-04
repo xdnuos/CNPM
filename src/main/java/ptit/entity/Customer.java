@@ -17,6 +17,7 @@ public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long customerID;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -34,11 +35,11 @@ public class Customer implements Serializable {
 	private boolean sex;
 
 	//bi-directional many-to-one association to Cart
-	@OneToMany(mappedBy="customer")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
 	private List<Cart> carts;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="customer")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
 	private List<Order> orders;
 
 	public Account getAccount() {

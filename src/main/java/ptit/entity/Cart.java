@@ -16,19 +16,21 @@ public class Cart implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long cartID;
 
 	private String cookie;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp createDate;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="customerID")
 	private Customer customer;
 
 	//bi-directional many-to-one association to CartItem
-	@OneToMany(mappedBy="cart")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="cart")
 	private List<CartItem> cartItems;
 
 	public Cart() {

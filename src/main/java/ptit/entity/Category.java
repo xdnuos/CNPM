@@ -1,5 +1,7 @@
 package ptit.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.annotation.Nonnull;
@@ -7,40 +9,31 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="category")
-public class Category {
+public class Category implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @Column(name = "categoryID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long manufacturerID;
+	private int categoryID;
 	
 	@Nonnull
 	@Column(name = "title", length = 100)
 	private String title;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "productCategory",
-    joinColumns = @JoinColumn(name = "categoryID"),
-    inverseJoinColumns = @JoinColumn(name = "productID"))
-    private Collection<Product> products;
-
-	public Category(Long manufacturerID, String title, Collection<Product> products) {
-		super();
-		this.manufacturerID = manufacturerID;
-		this.title = title;
-		this.products = products;
-	}
+    @ManyToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Collection<Product> productcate = new ArrayList<>();
 
 	public Category() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Long getManufacturerID() {
-		return manufacturerID;
+	public int getCategoryID() {
+		return categoryID;
 	}
 
-	public void setManufacturerID(Long manufacturerID) {
-		this.manufacturerID = manufacturerID;
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
 	}
 
 	public String getTitle() {
@@ -52,12 +45,10 @@ public class Category {
 	}
 
 	public Collection<Product> getProducts() {
-		return products;
+		return productcate;
 	}
 
 	public void setProducts(Collection<Product> products) {
-		this.products = products;
+		this.productcate = products;
 	}
-	
-	
 }

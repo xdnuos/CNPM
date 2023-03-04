@@ -15,18 +15,19 @@ public class CartItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long cartItemID;
 
 	private BigDecimal price;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="productID")
 	private Product product;
 
 	private long quantity;
 
 	//bi-directional many-to-one association to Cart
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="cartID")
 	private Cart cart;
 
