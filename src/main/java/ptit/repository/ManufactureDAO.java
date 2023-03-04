@@ -1,6 +1,5 @@
 package ptit.repository;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;

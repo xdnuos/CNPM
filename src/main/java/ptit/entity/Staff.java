@@ -1,7 +1,6 @@
 package ptit.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,10 +11,12 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "staff")
 public class Staff implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name ="staffID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger staffID;
+	private Long staffID;
 	
 	@Column(name = "fullname", length = 225)
 	private String fullname;
@@ -27,15 +28,15 @@ public class Staff implements Serializable{
 	private String phone;
 	
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern ="MM/dd/yyyy")
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date birth;
 	
-	@Column(name ="cccd")
+	@Column(name ="cccd", length = 12)
 	private String cccd;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "accountID")
-	private Account account;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "accountID")
+//	private Account account;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL)
     private Collection<Order> order;
@@ -44,14 +45,8 @@ public class Staff implements Serializable{
 		
 	}
 
-	
-
-
-
-
-
-	public Staff(BigInteger staffID, String fullname, Boolean sex, String phone, Date birth, String cccd,
-			Account account) {
+	public Staff(Long staffID, String fullname, Boolean sex, String phone, Date birth, String cccd,
+			Account account, Collection<Order> order) {
 		super();
 		this.staffID = staffID;
 		this.fullname = fullname;
@@ -59,20 +54,19 @@ public class Staff implements Serializable{
 		this.phone = phone;
 		this.birth = birth;
 		this.cccd = cccd;
-		this.account = account;
+		//this.account = account;
+		this.order = order;
 	}
 
 
 
+	
 
-
-
-
-	public BigInteger getStaffID() {
+	public Long getStaffID() {
 		return staffID;
 	}
 
-	public void setStaffID(BigInteger staffID) {
+	public void setStaffID(Long staffID) {
 		this.staffID = staffID;
 	}
 
@@ -108,24 +102,33 @@ public class Staff implements Serializable{
 		this.birth = birth;
 	}
 
+
 	public String getCccd() {
 		return cccd;
 	}
+
 
 	public void setCccd(String cccd) {
 		this.cccd = cccd;
 	}
 
+	public Collection<Order> getOrder() {
+		return order;
+	}
 
-
-	public Account getAccount() {
-		return account;
+	public void setOrder(Collection<Order> order) {
+		this.order = order;
 	}
 
 
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
+//	public Account getAccount() {
+//		return account;
+//	}
+//
+//
+//
+//	public void setAccount(Account account) {
+//		this.account = account;
+//	}
 
 }

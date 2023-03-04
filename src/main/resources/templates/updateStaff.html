@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head"></head>
+
+<body>
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="wrapper clearfix">
+		<header th:replace="layout :: header"></header>
+		<section id="register" class="register">
+			<div class="container">
+				<div class="row">
+					<div
+						class="col-xs-4  col-sm-4  col-md-4 col-xs-offset-4 col-sm-offset-4 col-md-offset-4">
+						<div class="modal-body">
+							<h6>Update Staff:</h6>
+							<div class="staff-form">
+								<form class="mb-0" th:action="@{/saveStaff}"
+									th:object="${staff}" method="post">
+									<div class="form-group">
+										<label>STAFFID</label> <input type="text"
+											th:field="*{staffID}" class="form-control" id="staffID"
+											name="staffID" placeholder="nhập ID của nhân viên" >
+										<span class="form-message"></span>
+									</div>
+									<div class="form-group">
+										<label>Full NAME STAFF</label> <input type="text"
+											th:field="*{fullname}" class="form-control" id="fullname"
+											name="fullname" placeholder="nhập tên đầy đủ"> <span
+											class="form-message"></span>
+									</div>
+									<div class="form-group">
+										<label for="sex">SEX</label> <input type="radio"
+											th:field="*{sex}" value="1" />Nam <input type="radio"
+											th:field="*{sex}" value="0" />Nữ
+									</div>
+									<div class="form-group">
+										<label>PHONE</label> <input type="text" th:field="*{phone}"
+											class="form-control" id="phone" name="phone"
+											placeholder=" nhập số điện thoại"> <span
+											class="form-message"></span>
+									</div>
+									<div class="form-group">
+										<label>DATE CREATE</label> <input type="date"
+											th:field="*{birth}" class="form-control" id="date"
+											name="date"> <span class="form-message"></span>
+									</div>
+									<div class="form-group">
+										<label>CCCD</label> <input type="text" th:field="*{cccd}"
+											class="form-control" id="cccd" name="cccd"
+											placeholder="nhập căn cước công dân"> <span
+											class="form-message"></span>
+
+										<button type="submit" value="Save"
+											class="btn btn-primary btn-block mt-30">Next</button>
+								</form>
+								<div class="form-links text-center">
+									<a th:href="@{staff}">BACK</a>
+								</div>
+							</div>
+						</div>
+						<!-- .col-md-12 end -->
+					</div>
+					<!-- .row end -->
+				</div>
+				<!-- .container end -->
+		</section>
+		<!-- #register end -->
+
+		<footer th:replace="layout :: footer"></footer>
+
+	</div>
+	<!-- #wrapper end -->
+
+	<!-- Footer Scripts
+============================================= -->
+	<script src="./js/jquery-2.2.4.min.js"></script>
+	<script src="./js/plugins.js"></script>
+	<script src="./js/functions.js"></script>
+</body>
+
+</html>

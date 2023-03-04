@@ -35,7 +35,7 @@ public class AccountController {
         model.addAttribute("account", accountService.findAll());
         return "account";
     }
-	@GetMapping("/checklogin")
+	@PostMapping("/checklogin")
 	public String checkLogin( ModelMap model,@RequestParam("email")String email,
 		@RequestParam("password")String password, HttpSession sesion) {
 			if(accountService.checkLogin(email, password)) {

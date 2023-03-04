@@ -1,7 +1,10 @@
 package ptit.service;
 
-import java.math.BigInteger;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import ptit.entity.Staff;
 
@@ -11,11 +14,12 @@ public interface StaffService {
 	
 	void save(Staff staff);
 	
-	//Staff findById(BigInteger staffID);
+	Staff findById(Long staffID);
 	
-//    void update(BigInteger staffID, Staff staff);
-//    
-//    void remove(BigInteger staffID);
-    
+    void deleteById(Long staffID);
 	
+    //Page<Staff> findAll(Pageable pageable);
+   
+
+	List<Staff> findAll(Sort sort);
 }

@@ -29,8 +29,6 @@ public class Permission implements Serializable {
 		this.account = account;
 	}
 
-	private String email;
-
 	private String name;
 
 	private int role;
@@ -44,14 +42,6 @@ public class Permission implements Serializable {
 
 	public void setPermissionID(int permissionID) {
 		this.permissionID = permissionID;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getName() {
