@@ -17,73 +17,62 @@
           <!-- CODE HERE -->
           <div class="col-md-8 order-md-1 mx-auto">
             <h4 class="mb-3">Thêm sản phẩm</h4>
-            <form class="needs-validation" novalidate="">
+            <form class="needs-validation" name="addProduct" enctype="multipart/form-data" method="post">
               <div class="row">
                 <div class="mb-3">
-                  <label for="firstName">Tên sản phẩm</label>
-                  <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-                  <div class="invalid-feedback">
-                    Valid first name is required.
-                  </div>
+                  <label>Tên sản phẩm</label>
+                  <input type="text" class="form-control" name="name">
                 </div>
               </div>
 
               <div class="row">
                 <div class="mb-3 col-md-5">
-                  <label for="number">Giá sản phẩm</label>
-                  <input type="number" class="form-control" id="price">
-                  <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
+                  <label>Giá sản phẩm</label>
+                  <input type="number" class="form-control" name="price">
                 </div>
                 <div class="mb-3 col-md-2">
-                  <label for="number">Số lượng</label>
-                  <input type="number" class="form-control" id="quantity">
+                  <label>Số lượng</label>
+                  <input type="number" class="form-control" name="quantity">
                 </div>
               </div>
               <div class="mb-3">
-                <label for="address">Mô tả</label>
+                <label>Mô tả</label>
                 <textarea class="form-control" id="desc" name="desc" rows="4" cols="50"></textarea>
-                <div class="invalid-feedback">
-                  Please enter your shipping address.
-                </div>
               </div>
 
               <div class="row">
                 <div class="col-md-4 mb-3">
-                  <label for="country">Danh mục</label>
-                  <select class="custom-select d-block w-100" id="country" required="">
-                    <option value="">Choose...</option>
-                    <option>United States</option>
+                  <label>Danh mục</label>
+                  <select class="custom-select d-block w-100" name="category" >
+                    <option value="0">Choose...</option>
+				    <option th:each="c : ${categories}" th:value="${c.categoryID}"
+                            th:utext="${c.title}"/>
+				    </option>
                   </select>
-                  <div class="invalid-feedback">
-                    Please select a valid country.
-                  </div>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label for="state">Nhà sản suất</label>
-                  <select class="custom-select d-block w-100" id="state" required="">
-                    <option value="">Choose...</option>
-                    <option>California</option>
+                  <label>Nhà sản xuất</label>
+                  <select class="custom-select d-block w-100" name="manu" >
+                    <option value="0">Choose...</option>
+				    <option th:each="m : ${manufacturers}" th:value="${m.manufacturerID}"
+                            th:utext="${m.name}"/>
+				    </option>
                   </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
-                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="upload__box">
                   <div class="upload__btn-box">
                     <label class="upload__btn">
-                      <p>Upload images</p>
-                      <input type="file" multiple="" data-max_length="20" class="upload__inputfile">
+                      <label>Chọn hình ảnh: </label>
+                      <input type="file" multiple="" name="images" class="upload__inputfile">
                     </label>
                   </div>
                   <div class="upload__img-wrap"></div>
                 </div>
               </div>
               <hr class="mb-4">
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Lưu</button>
             </form>
           </div>
         </div>

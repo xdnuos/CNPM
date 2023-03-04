@@ -2,7 +2,9 @@ package ptit.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import jakarta.validation.constraints.*;
 
@@ -12,6 +14,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="product")
 public class Product implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @Column(name = "productID")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,42 +41,23 @@ public class Product implements Serializable{
     private boolean status;
     
     @ManyToMany(mappedBy = "products")
-    private Collection<Manufacturer> manufacturers;
+    private Collection<Manufacturer> manufacturers = new ArrayList<>();
     
     @ManyToMany(mappedBy = "products")
-    private Collection<Category> categories;
+    private Collection<Category> category = new ArrayList<>();
     
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Collection<ListImage> listImages;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    private Collection<ListImage> listImages = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Collection<OrderItem> oderItem;
+    private Collection<OrderItem> oderItem = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Collection<CartItem> cartItem;
-	
+    private Collection<CartItem> cartItem = new ArrayList<>();
+
 	public Product() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-
-	public Product(Long productID, @Size(min = 1, max = 100) String name,
-			@Digits(integer = 9, fraction = 3) BigDecimal price, @Size(min = 20, max = 300) String description,
-			int quantity, boolean status, Collection<Manufacturer> manufacturers, Collection<Category> categories,
-			Collection<ListImage> listImages) {
-		super();
-		this.productID = productID;
-		this.name = name;
-		this.price = price;
-		this.description = description;
-		this.quantity = quantity;
-		this.status = status;
-		this.manufacturers = manufacturers;
-		this.categories = categories;
-		this.listImages = listImages;
-	}
-
 
 	public Long getProductID() {
 		return productID;
@@ -130,12 +115,12 @@ public class Product implements Serializable{
 		this.manufacturers = manufacturers;
 	}
 
-	public Collection<Category> getCategories() {
-		return categories;
+	public Collection<Category> getCategory() {
+		return category;
 	}
 
-	public void setCategories(Collection<Category> categories) {
-		this.categories = categories;
+	public void setCategory(Collection<Category> category) {
+		this.category = category;
 	}
 
 	public Collection<ListImage> getListImages() {
@@ -144,6 +129,22 @@ public class Product implements Serializable{
 
 	public void setListImages(Collection<ListImage> listImages) {
 		this.listImages = listImages;
+	}
+
+	public Collection<OrderItem> getOderItem() {
+		return oderItem;
+	}
+
+	public void setOderItem(Collection<OrderItem> oderItem) {
+		this.oderItem = oderItem;
+	}
+
+	public Collection<CartItem> getCartItem() {
+		return cartItem;
+	}
+
+	public void setCartItem(Collection<CartItem> cartItem) {
+		this.cartItem = cartItem;
 	}
 	
 	
