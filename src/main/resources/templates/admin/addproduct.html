@@ -17,27 +17,31 @@
           <!-- CODE HERE -->
           <div class="col-md-8 order-md-1 mx-auto">
             <h4 class="mb-3">Thêm sản phẩm</h4>
-            <form class="needs-validation" name="addProduct" enctype="multipart/form-data" method="post">
+            <form class="needs-validation" name="addProduct" enctype="multipart/form-data" method="post" th:object="${product}">
               <div class="row">
                 <div class="mb-3">
                   <label>Tên sản phẩm</label>
-                  <input type="text" class="form-control" name="name">
+                  <input type="text" class="form-control" name="name" th:field="*{name}">
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                 </div>
               </div>
 
               <div class="row">
                 <div class="mb-3 col-md-5">
                   <label>Giá sản phẩm</label>
-                  <input type="number" class="form-control" name="price">
+                  <input type="number" class="form-control" name="price" th:field="*{price}" >
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                 </div>
                 <div class="mb-3 col-md-2">
                   <label>Số lượng</label>
-                  <input type="number" class="form-control" name="quantity">
+                  <input type="number" class="form-control" name="quantity" th:field="*{quantity}" >
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
                 </div>
               </div>
               <div class="mb-3">
                 <label>Mô tả</label>
-                <textarea class="form-control" id="desc" name="desc" rows="4" cols="50"></textarea>
+                <textarea class="form-control" id="desc" name="desc" th:field="*{description}" rows="4" cols="50"></textarea>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
               </div>
 
               <div class="row">
