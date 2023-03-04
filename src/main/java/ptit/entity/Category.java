@@ -21,11 +21,8 @@ public class Category implements Serializable {
 	@Column(name = "title", length = 100)
 	private String title;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "productCategory",
-    joinColumns = @JoinColumn(name = "categoryID"),
-    inverseJoinColumns = @JoinColumn(name = "productID"))
-    private Collection<Product> products = new ArrayList<>();
+    @ManyToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Collection<Product> productcate = new ArrayList<>();
 
 	public Category() {
 		super();
@@ -48,10 +45,10 @@ public class Category implements Serializable {
 	}
 
 	public Collection<Product> getProducts() {
-		return products;
+		return productcate;
 	}
 
 	public void setProducts(Collection<Product> products) {
-		this.products = products;
+		this.productcate = products;
 	}
 }

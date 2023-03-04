@@ -49,7 +49,7 @@ public class AdminProduct {
 	}  
 	
     @PostMapping(value = "admin/addproduct")
-    public String addProduct(Product product,Category category, Manufacturer manufacturer, Model model,
+    public String addProduct(Product product, Model model,
     		 @RequestParam(value = "name") String name,
     		 @RequestParam(value = "price") BigDecimal price,
     		 @RequestParam(value = "quantity") int quantity,
@@ -65,11 +65,19 @@ public class AdminProduct {
 //          } catch (Exception e) {
 //            e.printStackTrace();
 //          }
+    	Category newCategory = new Category();
+    	Manufacturer newManufacturer = new Manufacturer();
+    	
+    	newCategory = categoryService.findByCategoryID(categoryId);
+    	newManufacturer = manufacturerService.findByManufacturerID(manuId);
+    	
+    	product.setCategory(newCategory);
+    	product.setManufacturers(newManufacturer);
     	product.setName(name);
     	product.setPrice(price);
     	product.setQuantity(quantity);
     	product.setDescription(desc);
-        productService.saveProduct(product,categoryId,manuId);
+        productService.save(product);
     	status.setComplete();
         return "redirect:/admin/product";
     }

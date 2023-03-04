@@ -21,15 +21,8 @@ public class Manufacturer implements Serializable {
 	@Column(name = "name", length = 100)
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "productManufactor",
-    joinColumns = @JoinColumn(name = "manufacturerID"),
-    inverseJoinColumns = @JoinColumn(name = "productID"))
-    private Collection<Product> products = new ArrayList<>();
-
-	public Manufacturer() {
-		super();
-	}
+	@ManyToMany(mappedBy = "manufacturers", cascade = CascadeType.ALL)
+    private Collection<Product> productmanu = new ArrayList<>();
 
 	public int getManufacturerID() {
 		return manufacturerID;
@@ -48,10 +41,10 @@ public class Manufacturer implements Serializable {
 	}
 
 	public Collection<Product> getProducts() {
-		return products;
+		return productmanu;
 	}
 
 	public void setProducts(Collection<Product> products) {
-		this.products = products;
+		this.productmanu = products;
 	}
 }

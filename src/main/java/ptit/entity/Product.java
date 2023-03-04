@@ -3,7 +3,6 @@ package ptit.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import jakarta.validation.constraints.*;
@@ -40,20 +39,26 @@ public class Product implements Serializable{
     @Column(name="status")
     private boolean status;
     
-    @ManyToMany(mappedBy = "products")
-    private Collection<Manufacturer> manufacturers = new ArrayList<>();
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "product_manufactor",
+	joinColumns = @JoinColumn(name = "productID"),
+	inverseJoinColumns = @JoinColumn(name = "manufacturerID"))
+    private List<Manufacturer> manufacturers = new ArrayList<>();
     
-    @ManyToMany(mappedBy = "products")
-    private Collection<Category> category = new ArrayList<>();
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "product_category",
+    joinColumns = @JoinColumn(name = "productID"),
+    inverseJoinColumns = @JoinColumn(name = "categoryID"))
+    private List<Category> category = new ArrayList<>();
     
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
-    private Collection<ListImage> listImages = new ArrayList<>();
+    private List<ListImage> listImages = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Collection<OrderItem> oderItem = new ArrayList<>();
+    private List<OrderItem> oderItem = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Collection<CartItem> cartItem = new ArrayList<>();
+    private List<CartItem> cartItem = new ArrayList<>();
 
 	public Product() {
 		super();
@@ -107,45 +112,47 @@ public class Product implements Serializable{
 		this.status = status;
 	}
 
-	public Collection<Manufacturer> getManufacturers() {
+	public List<Manufacturer> getManufacturers() {
 		return manufacturers;
 	}
 
-	public void setManufacturers(Collection<Manufacturer> manufacturers) {
-		this.manufacturers = manufacturers;
+	public void setManufacturers(Manufacturer newManufacturer) {
+		List<Manufacturer> listManu = new ArrayList<>();
+		listManu.add(newManufacturer);
+		this.manufacturers = listManu;
 	}
 
-	public Collection<Category> getCategory() {
+	public List<Category> getCategory() {
 		return category;
 	}
 
-	public void setCategory(Collection<Category> category) {
-		this.category = category;
+	public void setCategory(Category newCategory) {
+		List<Category> listCate = new ArrayList<>();
+		listCate.add(newCategory);
+		this.category = listCate;
 	}
 
-	public Collection<ListImage> getListImages() {
+	public List<ListImage> getListImages() {
 		return listImages;
 	}
 
-	public void setListImages(Collection<ListImage> listImages) {
+	public void setListImages(List<ListImage> listImages) {
 		this.listImages = listImages;
 	}
 
-	public Collection<OrderItem> getOderItem() {
+	public List<OrderItem> getOderItem() {
 		return oderItem;
 	}
 
-	public void setOderItem(Collection<OrderItem> oderItem) {
+	public void setOderItem(List<OrderItem> oderItem) {
 		this.oderItem = oderItem;
 	}
 
-	public Collection<CartItem> getCartItem() {
+	public List<CartItem> getCartItem() {
 		return cartItem;
 	}
 
-	public void setCartItem(Collection<CartItem> cartItem) {
+	public void setCartItem(List<CartItem> cartItem) {
 		this.cartItem = cartItem;
 	}
-	
-	
 }
