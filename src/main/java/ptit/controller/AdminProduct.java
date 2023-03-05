@@ -9,6 +9,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.Valid;
 import ptit.entity.Category;
 import ptit.entity.Manufacturer;
 import ptit.entity.Product;
@@ -45,15 +47,15 @@ public class AdminProduct {
         
 		List<Manufacturer> manufacturers =manufacturerService.findAll();
         model.addAttribute("manufacturers", manufacturers);
+        
+        Product product = new Product();
+        model.addAttribute("product", product);
+        
 		return "admin/addproduct";
 	}  
 	
     @PostMapping(value = "admin/addproduct")
-    public String addProduct(Product product, Model model,
-    		 @RequestParam(value = "name") String name,
-    		 @RequestParam(value = "price") BigDecimal price,
-    		 @RequestParam(value = "quantity") int quantity,
-    		 @RequestParam(value = "desc") String desc,
+    public String addProduct(@Valid Product product,BindingResult result, Model model,
     		 @RequestParam(value = "category") int categoryId,
     		 @RequestParam(value = "manu") int manuId,
     		 SessionStatus status) {
@@ -65,18 +67,18 @@ public class AdminProduct {
 //          } catch (Exception e) {
 //            e.printStackTrace();
 //          }
+	  if (result.hasErrors()) {
+		    return "admin/addproduct";
+		  }
     	Category newCategory = new Category();
     	Manufacturer newManufacturer = new Manufacturer();
     	
     	newCategory = categoryService.findByCategoryID(categoryId);
     	newManufacturer = manufacturerService.findByManufacturerID(manuId);
     	
+    	product.setStatus(true);
     	product.setCategory(newCategory);
     	product.setManufacturers(newManufacturer);
-    	product.setName(name);
-    	product.setPrice(price);
-    	product.setQuantity(quantity);
-    	product.setDescription(desc);
         productService.save(product);
     	status.setComplete();
         return "redirect:/admin/product";

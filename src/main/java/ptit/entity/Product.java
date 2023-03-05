@@ -21,19 +21,22 @@ public class Product implements Serializable{
     private Long productID;	
 	
     @Nonnull
-    @Size(min = 1, max = 100)
+    @Size(min = 4, max = 100,message = "Tên sản phẩm phài từ 1-100 kí tự")
     @Column(name = "name", length = 100)
+    @NotEmpty(message = "Vui lòng nhập tên sản phẩm")
     private String name;
     
     @Digits(integer = 9, fraction = 3)
     @Column(name = "price")
+    @Min(value=1, message="Giá sản phẩm không hợp lệ") 
     private BigDecimal price;
     
-    @Size(min = 20, max = 300)
+    @Size(min = 20, max = 300, message="Độ dài mô tả từ 20-300 kí tự ")
     @Column(name = "description", length = 300)
     private String description;
     
     @Column(name = "quantity")
+    @Min(value=1, message="Số lượng sản phẩm không hợp lệ") 
     private int quantity;
     
     @Column(name="status")

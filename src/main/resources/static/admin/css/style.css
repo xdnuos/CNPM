@@ -207,3 +207,7 @@ html{
   position: relative;
   padding-bottom: 100%;
 }
+
+.invalid-feedback{
+	display:inline;
+}
