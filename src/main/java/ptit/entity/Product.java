@@ -40,7 +40,7 @@ public class Product implements Serializable{
     private int quantity;
     
     @Column(name="status")
-    private boolean status;
+    private String status;
     
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "product_manufactor",
@@ -107,11 +107,11 @@ public class Product implements Serializable{
 		this.quantity = quantity;
 	}
 
-	public boolean isStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

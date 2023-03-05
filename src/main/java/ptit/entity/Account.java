@@ -28,7 +28,7 @@ public class Account implements Serializable {
 	private Date create_date;
 	
 	@Column(nullable = false)
-	private Boolean status;
+	private String status;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "permissionID", nullable = false)
@@ -50,7 +50,7 @@ public class Account implements Serializable {
 
 
 
-public Account(BigInteger accountID, String email, String password, Date create_date, Boolean status,
+public Account(BigInteger accountID, String email, String password, Date create_date, String status,
 			Permission permission, Staff staff, Customer customer) {
 		super();
 		this.accountID = accountID;
@@ -107,11 +107,11 @@ public void setCreate_date(Date create_date) {
 	this.create_date = create_date;
 }
 
-public Boolean getStatus() {
+public String getStatus() {
 	return status;
 }
 
-public void setStatus(Boolean status) {
+public void setStatus(String status) {
 	this.status = status;
 }
 

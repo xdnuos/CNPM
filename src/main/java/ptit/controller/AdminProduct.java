@@ -76,7 +76,7 @@ public class AdminProduct {
     	newCategory = categoryService.findByCategoryID(categoryId);
     	newManufacturer = manufacturerService.findByManufacturerID(manuId);
     	
-    	product.setStatus(true);
+    	product.setStatus("disable");
     	product.setCategory(newCategory);
     	product.setManufacturers(newManufacturer);
         productService.save(product);
