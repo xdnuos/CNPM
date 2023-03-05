@@ -32,10 +32,6 @@ public class Staff implements Serializable{
 	
 	@Column(name ="cccd")
 	private String cccd;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "accountID")
-	private Account account;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL)
     private Collection<Order> order;
@@ -59,7 +55,6 @@ public class Staff implements Serializable{
 		this.phone = phone;
 		this.birth = birth;
 		this.cccd = cccd;
-		this.account = account;
 	}
 
 
@@ -114,18 +109,6 @@ public class Staff implements Serializable{
 
 	public void setCccd(String cccd) {
 		this.cccd = cccd;
-	}
-
-
-
-	public Account getAccount() {
-		return account;
-	}
-
-
-
-	public void setAccount(Account account) {
-		this.account = account;
 	}
 
 }

@@ -35,11 +35,13 @@ public class Account implements Serializable {
 	@JoinColumn(name = "permissionID", nullable = false)
 	private Permission permission;
 	
-//    @OneToOne(mappedBy = "account")
-//    private Staff staff;
-//    
-//    @OneToOne(mappedBy = "account")
-//    private Customer customer;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "staffID")
+	private Staff staffID;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customerID")
+	private Customer customerID;
     
 	public Account() {
 		

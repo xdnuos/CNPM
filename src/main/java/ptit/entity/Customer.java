@@ -19,10 +19,6 @@ public class Customer implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long customerID;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "accountID")
-	private Account account;
 	
 	private String adress;
 
@@ -41,14 +37,6 @@ public class Customer implements Serializable {
 	//bi-directional many-to-one association to Order
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
 	private List<Order> orders;
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
 
 	public Customer() {
 	}
