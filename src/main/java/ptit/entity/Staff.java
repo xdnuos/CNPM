@@ -12,6 +12,11 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "staff")
 public class Staff implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name ="staffID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,15 +41,12 @@ public class Staff implements Serializable{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL)
     private Collection<Order> order;
 	
+	@OneToOne(mappedBy="staffID")
+	private Account account;
+	
 	public Staff() {
 		
 	}
-
-	
-
-
-
-
 
 	public Staff(BigInteger staffID, String fullname, Boolean sex, String phone, Date birth, String cccd,
 			Account account) {
@@ -56,12 +58,6 @@ public class Staff implements Serializable{
 		this.birth = birth;
 		this.cccd = cccd;
 	}
-
-
-
-
-
-
 
 	public BigInteger getStaffID() {
 		return staffID;
@@ -109,6 +105,22 @@ public class Staff implements Serializable{
 
 	public void setCccd(String cccd) {
 		this.cccd = cccd;
+	}
+
+	public Collection<Order> getOrder() {
+		return order;
+	}
+
+	public void setOrder(Collection<Order> order) {
+		this.order = order;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 }

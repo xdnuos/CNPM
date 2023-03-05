@@ -37,6 +37,9 @@ public class Customer implements Serializable {
 	//bi-directional many-to-one association to Order
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
 	private List<Order> orders;
+	
+	@OneToOne(mappedBy="customerID")
+	private Account account;
 
 	public Customer() {
 	}
@@ -132,5 +135,15 @@ public class Customer implements Serializable {
 
 		return order;
 	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	
+	
 
 }

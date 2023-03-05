@@ -51,4 +51,13 @@ public class Category implements Serializable {
 	public void setProducts(Collection<Product> products) {
 		this.productcate = products;
 	}
+
+	public Collection<Product> getProductcate() {
+		return productcate;
+	}
+
+	public void setProductcate(Collection<Product> productcate) {
+		this.productcate = productcate;
+	}
+	
 }

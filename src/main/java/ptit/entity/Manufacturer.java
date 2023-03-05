@@ -47,4 +47,14 @@ public class Manufacturer implements Serializable {
 	public void setProducts(Collection<Product> products) {
 		this.productmanu = products;
 	}
+
+	public Collection<Product> getProductmanu() {
+		return productmanu;
+	}
+
+	public void setProductmanu(Collection<Product> productmanu) {
+		this.productmanu = productmanu;
+	}
+	
+	
 }

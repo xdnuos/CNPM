@@ -2,7 +2,6 @@ package ptit.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,7 +30,7 @@ public class Account implements Serializable {
 	@Column(nullable = false)
 	private Boolean status;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "permissionID", nullable = false)
 	private Permission permission;
 	
@@ -124,21 +123,30 @@ public void setPermission(Permission permission) {
 	this.permission = permission;
 }
 
-//public Staff getStaff() {
-//	return staff;
-//}
-//
-//public void setStaff(Staff staff) {
-//	this.staff = staff;
-//}
-//
-//public Customer getCustomer() {
-//	return customer;
-//}
-//
-//public void setCustomer(Customer customer) {
-//	this.customer = customer;
-//}
+
+
+
+
+public Staff getStaffID() {
+	return staffID;
+}
+
+
+
+
+
+public void setStaffID(Staff staffID) {
+	this.staffID = staffID;
+}
+
+
+public Customer getCustomerID() {
+	return customerID;
+}
+
+public void setCustomerID(Customer customerID) {
+	this.customerID = customerID;
+}
 	
 	
 }

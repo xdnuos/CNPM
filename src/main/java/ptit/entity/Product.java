@@ -158,4 +158,12 @@ public class Product implements Serializable{
 	public void setCartItem(List<CartItem> cartItem) {
 		this.cartItem = cartItem;
 	}
+
+	public void setManufacturers(List<Manufacturer> manufacturers) {
+		this.manufacturers = manufacturers;
+	}
+
+	public void setCategory(List<Category> category) {
+		this.category = category;
+	}
 }
