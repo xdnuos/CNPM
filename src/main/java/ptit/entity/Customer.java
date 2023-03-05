@@ -20,7 +20,7 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long customerID;
 	
-	private String adress;
+	private String address;
 
 	private Date birth;
 
@@ -52,12 +52,12 @@ public class Customer implements Serializable {
 		this.customerID = customerID;
 	}
 
-	public Object getAdress() {
-		return this.adress;
+	public Object getaddress() {
+		return this.address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setaddress(String address) {
+		this.address = address;
 	}
 
 	public Object getBirth() {
