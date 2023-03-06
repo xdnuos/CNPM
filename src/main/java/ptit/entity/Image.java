@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="listImage")
-public class ListImage implements Serializable{
+public class Image implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,12 +19,11 @@ public class ListImage implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productID")
     private Product product;
-
-	public ListImage(Long listImageID, byte[] images, Long productID, Product product) {
+	
+	private String imageName;
+	
+	public Image() {
 		super();
-		this.listImageID = listImageID;
-		this.images = images;
-		this.product = product;
 	}
 
 	public Long getListImageID() {
@@ -50,6 +49,14 @@ public class ListImage implements Serializable{
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
     
     
