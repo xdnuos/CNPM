@@ -42,11 +42,9 @@ public class Product implements Serializable{
     @Column(name="status")
     private String status;
     
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "product_manufactor",
-	joinColumns = @JoinColumn(name = "productID"),
-	inverseJoinColumns = @JoinColumn(name = "manufacturerID"))
-    private List<Manufacturer> manufacturers = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "manufacturerID")
+    private Manufacturer manufacturer;
     
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "product_category",
@@ -115,16 +113,6 @@ public class Product implements Serializable{
 		this.status = status;
 	}
 
-	public List<Manufacturer> getManufacturers() {
-		return manufacturers;
-	}
-
-	public void setManufacturers(Manufacturer newManufacturer) {
-		List<Manufacturer> listManu = new ArrayList<>();
-		listManu.add(newManufacturer);
-		this.manufacturers = listManu;
-	}
-
 	public List<Category> getCategory() {
 		return category;
 	}
@@ -159,11 +147,15 @@ public class Product implements Serializable{
 		this.cartItem = cartItem;
 	}
 
-	public void setManufacturers(List<Manufacturer> manufacturers) {
-		this.manufacturers = manufacturers;
-	}
-
 	public void setCategory(List<Category> category) {
 		this.category = category;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 }

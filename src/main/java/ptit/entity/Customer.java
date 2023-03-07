@@ -38,7 +38,11 @@ public class Customer implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
 	private List<Order> orders;
 	
-	@OneToOne(mappedBy="customerID")
+//	@OneToOne(mappedBy="customerID")
+//	private Account account;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "accountID")
 	private Account account;
 
 	public Customer() {

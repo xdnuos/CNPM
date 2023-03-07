@@ -3,10 +3,6 @@
 
 <head th:replace="admin/layout :: head"></head>
 
-<head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-
 <body>
   <div class="container-fluid">
     <div class="row g-0">
@@ -29,28 +25,30 @@
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label>Giá sản phẩm</label>
-                  <input type="number" class="form-control" name="price" th:field="*{price}" >
+                  <input type="number" class="form-control" th:field="*{price}" id="currency-field">
                   <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                 </div>
                 <div class="mb-3 col-md-2">
                   <label>Số lượng</label>
-                  <input type="number" class="form-control" name="quantity" th:field="*{quantity}" >
+                  <input type="number" class="form-control" name="quantity" th:field="*{quantity}">
                   <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
                 </div>
               </div>
               <div class="mb-3">
                 <label>Mô tả</label>
-                <textarea class="form-control" id="desc" name="desc" th:field="*{description}" rows="4" cols="50"></textarea>
+                <textarea class="form-control" id="desc" name="desc" rows="4" cols="50" th:field="*{description}"></textarea>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 mb-3" >    
-                <label>Danh mục</label>
-	                <div class="form-check" th:each="c : ${categories}">
-	                	<input class="form-check-input" type="checkbox" id="flexCheckDefault" th:value="${c.categoryID}" th:field="*{category}"/>
-			        	<label class="form-check-label" for="flexCheckDefault" th:text="${c.title}">Danh mục:</label>
-	                </div>
+                <div class="col-md-4 mb-3">
+                  <label>Danh mục</label>
+                  <select class="custom-select d-block w-100" name="category" >
+                    <option value="0">Choose...</option>
+				    <option th:each="c : ${categories}" th:value="${c.categoryID}"
+                            th:utext="${c.title}"/>
+				    </option>
+                  </select>
                 </div>
                 <div class="col-md-4 mb-3">
                   <label>Nhà sản xuất</label>
@@ -79,6 +77,7 @@
       </div>
     </div>
   </div>
+  
   <script>
 
     var form = document.getElementById("search-form");

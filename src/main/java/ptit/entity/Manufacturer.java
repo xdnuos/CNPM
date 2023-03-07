@@ -3,6 +3,7 @@ package ptit.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
@@ -21,8 +22,8 @@ public class Manufacturer implements Serializable {
 	@Column(name = "name", length = 100)
 	private String name;
 	
-	@ManyToMany(mappedBy = "manufacturers", cascade = CascadeType.ALL)
-    private Collection<Product> productmanu = new ArrayList<>();
+	@OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL)
+    private List<Product> product = new ArrayList<>();
 
 	public int getManufacturerID() {
 		return manufacturerID;
@@ -40,21 +41,11 @@ public class Manufacturer implements Serializable {
 		this.name = name;
 	}
 
-	public Collection<Product> getProducts() {
-		return productmanu;
+	public List<Product> getProduct() {
+		return product;
 	}
 
-	public void setProducts(Collection<Product> products) {
-		this.productmanu = products;
+	public void setProduct(List<Product> product) {
+		this.product = product;
 	}
-
-	public Collection<Product> getProductmanu() {
-		return productmanu;
-	}
-
-	public void setProductmanu(Collection<Product> productmanu) {
-		this.productmanu = productmanu;
-	}
-	
-	
 }

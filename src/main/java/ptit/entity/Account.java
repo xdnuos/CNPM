@@ -34,21 +34,23 @@ public class Account implements Serializable {
 	@JoinColumn(name = "permissionID", nullable = false)
 	private Permission permission;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "staffID")
-	private Staff staffID;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "staffID")
+//	private Staff staff;
+//
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "customerID")
+//	private Customer customer;
+	
+	@OneToOne(mappedBy = "account")
+	private Staff staff;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customerID")
-	private Customer customerID;
+	@OneToOne(mappedBy = "account")
+	private Customer customer;
     
 	public Account() {
 		
 	}
-
-
-
-
 
 public Account(BigInteger accountID, String email, String password, Date create_date, String status,
 			Permission permission, Staff staff, Customer customer) {
@@ -62,10 +64,6 @@ public Account(BigInteger accountID, String email, String password, Date create_
 //		this.staff = staff;
 //		this.customer = customer;
 	}
-
-
-
-
 
 //	public Permission getPermissionID() {
 //		return permissionID;
@@ -123,30 +121,20 @@ public void setPermission(Permission permission) {
 	this.permission = permission;
 }
 
-
-
-
-
-public Staff getStaffID() {
-	return staffID;
+public Staff getStaff() {
+	return staff;
 }
 
-
-
-
-
-public void setStaffID(Staff staffID) {
-	this.staffID = staffID;
+public void setStaff(Staff staff) {
+	this.staff = staff;
 }
-
 
 public Customer getCustomerID() {
-	return customerID;
+	return customer;
 }
 
 public void setCustomerID(Customer customerID) {
-	this.customerID = customerID;
+	this.customer = customerID;
 }
-	
 	
 }
