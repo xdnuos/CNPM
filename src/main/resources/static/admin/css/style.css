@@ -220,3 +220,7 @@ html{
 .img-wrap:hover .close {
     opacity: 1;
 }
+
+#addCategory{
+	margin-left:12px;
+}

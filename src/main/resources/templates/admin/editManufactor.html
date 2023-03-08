@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="admin/layout :: head"></head>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row g-0">
+      <div th:replace="admin/layout :: navleft"></div>
+      <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
+        <div class="container">
+          <nav th:replace="admin/layout :: navtop"></nav>
+          <!-- CODE HERE -->
+          <h2 class="mb-3 text-center">Quản lý nhà sản xuất</h2>
+          <div class="row">
+            <div class="col-md-10 order-md-1 mx-auto">
+              <h4 class="mb-3">Sửa nhà sản xuất</h4>
+              <form class="needs-validation" name="addCategory" th:object="${manufacturer}" enctype="multipart/form-data"
+                method="post">
+                <div class="row">
+                  <div class="mb-3 col-md-10">
+                    <label>Tên danh mục</label>
+                    <input type="text" class="form-control" name="name" th:field="*{name}">
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Lưu</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    var form = document.getElementById("search-form");
+    form.remove();
+
+    document.getElementById("nav-top").style.justifyContent = "flex-end";
+  </script>
+  <script th:src="@{/admin/js/scripts.js}"></script>
+</body>
+
+</html>
