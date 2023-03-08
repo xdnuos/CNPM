@@ -121,7 +121,7 @@ html{
 }
 
 .disable{
-	display:none;
+	display:none!important;
 }
 
 .invalid-feedback{
@@ -183,4 +183,40 @@ html{
 }
 #btn-upload{
 	margin-bottom:12px;
+}
+#product-image{
+	display:flex;
+ 	flex-wrap: wrap;
+ 	margin-bottom:12px;
+}
+#item-image{
+	width: 100px;
+	height: 100px;
+}
+
+.img-wrap {
+    position: relative;
+    display: inline-block;
+    border: 1px red solid;
+    font-size: 0;
+    margin-right:12px;
+}
+.img-wrap .close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 100;
+    background-color: #FFF;
+    padding: 5px 2px 2px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: .2;
+    text-align: center;
+    font-size: 22px;
+    line-height: 10px;
+    border-radius: 50%;
+}
+.img-wrap:hover .close {
+    opacity: 1;
 }

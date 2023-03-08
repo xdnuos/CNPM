@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService{
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
         List<Product> list;
-        List<Product> allProduct = productDAO.findAll();
+        List<Product> allProduct = productDAO.findAllByStatus("active");
         
         int listProductSize = allProduct.size();
         if (listProductSize < startItem) {

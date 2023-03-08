@@ -3,6 +3,7 @@ package ptit.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,12 +15,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +32,7 @@ import ptit.entity.Image;
 import ptit.entity.Manufacturer;
 import ptit.entity.Product;
 import ptit.service.CategoryService;
+import ptit.service.ImageService;
 import ptit.service.ManufacturerService;
 import ptit.service.ProductService;
 
@@ -41,6 +45,8 @@ public class AdminProduct {
 	private CategoryService categoryService;
 	@Autowired
 	private ManufacturerService manufacturerService;
+	@Autowired
+	private ImageService imageService;
 
 	@GetMapping(value = "/admin/product")
 	public String index(Model model,
@@ -66,14 +72,13 @@ public class AdminProduct {
 	@GetMapping(value = "/admin/addproduct")
 	public ModelAndView addProduct(Model model) {
 		List<Category> categories =categoryService.findAll();
+		List<Manufacturer> manufacturers =manufacturerService.findAll();
 		Product product = new Product();
 		
         ModelAndView mav = new ModelAndView();
         mav.addObject("product", product);
         mav.addObject("categories", categories);
-        
-		List<Manufacturer> manufacturers =manufacturerService.findAll();
-        model.addAttribute("manufacturers", manufacturers);
+        mav.addObject("manufacturers", manufacturers);
         
 		return mav;
 	}  
@@ -90,17 +95,12 @@ public class AdminProduct {
 	
     @PostMapping(value = "admin/addproduct")
     public String addProduct(@Valid Product product,BindingResult result, Model model,
-    		 @RequestParam(value = "category") int categoryId,
-    		 @RequestParam(value = "manu") int manuId,
     		 @RequestParam("images") MultipartFile[] listImages,
     		 SessionStatus status) {
     	
 	  if (result.hasErrors()) {
 		    return "admin/addproduct";
 		  }
-    	Manufacturer newManufacturer = new Manufacturer();
-    		
-    	newManufacturer = manufacturerService.findByManufacturerID(manuId);
     	
     	if(listImages != null) {
     		try {
@@ -121,7 +121,6 @@ public class AdminProduct {
     	}
     	
     	product.setStatus("active");
-    	product.setManufacturer(newManufacturer);
         productService.save(product);
     	status.setComplete();
         return "redirect:/admin/product";
@@ -146,18 +145,80 @@ public class AdminProduct {
        response.getOutputStream().close();
     }
     
-	@GetMapping(value = "/admin/editproduct" )
-	public String editProduct(Model model,
-			@RequestParam("id") Long id) {
+	@GetMapping(value = "/admin/editproduct{id}" )
+	public ModelAndView editProduct(Model model,
+			@RequestParam("id") Long id,
+			RedirectAttributes redirectAttributes) {
 		List<Category> categories =categoryService.findAll();
-        model.addAttribute("categories", categories);
-        
 		List<Manufacturer> manufacturers =manufacturerService.findAll();
-        model.addAttribute("manufacturers", manufacturers);
+		Product product = productService.findById(id);
+		List<Image> images = product.getListImages();
+		images.forEach((i) -> 
+			i.setImageBase64(convertImage(i.getImages()))
+		);
+		
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("product", product);
+        mav.addObject("categories", categories);
+        mav.addObject("manufacturers", manufacturers);
+        mav.addObject("images", images);
+        List<Integer> listImageID = new ArrayList<Integer>();
+        model.addAttribute(listImageID);
         
-        Product product = productService.findById(id);
-        model.addAttribute("product", product);
-        
-		return "admin/editproduct";
+        redirectAttributes.addAttribute("id", id);
+		return mav;
 	}  
+	
+    @PostMapping(value = "admin/editproduct")
+    public String editProduct(@Valid Product product,BindingResult result, Model model,
+    		 @RequestParam("images") MultipartFile[] listImages,
+    		 @RequestParam("id") long productID,
+    		 SessionStatus status) {
+    	
+	  if (result.hasErrors()) {
+		    return "admin/editproduct";
+		  }
+    	
+    	if(listImages != null) {
+    		try {
+    			List<Image> listImage = new ArrayList<>();
+    		    Arrays.asList(listImages).stream().forEach(file -> {
+    		        byte[] image = saveImage(file);
+    	            if (image != null && image.length > 0) {
+    	            	Image newImage = new Image();
+    	            	newImage.setImages(image);
+    	            	newImage.setImageName(file.getOriginalFilename());
+    	            	newImage.setProduct(product);
+    	            	listImage.add(newImage);
+    	            }
+    		      });
+    		    product.setListImages(listImage);
+    		    } catch (Exception e) {
+		    }
+    	}
+    	product.setProductID(productID);
+        productService.save(product);
+    	status.setComplete();
+        return "redirect:/admin/product";
+    }
+	
+	public String convertImage(byte[] image) {
+		String imageBase64 = Base64.getEncoder().encodeToString(image);
+		return imageBase64;
+	}
+	
+	@GetMapping(value ="/admin/deleteImage")
+	public void deleteImage(@RequestParam("id") Long id) {
+		if(id!=null) {
+			imageService.deleteByID(id);
+		}
+	}
+	@GetMapping(value ="/admin/deleteProduct")
+	public String deleteProduct(@RequestParam("id") Long id) {
+		Product product = productService.findById(id);
+		product.setProductID(id);
+		product.setStatus("disable");
+		productService.save(product);
+		return "redirect:/admin/product";
+	}
 }

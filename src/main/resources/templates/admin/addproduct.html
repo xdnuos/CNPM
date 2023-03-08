@@ -54,10 +54,10 @@
                 </div>
                 <div class="col-md-4 mb-3">
                   <label>Nhà sản xuất</label>
-                  <select class="custom-select d-block w-100" name="manu" >
+                  <select class="custom-select d-block w-100" name="manu" th:field="*{manufacturer}">
                     <option value="0">Choose...</option>
 				    <option th:each="m : ${manufacturers}" th:value="${m.manufacturerID}"
-                            th:utext="${m.name}"/>
+                            th:text="${m.name}"/>
 				    </option>
                   </select>
                 </div>
