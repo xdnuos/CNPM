@@ -224,3 +224,15 @@ html{
 #addCategory{
 	margin-left:12px;
 }
+
+.product-image{
+	height:120px;
+	margin:0 12px;
+}
+.input-quanty{
+width:5rem;
+position: relative;
+display: block;
+margin : 0 auto;
+text-align:center;
+}

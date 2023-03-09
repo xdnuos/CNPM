@@ -21,7 +21,7 @@ public class Cart implements Serializable {
 	private long cartID;
 
 	private String cookie;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp createDate;
 
@@ -158,5 +158,9 @@ public class Cart implements Serializable {
                 line.setQuantity(quantity);
             }
         }
+    }
+    
+    public boolean isEmpty() {
+        return this.cartItems.isEmpty();
     }
 }
