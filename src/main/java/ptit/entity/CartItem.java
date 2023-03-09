@@ -24,7 +24,7 @@ public class CartItem implements Serializable {
 	@JoinColumn(name="productID")
 	private Product product;
 
-	private long quantity;
+	private int quantity;
 
 	//bi-directional many-to-one association to Cart
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -58,11 +58,11 @@ public class CartItem implements Serializable {
 		this.product = product;
 	}
 
-	public long getQuantity() {
+	public int getQuantity() {
 		return this.quantity;
 	}
 
-	public void setQuantity(long quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
@@ -77,5 +77,8 @@ public class CartItem implements Serializable {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-
+	
+    public double getAmount() {
+        return this.product.getPrice().intValue() * this.quantity;
+    }
 }
