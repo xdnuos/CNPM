@@ -13,7 +13,7 @@
 						<div class="modal-body">
 							<h6>Welcome Back</h6>
 							<div class="sign-form">
-								<form class="mb-0" action="/checklogin" id="login" method='POST'>
+								<form class="form-signin" th:action="${/j_spring_security_check}" id="login" method='POST'>
 									<div class="form-group">
 										<input type="text" class="form-control" id="email" name="email" placeholder="Email">
 										<span class="form-message"></span>
@@ -52,21 +52,18 @@
 
 	</div>
 	<script>
-        
-        document.addEventListener('DOMContentLoaded', function () { 
-   
-        Validator({
-        form: '#login',
-        formGroupSelector: '.form-group',
-        errorSelector: '.form-message',
-        rules: [
-          Validator.isEmail('#email'),
-          Validator.minLength('#password', 6),
-        ],
-      });
-    });  
-    </script>
-    <script src="./js/validator.js"></script>
+		document.addEventListener('DOMContentLoaded', function() {
+
+			Validator({
+				form : '#login',
+				formGroupSelector : '.form-group',
+				errorSelector : '.form-message',
+				rules : [ Validator.isEmail('#email'),
+						Validator.minLength('#password', 6), ],
+			});
+		});
+	</script>
+	<script src="./js/validator.js"></script>
 	 #wrapper end -->
 
 	<!-- Footer Scripts

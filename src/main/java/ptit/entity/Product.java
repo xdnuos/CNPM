@@ -43,13 +43,13 @@ public class Product implements Serializable{
     private boolean status;
     
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "productManufactor",
+	@JoinTable(name = "product_manufactor",
 	joinColumns = @JoinColumn(name = "productID"),
 	inverseJoinColumns = @JoinColumn(name = "manufacturerID"))
     private List<Manufacturer> manufacturers = new ArrayList<>();
     
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "productCategory",
+    @JoinTable(name = "product_category",
     joinColumns = @JoinColumn(name = "productID"),
     inverseJoinColumns = @JoinColumn(name = "categoryID"))
     private List<Category> category = new ArrayList<>();

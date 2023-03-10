@@ -14,12 +14,12 @@ import ptit.entity.Account;
 
 @Repository
 public interface AccountDAO extends JpaRepository<Account, Long> {
-
-	@Query("from Account as u where u.email = :email")
-	Optional<Account> findByEmail(@Param("email") String email);
 	
-//	@Query("Select count(*) from Account as u where u.email = :email")
-//	Integer checkEmail(@Param("email") String email);
+	@Query("from Account as u where u.email = :email")
+	Account findByEmail(@Param("email") String email);
+	
+	@Query("Select count(*) from Account as u where u.email = :email")
+	Integer checkEmail(@Param("email") String email);
 	
 	List<Account> findAll();
 

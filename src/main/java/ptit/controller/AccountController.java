@@ -15,37 +15,27 @@ import org.springframework.web.bind.support.SessionStatus;
 import jakarta.servlet.http.HttpSession;
 import ptit.entity.Account;
 import ptit.service.AccountService;
+import ptit.service.PermissionService;
 
 @Controller
 public class AccountController {
 	@Autowired
 	private AccountService accountService;
 	
+	@Autowired
+	private PermissionService permissionService;
 
 	@RequestMapping(value = "/")
 	public String index() {
 		return "index";
 	}
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public String login() {
 		return"login";
 	}
-	@RequestMapping( "/account")
-    public String account(ModelMap model) {
-        model.addAttribute("account", accountService.findAll());
-        return "account";
-    }
-	@PostMapping("/checklogin")
-	public String checkLogin( ModelMap model,@RequestParam("email")String email,
-		@RequestParam("password")String password, HttpSession sesion) {
-			if(accountService.checkLogin(email, password)) {
-				sesion.setAttribute("email", email);
-				model.addAttribute("account", accountService.findByEmail(email));
-				return"index";
-			}else {
-				model.addAttribute("ERROR", "Account không tồn tại");
-			}
-			return"login";
+	@RequestMapping("/register")
+	public String register() {
+		return"register";
 	}
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
@@ -53,21 +43,22 @@ public class AccountController {
 	    model.addAttribute("ERROR","");
 	    return "register";
 	}
-//	@GetMapping("/checkregister")
-//	public String processRegister(Account account, SessionStatus status, Model model) {
-//	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//	    String encodedPassword = passwordEncoder.encode(account.getPassword());
-//	    account.setPassword(encodedPassword);
-//	    if(accountService.checkEmail(account.getEmail())) {
-//	    	accountService.save(account);
-//	    	status.setComplete();
-//	    } else {
-//	    	model.addAttribute("ERROR", "Email đã tồn tại, vui lòng sử dụng email khác");
-//	    	return "register";
-//	    }
-//	    
-//	    return "login";
-//	}
+	@PostMapping("/checkregister")
+	public String processRegister(Account account, SessionStatus status, ModelMap model) {
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    String encodedPassword = passwordEncoder.encode(account.getPassword());
+	    account.setPassword(encodedPassword);
+	    //account.setPermission(getName = "Customer");
+	    if(accountService.checkEmail(account.getEmail())) {
+	    	accountService.save(account);
+	    	status.setComplete();
+	    } else {
+	    	model.addAttribute("ERROR", "Email đã tồn tại, vui lòng sử dụng email khác");
+	    	return "register";
+	    }
+	    
+	    return "login";
+	}
  
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {

@@ -7,5 +7,5 @@ public interface ProductService {
  Product findById(Long id);
  void save(Product product);
  
-// Product saveProduct(Product product,int categoryId, int manuId);
+ Product saveProduct(Product product,int categoryId, int manuId);
 }

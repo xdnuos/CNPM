@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="admin/layout :: head"></head>
 
@@ -51,7 +52,7 @@
                     <option value="0">Choose...</option>
 				    <option th:each="c : ${categories}" th:value="${c.categoryID}"
                             th:utext="${c.title}"/>
-				    </option>
+				   
                   </select>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -60,7 +61,7 @@
                     <option value="0">Choose...</option>
 				    <option th:each="m : ${manufacturers}" th:value="${m.manufacturerID}"
                             th:utext="${m.name}"/>
-				    </option>
+				   
                   </select>
                 </div>
               </div>

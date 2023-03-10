@@ -1,64 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="admin/layout :: head"></head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row g-0">
-            <div th:replace="admin/layout :: navleft"></div>
-            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
-                <div class="container">
-                	<nav th:replace="admin/layout :: navtop"></nav>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên</th>
-                                <th scope="col">SĐT</th>
-                                <th scope="col">Email</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>older</td>
-                                <td>disappear</td>
-                                <td>own</td>
-                                <td><a href="#">test</a></td>
-                                <td><a href="#">test</a></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>anything</td>
-                                <td>light</td>
-                                <td>duck</td>
-                                <td><a href="#">test</a></td>
-                                <td><a href="#">test</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container-fluid">
+		<div class="row g-0">
+			<div th:replace="admin/layout :: navleft"></div>
+			<div
+				class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
+				<div class="container">
+					<nav th:replace="admin/layout :: navtop"></nav>
+					<table class="table table-hover">
+						<!--  <table class="table table-striped table-responsive-md">-->
+						<thead class="thead">
+							<tr>
+								<th><a href="/admin/sortstaff?field=staffID">StaffID</a></th>
+								<th><a href="/admin/sortstaff?field=fullname">Fullname</a></th>
+								<th>Account</th>
+								<th>Sex</th>
+								<th>Phone</th>
+								<th><a href="/admin/sortstaff?field=birth">Birth</a></th>
+								<th>Permission</th>
+								<th>Status</th>
+								<th>Function</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="staff:${staff}">
+								<td width="100" th:text="${staff.staffID}" />
+								<td th:text="${staff.fullname}" />
+								<td th:text="${staff.account.email}" />
+								<td th:text="${staff.sex} ? 'Male' : 'Female'"/> 
+									
+								<td th:text="${staff.phone}" />
+								<td th:text="${staff.birth}" />
+								
+								<td th:text="${staff.account.permission.name}"/>
+								
+								<td th:text="${staff.account.status} ? 'Active' : 'Disable'"/>
+								<td><a
+									th:href="@{/admin/updatestaff/{staffID}(staffID=${staff.staffID})}"
+									class="btn btn-outline-danger">Update</a> <a
+									th:href="@{/admin/deletestaff/{staffID}(staffID=${staff.staffID})}"
+									class="btn btn-outline-primary">Delete</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<h6 th:text="${message}"></h6>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../static/admin/js/scripts.js"></script>
-    <script>
-	var element = document.getElementById("staff");
-	element.classList.add("active");
-	
-	var add = document.getElementById("cart-icon");
-	
-	add.classList.remove("disable");
-	
-	function foo(){
-		return window.location.href='/admin/addstaff'
-	}
-    </script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../static/admin/js/scripts.js"></script>
+	<script>
+		var element = document.getElementById("staff");
+		element.classList.add("active");
+
+		var add = document.getElementById("cart-icon");
+
+		add.classList.remove("disable");
+
+		function foo() {
+			return window.location.href = '/admin/addstaff'
+		}
+	</script>
 </body>
 
 </html>

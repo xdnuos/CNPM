@@ -16,31 +16,30 @@ public class Permission implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int permissionID;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long permissionID;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "permission", cascade = CascadeType.ALL)
     private Collection<Account> account;
 	
-	public Collection<Account> getAccount() {
-		return account;
-	}
-
-	public void setAccount(Collection<Account> account) {
-		this.account = account;
-	}
-
+	
 	private String name;
 
-	private int role;
 
 	public Permission() {
 	}
 
-	public int getPermissionID() {
+	public Permission( String name) {
+//		this.permissionID = permissionID;
+//		this.account = account;
+		this.name = name;
+	}
+
+	public Long getPermissionID() {
 		return this.permissionID;
 	}
 
-	public void setPermissionID(int permissionID) {
+	public void setPermissionID(Long permissionID) {
 		this.permissionID = permissionID;
 	}
 
@@ -51,13 +50,11 @@ public class Permission implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public int getRole() {
-		return this.role;
+	public Collection<Account> getAccount() {
+		return account;
 	}
 
-	public void setRole(int role) {
-		this.role = role;
+	public void setAccount(Collection<Account> account) {
+		this.account = account;
 	}
-
 }

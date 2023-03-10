@@ -1,66 +1,61 @@
 package ptit.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "staff")
-public class Staff implements Serializable{
-	
+public class Staff implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name ="staffID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "staffID")
 	private Long staffID;
-	
+
+	@Size(min = 1, max = 100, message = "Tên nhân viên phải từ 1-100 kí tự")
 	@Column(name = "fullname", length = 225)
+	@NotEmpty(message = "Vui lòng nhập tên nhân viên")
 	private String fullname;
-	
+
 	@Column(nullable = false)
 	private Boolean sex;
-	
+
+	@NotEmpty(message = "Vui lòng nhập số điện thoại")
 	@Column(nullable = false, length = 15)
 	private String phone;
-	
+
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern ="yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	
-	@Column(name ="cccd", length = 12)
-	private String cccd;
-	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "accountID")
-//	private Account account;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "accountID")
+	private Account account;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL)
-    private Collection<Order> order;
-	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL)
+//    private Collection<Order> order;
+
 	public Staff() {
-		
+
 	}
 
-	public Staff(Long staffID, String fullname, Boolean sex, String phone, Date birth, String cccd,
-			Account account, Collection<Order> order) {
-		super();
+	public Staff(Long staffID, String fullname, Boolean sex, String phone, Date birth, Account account) {
 		this.staffID = staffID;
 		this.fullname = fullname;
 		this.sex = sex;
 		this.phone = phone;
 		this.birth = birth;
-		this.cccd = cccd;
-		//this.account = account;
-		this.order = order;
+		this.account = account;
+		// this.order = order;
 	}
-
-
-
-	
 
 	public Long getStaffID() {
 		return staffID;
@@ -101,34 +96,21 @@ public class Staff implements Serializable{
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-
-
-	public String getCccd() {
-		return cccd;
-	}
-
-
-	public void setCccd(String cccd) {
-		this.cccd = cccd;
-	}
-
-	public Collection<Order> getOrder() {
-		return order;
-	}
-
-	public void setOrder(Collection<Order> order) {
-		this.order = order;
-	}
-
-
-//	public Account getAccount() {
-//		return account;
+//
+//	public Collection<Order> getOrder() {
+//		return order;
 //	}
 //
-//
-//
-//	public void setAccount(Account account) {
-//		this.account = account;
+//	public void setOrder(Collection<Order> order) {
+//		this.order = order;
 //	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 
 }
