@@ -10,6 +10,7 @@
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
                 <div class="container">
                 	<nav th:replace="admin/layout :: navtop"></nav>
+                	<h5 class="text-danger" th:text="${message}"></h5>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -17,6 +18,7 @@
                                 <th scope="col">Full name</th>
                                 <th scope="col">Phone number</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Status</th>
                                 <th colspan="2"></th>
                             </tr>
                         </thead>
@@ -26,8 +28,9 @@
                                 <td th:text="${customer.fullname}">older</td>
                                 <td th:text="${customer.phone}">disappear</td>
                                 <td th:text="${customer.account?.email}">own</td>
-                                <td><a th:href="@{/admin/disableCustomer(id=${customer.account?.accountID})}">Disable</a></td>
-                                <td><a th:href="@{/admin/disableCustomer(id=${customer.customerID})}">View order</a></td>
+                                <td th:text="${customer.account?.status}" id="disableAccount">own</td>
+                                <td><a th:href="@{/admin/disableCustomer(id=${customer.account?.accountID})}" id="disableAccount-btn">Disable</a></td>
+                                <td><a th:href="@{/admin/viewOrder(id=${customer.customerID})}">View order</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -49,6 +52,13 @@
 	function foo(){
 		return window.location.href='/admin/addcus'
 	}
+
+	if($("#disableAccount").text() == "disable"){
+		$("#disableAccount-btn").text("Enable");
+	}else{
+		$("#disableAccount-btn").text("Disable");
+	}
+		
     </script>
 </body>
 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head th:replace="admin/layout :: head"></head>
+
+   <head>
+      <script
+         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   </head>
+
+   <body>
+      <div class="container-fluid">
+         <div class="row g-0">
+            <div th:replace="admin/layout :: navleft"></div>
+            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10
+               content-column">
+               <div class="container">
+                  <nav th:replace="admin/layout :: navtop"></nav>
+                  <!-- CODE HERE -->
+                  <div class="card" id="customer-info">
+                     <div class="card-body">
+                        <h5 class="card-title">Customer Information:</h5>
+                        <div class="cart-text">
+                           <label class="d-inline">Full name:</label>
+                           <p class="d-inline" th:utext="${customer.fullname}"></p>
+                        </div>
+                        <div class="card-text">
+                           <label class="d-inline">Phone: </label>
+                           <p class="d-inline" th:utext="${customer.phone}"></p>
+                        </div>
+                        <div class="card-text">
+                           <label class="d-inline">Address: </label>
+                           <p class="d-inline" th:utext="${customer.address}"></p>
+                        </div>
+                     </div>
+
+                  </div>
+                  <th:block th:if="${orders.isEmpty()}">
+                     <h2 class>This customer haven't order</h2>
+                  </th:block>
+                  <th:block th:if="${!orders.isEmpty()}">
+                     <h3>List order</h3>
+                     <div class="row">
+                        <table class="table table-bordered">
+                           <thead>
+                              <tr>
+                                 <th scope="col">ID</th>
+                                 <th scope="col">Create Date</th>
+                                 <th scope="col">Create By</th>
+                                 <th scope="col">Total</th>
+                                 <th scope="col">Action</th>
+                              </tr>
+                           </thead>
+
+                           <tbody>
+                              <tr th:each="order,state:${orders}">
+                                 <th th:text="${order.orderID}">1</th>
+                                 <td th:text="${#dates.format(order.orderDate,
+                                    'dd-MM-yyyy HH:mm')}">@mdo</td>
+                                 <td th:text="${order.staff?.staffID}">@mdo</td>
+                                 <td
+                                    th:text="${#numbers.formatDecimal(order.total,
+                                    0, 'COMMA', 0, 'POINT')}+ ' VNĐ'">Otto</td>
+                                 <td><a
+                                       th:href="@{/admin/orderDetail(orderID=${order.orderID})}">Detail</a></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </th:block>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script>
+      var form = document.getElementById("search-form");
+      form.remove();
+
+      document.getElementById("nav-top").style.justifyContent = "flex-end";
+	
+	var add = document.getElementById("li-btn-add");
+	
+	add.classList.remove("disable");
+	
+	function foo(){
+		return window.location.href='/admin'
+	}
+
+	document.querySelector('#btn-add').innerHTML = 'Thêm sản phẩm';
+   </script>
+      <script th:src="@{/admin/js/scripts.js}"></script>
+   </body>
+
+</html>

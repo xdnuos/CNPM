@@ -48,9 +48,9 @@
                         <h4 class="mb-1 me-1" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}+ ' VNĐ'">$13.99</h4>
                       </div>
                       <div class="d-flex flex-column mt-4">
-                        <button class="btn btn btn-info btn-sm" type="button">Chi tiết</button>
-                        <button class="btn btn-warning btn-sm mt-2" type="button">Sửa</button>
-                        <button class="btn btn-danger btn-sm mt-2" type="button">Xóa</button>
+                        <a class="btn btn btn-info btn-sm" role="button" >Detail</a>
+                        <a class="btn btn-warning btn-sm mt-2" role="button" th:href="@{/admin/editproduct(id=${product.productID})}">Edit</a>
+                        <a class="btn btn-danger btn-sm mt-2" role="button" th:href="@{/admin/deleteProduct(id=${product.productID})}">Delete</a>
                       </div>
                     </div>
                   </div>

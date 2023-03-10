@@ -23,6 +23,7 @@ public interface AccountDAO extends JpaRepository<Account, BigInteger> {
 	
 	List<Account> findAll();
 
-	
+	@Query("from Account as u where u.status = :status")
+	Optional<Account> findActiveAccount(@Param("status") String status);
 	
 }
