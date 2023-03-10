@@ -52,9 +52,7 @@ public class AdminStaff {
 	}
 	@PostMapping("/admin/saveOrUpdate")
 	public String saveStaff(@Valid @ModelAttribute("staff") Staff staff, BindingResult result,ModelMap model,
-			Account account,
-			@RequestParam(value = "email") String email,
-			@RequestParam(value = "password") String password){
+			Account account){
 		
 		if(staff.getStaffID()!= null && staff.getStaffID()> 0) {
 			model.addAttribute("message", "Update success!");
@@ -66,8 +64,6 @@ public class AdminStaff {
 		    return "admin/addOrUpdate";
 		  }
 		// save staff to database
-		account.setEmail(email);
-		account.setPassword(password);
 		staffService.save(staff);
 		return"redirect:/admin/staff";
 	}

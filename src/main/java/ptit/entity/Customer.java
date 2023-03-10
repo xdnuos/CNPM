@@ -20,9 +20,9 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long customerID;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "accountID")
-	private Account account;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "accountID")
+//	private Account account;
 	
 	private String adress;
 
@@ -48,20 +48,20 @@ public class Customer implements Serializable {
 	public Customer(long customerID, Account account, String adress, Date birth, String fullname, String phone,
 			boolean sex) {
 		this.customerID = customerID;
-		this.account = account;
+		//this.account = account;
 		this.adress = adress;
 		this.birth = birth;
 		this.fullname = fullname;
 		this.phone = phone;
 		this.sex = sex;
 	}
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
+//	public Account getAccount() {
+//		return account;
+//	}
+//
+//	public void setAccount(Account account) {
+//		this.account = account;
+//	}
 	public long getCustomerID() {
 		return this.customerID;
 	}

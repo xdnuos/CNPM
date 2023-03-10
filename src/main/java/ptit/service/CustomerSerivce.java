@@ -1,5 +1,5 @@
-package ptit.service;
-
-public interface CustomerSerivce {
-
-}
+//package ptit.service;
+//
+//public interface CustomerSerivce {
+//
+//}

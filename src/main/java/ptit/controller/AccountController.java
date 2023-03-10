@@ -29,7 +29,7 @@ public class AccountController {
 	public String index() {
 		return "index";
 	}
-	@GetMapping("/login")
+	@RequestMapping("/login")
 	public String login() {
 		return"login";
 	}

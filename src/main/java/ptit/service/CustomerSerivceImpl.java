@@ -1,5 +1,5 @@
-package ptit.service;
-
-public class CustomerSerivceImpl implements CustomerSerivce {
-
-}
+//package ptit.service;
+//
+//public class CustomerSerivceImpl implements CustomerSerivce {
+//
+//}
