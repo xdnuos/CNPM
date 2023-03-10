@@ -19,15 +19,15 @@
                   <h2>There is no items in Cart</h2>
                   <a th:href="@{/admin}">Show Product List</a>
                </th:block>
-               <div class="row text-center" style="margin-top:12px;">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-3"></div>
-                  <div class="col-md-1"><h6>Đơn giá</h6></div>
-                  <div class="col-md-2"><h6>Số lượng</h6></div>
-                  <div class="col-md-2"><h6>Số tiền</h6></div>
-                  <div class="col-md-2"><h6>Thao tác</h6></div>
-               </div>
                <th:block th:if="${cartForm != null && cartForm.cartItems != null && !cartForm.cartItems.empty}">
+                  <div class="row text-center" style="margin-top:12px;">
+                     <div class="col-md-2"></div>
+                     <div class="col-md-3"></div>
+                     <div class="col-md-1"><h6>Đơn giá</h6></div>
+                     <div class="col-md-2"><h6>Số lượng</h6></div>
+                     <div class="col-md-2"><h6>Số tiền</h6></div>
+                     <div class="col-md-2"><h6>Thao tác</h6></div>
+                  </div>
                   <form method="POST" th:object="${cartForm}" th:action="@{/admin/cart}">
                      <div class="product-preview-container" th:each="cartItem, varStatus : ${cartForm.cartItems}">
                         <div class="d-flex align-items-center">
