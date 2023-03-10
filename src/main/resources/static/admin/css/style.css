@@ -236,3 +236,6 @@ display: block;
 margin : 0 auto;
 text-align:center;
 }
+#customer-info{
+	margin-bottom:24px;
+}

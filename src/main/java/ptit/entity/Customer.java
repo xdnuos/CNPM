@@ -56,15 +56,8 @@ public class Customer implements Serializable {
 		this.customerID = customerID;
 	}
 
-	public Object getaddress() {
-		return this.address;
-	}
 
-	public void setaddress(String address) {
-		this.address = address;
-	}
-
-	public Object getBirth() {
+	public Date getBirth() {
 		return this.birth;
 	}
 
@@ -72,7 +65,7 @@ public class Customer implements Serializable {
 		this.birth = birth;
 	}
 
-	public Object getFullname() {
+	public String getFullname() {
 		return this.fullname;
 	}
 
@@ -146,6 +139,14 @@ public class Customer implements Serializable {
 
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	

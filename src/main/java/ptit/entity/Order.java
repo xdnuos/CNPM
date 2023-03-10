@@ -2,6 +2,8 @@ package ptit.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -38,13 +40,13 @@ public class Order implements Serializable {
 	private boolean status;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="customerID")
 	private Customer customer;
 
 	//bi-directional many-to-one association to OrderItem
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="order")
-	private List<OrderItem> orderItems;
+	@OneToMany(mappedBy="order")
+	private List<OrderItem> orderItems = new ArrayList<>();
 
 	public Order() {
 	}
