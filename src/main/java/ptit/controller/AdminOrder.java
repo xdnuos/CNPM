@@ -42,4 +42,16 @@ public class AdminOrder {
 		return "/admin/order";
 	}
 	
+	@GetMapping(value="/admin/orderDetail")
+	public String orderDetail(Model model,
+			@RequestParam("orderID") Long id) {
+		Order order = orderService.findById(id);
+		if(order!=null) {
+			model.addAttribute("order",order);
+		}else {
+			return "404";
+		}
+		return "/admin/orderDetail";
+	}
+	
 }

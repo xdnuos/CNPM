@@ -41,12 +41,12 @@ public class OrderItem implements Serializable {
 		this.orderItemID = orderItemID;
 	}
 
-	public Double getPrice() {
+	public Double getAmount() {
 		return this.amount;
 	}
 
-	public void setPrice(Double price) {
-		this.amount = price;
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
 	public int getQuantity() {

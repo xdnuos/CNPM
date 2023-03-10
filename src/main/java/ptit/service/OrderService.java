@@ -43,7 +43,7 @@ public class OrderService {
    	 cart.getCartItems().forEach((element)->{
 		OrderItem orderItem = new OrderItem();
 		orderItem.setProduct(element.getProduct());
-		orderItem.setPrice(element.getAmount());
+		orderItem.setAmount(element.getAmount());
 		orderItem.setQuantity(element.getQuantity());
    		order.addOrderItem(orderItem);
    	 });
@@ -62,7 +62,7 @@ public class OrderService {
 		cartItems.forEach((element) -> {
 				OrderItem orderItem = new OrderItem();
 				orderItem.setProduct(element.getProduct());
-				orderItem.setPrice(element.getAmount());
+				orderItem.setAmount(element.getAmount());
 				orderItem.setQuantity(element.getQuantity());
 				orderItems.add(orderItem);
 			});
@@ -90,4 +90,11 @@ public class OrderService {
 
         return orderPage;
     }
+	
+	public Order findById(Long id) {
+		if(orderDAO.findById(id).isPresent()) {
+			return orderDAO.findById(id).get();
+		}
+		return null;
+	}
 }

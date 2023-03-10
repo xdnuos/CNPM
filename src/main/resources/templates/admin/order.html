@@ -41,12 +41,12 @@
                                  <td th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')}+ ' VNĐ'">Otto</td>
                                  <td th:text="${order.staff?.staffID}">@mdo</td>
                                  <td th:text="${order.customer?.customerID}">@mdo</td>
-                                 <td><a th:href="@{/admin/orderDetail(size=${order.orderID})}">Chi tiết</a></td>
+                                 <td><a th:href="@{/admin/orderDetail(orderID=${order.orderID})}">Chi tiết</a></td>
                               </tr>
                            </tbody>
                         </table>
                      </div>
-<!--                   </th:block> -->
+                  </th:block>
                </div>
             </div>
          </div>

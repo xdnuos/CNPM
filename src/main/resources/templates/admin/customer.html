@@ -13,30 +13,21 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên</th>
-                                <th scope="col">SĐT</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Full name</th>
+                                <th scope="col">Phone number</th>
                                 <th scope="col">Email</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
+                                <th colspan="2"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>older</td>
-                                <td>disappear</td>
-                                <td>own</td>
-                                <td><a href="#">test</a></td>
-                                <td><a href="#">test</a></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>anything</td>
-                                <td>light</td>
-                                <td>duck</td>
-                                <td><a href="#">test</a></td>
-                                <td><a href="#">test</a></td>
+                            <tr th:each="customer : ${customers}">
+                                <td th:text="${customer.customerID}">1</td>
+                                <td th:text="${customer.fullname}">older</td>
+                                <td th:text="${customer.phone}">disappear</td>
+                                <td th:text="${customer.account?.email}">own</td>
+                                <td><a th:href="@{/admin/disableCustomer(id=${customer.account?.accountID})}">Disable</a></td>
+                                <td><a th:href="@{/admin/disableCustomer(id=${customer.customerID})}">View order</a></td>
                             </tr>
                         </tbody>
                     </table>
