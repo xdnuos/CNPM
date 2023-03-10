@@ -48,6 +48,7 @@ public class OrderService {
    		order.addOrderItem(orderItem);
    	 });
    	 
+   	 order.setTotal(cart.getAmountTotal());
    	 order.setPayment(payment);
    	 order.setAdress(cart.getCustomer().getAddress());
    	 order.setFullname(cart.getCustomer().getFullname());

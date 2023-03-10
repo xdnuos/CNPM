@@ -32,7 +32,9 @@ public class Order implements Serializable {
 	private String payment;
 
 	private String phone;
-
+	
+	private Double total;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="staffID")
 	private Staff staff;
@@ -153,5 +155,15 @@ public class Order implements Serializable {
 	public void setStaff(Staff staff) {
 		this.staff = staff;
 	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+	
+	
 
 }
