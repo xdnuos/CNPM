@@ -23,6 +23,9 @@
                      th:action="@{/admin/continuteOrder}" class="col-md-8 mx-auto">
                      <div class="page-title" style="margin-bottom: 24px;"><h4>Nhập thông tin khách hàng</h4></div>
                      <div class="row">
+                        <input id="id" class="form-control" th:field="*{customerID}" style="display: none;">
+                        <input id="id" class="form-control" th:field="*{birth}" style="display: none;">
+                        <input id="id" class="form-control" th:field="*{sex}" style="display: none;">
                         <div class="col-md-8">
                            <label for="fullname">Tên khách hàng</label>
                            <input id="fullname" class="form-control"
@@ -30,8 +33,8 @@
                         </div>
                         <div class="col-md-4">
                            <label for="phone">Số điện thoại</label>
-                           <input id="phone" class="form-control"
-                              th:field="*{phone}">
+                           <input id="phone" name="phone" class="form-control"
+                              th:field="*{phone}" onblur="myFunction()"/>
                         </div>
                      </div>
                      <div class="row">
@@ -72,6 +75,11 @@
     form.remove();
 
     document.getElementById("nav-top").style.justifyContent = "flex-end";
+
+    function myFunction(){
+        var NameValue = document.getElementById('phone').value;
+        window.open("/admin/checkCustomer?phone="+NameValue,"_self");
+    }
   </script>
       <script th:src="@{/admin/js/scripts.js}"></script>
    </body>

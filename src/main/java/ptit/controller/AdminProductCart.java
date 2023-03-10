@@ -1,7 +1,5 @@
 package ptit.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,18 +9,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ptit.entity.Order;
-import ptit.entity.OrderItem;
 import jakarta.servlet.http.HttpServletRequest;
 import ptit.entity.Cart;
 import ptit.entity.Customer;
 import ptit.entity.Product;
-import ptit.repository.OrderDAO;
+import ptit.repository.CustomerDAO;
 import ptit.service.OrderService;
 import ptit.service.ProductService;
 import ptit.utils.Utils;
@@ -31,6 +25,9 @@ import ptit.utils.Utils;
 public class AdminProductCart {
 		@Autowired
 		ProductService productService;
+		
+		@Autowired
+		CustomerDAO customerDAO;
 		
 		@Autowired
 		OrderService orderService;
@@ -100,6 +97,25 @@ public class AdminProductCart {
 		      }
 		      return "/admin/continuteOrder";
 	   }
+	   
+	   @GetMapping(value = { "/admin/checkCustomer" })
+	   public String checkCustomer(HttpServletRequest request, Model model,Customer customer,@RequestParam("phone") String phone) {
+
+		      Cart cartInfo = Utils.getCartInSession(request);
+
+	    	  customer = customerDAO.findByPhone(phone);
+	    	  if(customer == null) {
+	    		  customer = new Customer();
+	    		  customer.setPhone(phone);
+	    	  }
+	    	  
+		      model.addAttribute(customer);
+		      if (cartInfo.isEmpty()) {
+
+		         return "redirect:/admin/cart";
+		      }
+		      return "/admin/continuteOrder";
+	   }
 	   // POST: Save customer information.
 	   @PostMapping(value = { "/admin/continuteOrder" })
 	   public String shoppingCartCustomerSave(HttpServletRequest request, //
@@ -112,7 +128,6 @@ public class AdminProductCart {
 	      Cart cart = Utils.getCartInSession(request);
 	      customer.setSex(gender);
 	      cart.setCustomer(customer);
-
 	      return "redirect:/admin/orderConfirmation";
 	   }
 	   
@@ -142,8 +157,7 @@ public class AdminProductCart {
 	      }
 	      
 	      try {
-	    	  Customer newCustomer = cart.getCustomer();
-	    	  orderService.saveCart2Order(cart, newCustomer, note,"live");
+	    	  orderService.saveCart2Order(cart, note,"live");
 	      } catch (Exception e) {
 	         return "redirect:/admin/orderConfirmation";
 	      }

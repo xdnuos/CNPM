@@ -45,7 +45,7 @@ public class Order implements Serializable {
 	private Customer customer;
 
 	//bi-directional many-to-one association to OrderItem
-	@OneToMany(mappedBy="order")
+	@OneToMany(mappedBy="order",  cascade=CascadeType.ALL)
 	private List<OrderItem> orderItems = new ArrayList<>();
 
 	public Order() {

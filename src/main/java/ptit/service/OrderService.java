@@ -2,6 +2,7 @@ package ptit.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,27 +12,39 @@ import ptit.entity.CartItem;
 import ptit.entity.Customer;
 import ptit.entity.Order;
 import ptit.entity.OrderItem;
+import ptit.repository.CustomerDAO;
 import ptit.repository.OrderDAO;
 
 @Service
 public class OrderService {
 	@Autowired
 	OrderDAO orderDAO;
+	
+	@Autowired
+	CustomerDAO customerDAO;
 
-	public void saveCart2Order(Cart cart, Customer customer ,String note,String payment) {
+	public void saveCart2Order(Cart cart,String note,String payment) {
    	 Order order = new Order();
-   	 order.setAdress(cart.getCustomer().getAddress());
-   	 order.setFullname(cart.getCustomer().getFullname());
+   	 Optional<Customer> newCustomer = customerDAO.findById(cart.getCustomer().getCustomerID());
+   	 if(newCustomer.isPresent()) {
+   		 order.setCustomer(newCustomer.get());
+   	 }else {
+   		 order.setCustomer(cart.getCustomer());
+   	 }
    	 order.setNote(note);
 //   	 order.setOrderDate(null);
-   	 List<OrderItem> orderItems = cartItem2OrderItem(cart.getCartItems());
-   	 order.setOrderItems(orderItems);
-   	 order.setOrderItems(orderItems);
+   	 cart.getCartItems().forEach((element)->{
+		OrderItem orderItem = new OrderItem();
+		orderItem.setProduct(element.getProduct());
+		orderItem.setPrice(element.getAmount());
+		orderItem.setQuantity(element.getQuantity());
+   		order.addOrderItem(orderItem);
+   	 });
+   	 
    	 order.setPayment(payment);
-   	 if(customer!=null) {
-   		order.setCustomer(customer);
-   		order.setPhone(customer.getPhone());
-   	 }
+   	 order.setAdress(cart.getCustomer().getAddress());
+   	 order.setFullname(cart.getCustomer().getFullname());
+   	 order.setPhone(cart.getCustomer().getPhone());
    	 orderDAO.save(order);
 	}
 	
