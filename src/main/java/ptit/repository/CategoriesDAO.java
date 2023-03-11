@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ptit.entity.Category;
 
-public interface CategoriesDAO extends JpaRepository<Category, Long> {
+public interface CategoriesDAO extends JpaRepository<Category, Integer> {
 	Category findByCategoryID(int CategoryID);
 	
 	List<Category> findAll();

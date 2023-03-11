@@ -97,16 +97,7 @@ public class AdminCustomer {
 		model.addAttribute("customer", customer);
 		return "admin/userOrder";
 	}
-  //endhung
-	private CustomerSerivce customerSerivce;
-	
-	@Autowired
-	private AccountService accountService;
-	
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
+
 //	@RequestMapping("/login")
 //	public String login() {
 //		return"login";

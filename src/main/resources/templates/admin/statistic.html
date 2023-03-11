@@ -29,36 +29,41 @@
                   </div>
                   <div class="col-12 col-lg-4">
                     <div class="card card-three">
-                      <h3 th:text="${income}">89200+</h3>
+                      <h3 th:text="${#numbers.formatDecimal(income, 0,
+                        'COMMA', 0, 'POINT')}+ ' VNĐ'">89200+</h3>
                       <p>Imcome today</p>
                     </div>
                   </div>
                 </div>
                 
-                <h3>Thống kê doanh thu</h3>
+                <h3>Revenue statistics</h3>
                 <div class="row status">
                   <div class="col-12 col-lg-3">
                     <div class="card card-one">
-                      <h3 th:text="${incomeDay}">250</h3>
-                      <p>Ngày</p>
+                      <h4  th:text="${#numbers.formatDecimal(incomeDay, 0,
+                        'COMMA', 0, 'POINT')}+ ' VNĐ'">250</h4>
+                      <p>Day</p>
                     </div>
                   </div>
                   <div class="col-12 col-lg-3">
                     <div class="card card-two">
-                      <h3 th:text="${incomeMonth}">500+</h3>
-                      <p>Tháng</p>
+                      <h4 th:text="${#numbers.formatDecimal(incomeMonth, 0,
+                        'COMMA', 0, 'POINT')}+ ' VNĐ'">500+</h4>
+                      <p>Month</p>
                     </div>
                   </div>
                   <div class="col-12 col-lg-3">
                     <div class="card card-three">
-                      <h3 th:text="${incomeQuater}">89200+</h3>
-                      <p>Quý</p>
+                      <h4 th:text="${#numbers.formatDecimal(incomeQuater, 0,
+                        'COMMA', 0, 'POINT')}+ ' VNĐ'">89200+</h4>
+                      <p>Quater</p>
                     </div>
                   </div>
                   <div class="col-12 col-lg-3">
                     <div class="card card-one">
-                      <h3 th:text="${incomeYear}">89200+</h3>
-                      <p>Năm</p>
+                      <h4 th:text="${#numbers.formatDecimal(incomeYear, 0,
+                        'COMMA', 0, 'POINT')}+ ' VNĐ'">89200+</h4>
+                      <p>Year</p>
                     </div>
                   </div>
                 </div>

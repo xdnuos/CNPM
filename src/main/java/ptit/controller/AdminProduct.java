@@ -196,6 +196,7 @@ public class AdminProduct {
     		    } catch (Exception e) {
 		    }
     	}
+    	product.setStatus(true);
     	product.setProductID(productID);
         productService.save(product);
     	status.setComplete();
