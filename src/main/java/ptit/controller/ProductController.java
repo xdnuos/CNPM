@@ -52,7 +52,7 @@ public class ProductController  {
 	 }
 	
 	// tim toan bo san pham theo phan trang
-	 @RequestMapping("/index /")
+	 @RequestMapping("/index")
 	  public String listCustomer(Model model,
 	      @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 	      @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
