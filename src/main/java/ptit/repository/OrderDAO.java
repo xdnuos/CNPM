@@ -14,6 +14,6 @@ public interface OrderDAO extends JpaRepository<Order, Long>{
 	@Query("from Order as o where o.customer.customerID =:id")
 	List<Order> findByUser(@Param("id") Long id);
 	
-	@Query("from Order as o where o.orderDate between :start and :end")
+	@Query("from Order as o where o.orderDate between :end and :start")
 	List<Order> findByTime(@Param("start") Calendar start, @Param("end") Calendar end);
 }

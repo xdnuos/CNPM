@@ -1,5 +1,6 @@
 package ptit.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ptit.entity.BestProduct;
 import ptit.entity.Customer;
 import ptit.entity.Order;
 import ptit.repository.CustomerDAO;
@@ -77,20 +79,23 @@ public class AdminStatistic {
 		model.addAttribute("incomeQuater",incomeQuater);
 		model.addAttribute("incomeYear",incomeYear);
 		
+		ArrayList<String> items = new ArrayList<String>();
+		ArrayList<Long> values = new ArrayList<Long>();
+		
+		List<BestProduct> bestProducts = productDAO.findBestProduct();
+		for(int i=0;i<bestProducts.size();i++) {
+			items.add(String.valueOf(bestProducts.get(i).getProductID()));
+			values.add(bestProducts.get(i).getCount());
+			if(i>5) {
+				break;
+			}
+		}
 		//------------------------------------------------------
-//		model.addAttribute("item1",item1);
-//		model.addAttribute("item2",item2);
-//		model.addAttribute("item3",item3);
-//		model.addAttribute("item4",item4);
-//		model.addAttribute("item5",item5);
-//		model.addAttribute("item6",item6);
-//		//------------------------------------------------------
-//		model.addAttribute("value1",value1);
-//		model.addAttribute("value2",value2);
-//		model.addAttribute("value3",value3);
-//		model.addAttribute("value4",value4);
-//		model.addAttribute("value5",value5);
-//		model.addAttribute("value6",value6);
+//		String[] items = {item1,item2,item3,item4,item5,item6};
+		model.addAttribute("items", items);
+		//------------------------------------------------------
+//		int[] values = {value1,value2,value3,value4,value5,value6};
+		model.addAttribute("values", values);
 		return "admin/statistic";
 	}
 	
@@ -102,7 +107,7 @@ public class AdminStatistic {
 	public int total(List<Order> ordersDay) {
 		int income=0;
 		if(!ordersDay.isEmpty()) {
-			for(int i=0;i<=ordersDay.size();i++) {
+			for(int i=0;i<ordersDay.size();i++) {
 				income+=ordersDay.get(i).getTotal().intValue();
 			}
 		}

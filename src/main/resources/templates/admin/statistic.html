@@ -34,19 +34,52 @@
                     </div>
                   </div>
                 </div>
+                
+                <h3>Thống kê doanh thu</h3>
+                <div class="row status">
+                  <div class="col-12 col-lg-3">
+                    <div class="card card-one">
+                      <h3 th:text="${incomeDay}">250</h3>
+                      <p>Ngày</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-3">
+                    <div class="card card-two">
+                      <h3 th:text="${incomeMonth}">500+</h3>
+                      <p>Tháng</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-3">
+                    <div class="card card-three">
+                      <h3 th:text="${incomeQuater}">89200+</h3>
+                      <p>Quý</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-3">
+                    <div class="card card-one">
+                      <h3 th:text="${incomeYear}">89200+</h3>
+                      <p>Năm</p>
+                    </div>
+                  </div>
+                </div>
+               
                 <div class="row">
                   <div class="col-md-10 col-12 mx-auto">
                     <h5 class="head-show">Best Product</h5>
                     <canvas id="bestProduct" width="400" height="200"></canvas>
-<!--                     <script th:inline="javascript">
+                    <script th:inline="javascript">
+                    /*<![CDATA[*/
                     const ctx = document.getElementById('bestProduct').getContext('2d');
+                    var lables=/*[[${items}]]*/;
+                    var data=/*[[${values}]]*/;
+                    
                     const bestProduct = new Chart(ctx, {
                       type: 'bar',
                       data: {
-                        labels: [[${item1}], [${item2}], [${item3}], [${item4}], [${item5}], [${item6}]],
+                        labels: lables,
                         datasets: [{
                           label: 'Best Product',
-                          data: [[${value1}], [${value2}],[${value3}],[${value4}], [${value5}],[${value6}]],
+                          data: data,
                           backgroundColor: [
                             'rgba(255, 99, 132, 0.5)',
                             'rgba(54, 162, 235, 0.5)',
@@ -74,67 +107,10 @@
                         }
                       }
                     });
-                  </script> -->
+                    /*]]>*/
+                  </script>
                   </div>
                 </div>
-              </div>
-              <div class="container mt-5">
-                <h5>List of all sales</h5>
-                <table class="table table-hover table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">First</th>
-                      <th scope="col">Last</th>
-                      <th scope="col">Handle</th>
-                      <th scope="col">Role</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>triangle</td>
-                      <td>older</td>
-                      <td>disappear</td>
-                      <td>own</td>
-                      <td>roll</td>
-                    </tr>
-                    <tr>
-                      <td>folks</td>
-                      <td>anything</td>
-                      <td>light</td>
-                      <td>duck</td>
-                      <td>truck</td>
-                    </tr>
-                    <tr>
-                      <td>slowly</td>
-                      <td>slope</td>
-                      <td>past</td>
-                      <td>immediately</td>
-                      <td>lunch</td>
-                    </tr>
-                    <tr>
-                      <td>serious</td>
-                      <td>label</td>
-                      <td>way</td>
-                      <td>secret</td>
-                      <td>twelve</td>
-                    </tr>
-                    <tr>
-                      <td>evidence</td>
-                      <td>corn</td>
-                      <td>teacher</td>
-                      <td>grass</td>
-                      <td>service</td>
-                    </tr>
-                    <tr>
-                      <td>everyone</td>
-                      <td>terrible</td>
-                      <td>smoke</td>
-                      <td>bush</td>
-                      <td>lack</td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
             </div>
           </div>
