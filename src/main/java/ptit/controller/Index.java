@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 
 import ptit.entity.Account;
 import ptit.entity.Customer;
@@ -85,5 +87,11 @@ public class Index {
 	@GetMapping("/403")
 	public String page403(HttpSession session) {
 		return"403";
+	}
+	
+	@GetMapping("/")
+	public String index() {
+
+		return "index";
 	}
 }

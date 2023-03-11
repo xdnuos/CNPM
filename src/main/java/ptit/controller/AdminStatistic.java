@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ptit.entity.BestProduct;
 import ptit.entity.Customer;
 import ptit.entity.Order;
+import ptit.entity.Product;
 import ptit.repository.CustomerDAO;
 import ptit.repository.OrderDAO;
 import ptit.repository.ProductDAO;
@@ -84,7 +85,8 @@ public class AdminStatistic {
 		
 		List<BestProduct> bestProducts = productDAO.findBestProduct();
 		for(int i=0;i<bestProducts.size();i++) {
-			items.add(String.valueOf(bestProducts.get(i).getProductID()));
+			Product newwwProduct = productDAO.findById(bestProducts.get(i).getProductID()).get();
+			items.add(newwwProduct.getName());
 			values.add(bestProducts.get(i).getCount());
 			if(i>5) {
 				break;

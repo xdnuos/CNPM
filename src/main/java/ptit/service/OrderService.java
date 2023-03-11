@@ -11,13 +11,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import ptit.entity.Account;
 import ptit.entity.Cart;
 import ptit.entity.CartItem;
 import ptit.entity.Customer;
 import ptit.entity.Order;
 import ptit.entity.OrderItem;
+import ptit.repository.AccountDAO;
 import ptit.repository.CustomerDAO;
 import ptit.repository.OrderDAO;
 
@@ -28,6 +32,9 @@ public class OrderService {
 	
 	@Autowired
 	CustomerDAO customerDAO;
+	
+	@Autowired
+	AccountDAO accountDAO;
 
 	public void saveCart2Order(Cart cart,String note,String payment) {
    	 Order order = new Order();
@@ -47,7 +54,12 @@ public class OrderService {
 		orderItem.setQuantity(element.getQuantity());
    		order.addOrderItem(orderItem);
    	 });
-   	 
+   	 //get admin id
+	 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	 String login = authentication.getName();
+	 Account account = accountDAO.findByEmail(login);
+	
+	 order.setStaff(account.getStaff());
    	 order.setTotal(cart.getAmountTotal());
    	 order.setPayment(payment);
    	 order.setAdress(cart.getCustomer().getAddress());

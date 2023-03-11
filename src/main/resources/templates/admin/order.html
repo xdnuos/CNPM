@@ -27,11 +27,11 @@
                            <thead>
                               <tr>
                                  <th scope="col">ID</th>
-                                 <th scope="col">Ngày tạo hóa đơn</th>
-                                 <th scope="col">Tổng giá trị đơn hàng</th>
-                                 <th scope="col">Người tạo</th>
-                                 <th scope="col">Mã khách hàng</th>
-                                 <th scope="col">Thao tác</th>
+                                 <th scope="col">Create date</th>
+                                 <th scope="col">Total</th>
+                                 <th scope="col">Create by</th>
+                                 <th scope="col">Customer ID</th>
+                                 <th scope="col">Action</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -39,9 +39,9 @@
                                  <th th:text="${order.orderID}">1</th>
                                  <td th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy HH:mm')}">Mark</td>
                                  <td th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')}+ ' VNĐ'">Otto</td>
-                                 <td th:text="${order.staff?.staffID}">@mdo</td>
+                                 <td th:text="${order.staff?.fullname}">@mdo</td>
                                  <td th:text="${order.customer?.customerID}">@mdo</td>
-                                 <td><a th:href="@{/admin/orderDetail(orderID=${order.orderID})}">Chi tiết</a></td>
+                                 <td><a th:href="@{/admin/orderDetail(orderID=${order.orderID})}">Detail</a></td>
                               </tr>
                            </tbody>
                         </table>
@@ -52,20 +52,13 @@
          </div>
       </div>
       <script>
+  	var element = document.getElementById("order");
+	element.classList.add("active");
+	
       var form = document.getElementById("search-form");
       form.remove();
 
       document.getElementById("nav-top").style.justifyContent = "flex-end";
-	
-	var add = document.getElementById("li-btn-add");
-	
-	add.classList.remove("disable");
-	
-	function foo(){
-		return window.location.href='/admin'
-	}
-
-	document.querySelector('#btn-add').innerHTML = 'Thêm sản phẩm';
    </script>
       <script th:src="@{/admin/js/scripts.js}"></script>
    </body>
