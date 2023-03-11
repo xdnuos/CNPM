@@ -29,7 +29,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
         UserDetails admin = User.withUsername("abc@gmail.com")
-                .password(encoder.encode("p123456"))
+                .password(encoder.encode("123456"))
                 .roles("ADMIN")
                 .build();
         UserDetails user = User.withUsername("user")

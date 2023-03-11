@@ -24,7 +24,7 @@
 
 						<div class="staff-form">
 							<form class="mb-0" th:action="@{/admin/saveOrUpdate}"
-								th:object="${staff}" method="post" enctype="multipart/form-data">
+								th:object="${staffs}" method="post" enctype="multipart/form-data">
 								<div th:if="${staffID >0}" class="form-group">
 									<label class="lbl">STAFFID</label> <input type="text"
 										th:field="*{staffID}" class="form-control" disabled

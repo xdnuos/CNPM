@@ -37,7 +37,7 @@ public class AdminStaff {
 	
 	@RequestMapping(value = "/admin/staff")
     public String staff(ModelMap model) {
-        model.addAttribute("staff", staffService.findAll());
+        model.addAttribute("staffs", staffService.findAll());
         return "admin/staff";
     }
 	@GetMapping("/admin/addstaff")
@@ -46,12 +46,12 @@ public class AdminStaff {
 		model.addAttribute("permissions", permissions);
 		
 		Staff staff = new Staff();
-		model.addAttribute("staff", staff);
+		model.addAttribute("staffs", staff);
 		model.addAttribute("message", "Staff Add");
 		return"admin/addOrUpdate";
 	}
 	@PostMapping("/admin/saveOrUpdate")
-	public String saveStaff(@Valid @ModelAttribute("staff") Staff staff, BindingResult result,ModelMap model,
+	public String saveStaff(@Valid @ModelAttribute("staffs") Staff staff, BindingResult result,ModelMap model,
 			Account account){
 		
 		if(staff.getStaffID()!= null && staff.getStaffID()> 0) {
@@ -74,7 +74,7 @@ public class AdminStaff {
 		Optional<Staff> staff = staffService.findById(staffID);
 		
 		// set staff as a model attribute 
-		model.addAttribute("staff", staff);
+		model.addAttribute("staffs", staff);
 		model.addAttribute("permissions", permissions);
 		model.addAttribute("message", "Staff Update");
 		return"admin/addOrUpdate";
@@ -88,7 +88,7 @@ public class AdminStaff {
 	public String sortStaff(ModelMap model, @RequestParam("field") Optional<String> field) {
 		Sort sort=Sort.by(Direction.ASC, field.orElse("staffID"));
 		List<Staff> ls = staffService.findAll(sort);
-		model.addAttribute("staff", ls);
+		model.addAttribute("staffs", ls);
 		return"admin/staff";
 	}
 //	@GetMapping("/sortstaff/page")

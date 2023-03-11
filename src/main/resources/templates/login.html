@@ -13,7 +13,7 @@
 						<div class="modal-body">
 							<h6>Welcome Back</h6>
 							<div class="sign-form">
-								<form class="form-signin"  id="login" method='POST'>
+								<form  th:action="@{/j_spring_security_check}" id="login" method='POST'>
 									<div class="form-group">
 										<input type="text" class="form-control" id="email" name="email" placeholder="Email">
 										<span class="form-message"></span>

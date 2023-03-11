@@ -44,16 +44,15 @@ public class Account implements Serializable {
 	@OneToOne(mappedBy = "account")
 	private Staff staff;
     
-//    @OneToOne(mappedBy = "account")
-//    private Customer customer;
+    @OneToOne(mappedBy = "account")
+    private Customer customer;
 
 	public Account() {
 
 	}
-
-	public Account(Long accountID, String email, String password, Date create_date, Boolean status,
-			Permission permission, Staff staff) {
-		super();
+	public Account(Long accountID, @Email @NotEmpty(message = "Vui lòng nhập Email") String email,
+			@Size(min = 6, max = 225, message = "Tên nhân viên phải từ 6-225 kí tự") @NotEmpty(message = "Vui lòng nhập password") String password,
+			Date create_date, Boolean status, Permission permission, Staff staff, Customer customer) {
 		this.accountID = accountID;
 		this.email = email;
 		this.password = password;
@@ -61,8 +60,10 @@ public class Account implements Serializable {
 		this.status = status;
 		this.permission = permission;
 		this.staff = staff;
-		//this.customer = customer;
+		this.customer = customer;
 	}
+
+
 
 
 	public String getEmail() {
@@ -122,12 +123,12 @@ public class Account implements Serializable {
 		this.staff = staff;
 	}
 
-//	public Customer getCustomer() {
-//		return customer;
-//	}
-//
-//	public void setCustomer(Customer customer) {
-//		this.customer = customer;
-//	}
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
 }
