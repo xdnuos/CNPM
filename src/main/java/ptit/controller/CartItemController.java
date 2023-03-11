@@ -18,7 +18,7 @@ public class CartItemController {
 	
 	
 	
-	@RequestMapping( "AddCart/{id}")
+	@RequestMapping( "/AddCart/{id}")
 	public String AddCart(HttpServletRequest request ,HttpSession session ,@PathVariable long id)
 	{
 		HashMap<Long ,CartItem> cart= (HashMap<Long,CartItem>)session.getAttribute("Cart");
