@@ -34,8 +34,6 @@ public class Account implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date create_date;
 
-	@Column(nullable = false)
-	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "permissionID", nullable = false)
 	private Permission permission;
