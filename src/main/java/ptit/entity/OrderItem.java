@@ -18,7 +18,7 @@ public class OrderItem implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long orderItemID;
 
-	private BigDecimal price;
+	private Double amount;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="productID")
@@ -26,7 +26,6 @@ public class OrderItem implements Serializable {
 
 	private int quantity;
 
-	//bi-directional many-to-one association to Order
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="orderID")
 	private Order order;
@@ -42,12 +41,12 @@ public class OrderItem implements Serializable {
 		this.orderItemID = orderItemID;
 	}
 
-	public BigDecimal getPrice() {
-		return this.price;
+	public Double getAmount() {
+		return this.amount;
 	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
 	public int getQuantity() {

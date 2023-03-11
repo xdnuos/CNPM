@@ -1,11 +1,13 @@
 package ptit.service;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import ptit.entity.Product;
 
 public interface ProductService {
  Product findById(Long id);
  void save(Product product);
- 
- Product saveProduct(Product product,int categoryId, int manuId);
+ Page<Product> findPaginated(Pageable pageable);
 }

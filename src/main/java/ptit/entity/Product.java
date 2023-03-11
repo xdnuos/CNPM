@@ -42,11 +42,9 @@ public class Product implements Serializable{
     @Column(name="status")
     private boolean status;
     
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "product_manufactor",
-	joinColumns = @JoinColumn(name = "productID"),
-	inverseJoinColumns = @JoinColumn(name = "manufacturerID"))
-    private List<Manufacturer> manufacturers = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "manufacturerID")
+    private Manufacturer manufacturer;
     
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "product_category",
@@ -54,8 +52,8 @@ public class Product implements Serializable{
     inverseJoinColumns = @JoinColumn(name = "categoryID"))
     private List<Category> category = new ArrayList<>();
     
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
-//    private List<ListImage> listImages = new ArrayList<>();
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Image> listImages = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItem> oderItem = new ArrayList<>();
@@ -107,22 +105,12 @@ public class Product implements Serializable{
 		this.quantity = quantity;
 	}
 
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
 	public void setStatus(boolean status) {
 		this.status = status;
-	}
-
-	public List<Manufacturer> getManufacturers() {
-		return manufacturers;
-	}
-
-	public void setManufacturers(Manufacturer newManufacturer) {
-		List<Manufacturer> listManu = new ArrayList<>();
-		listManu.add(newManufacturer);
-		this.manufacturers = listManu;
 	}
 
 	public List<Category> getCategory() {
@@ -135,13 +123,13 @@ public class Product implements Serializable{
 		this.category = listCate;
 	}
 
-//	public List<ListImage> getListImages() {
-//		return listImages;
-//	}
-//
-//	public void setListImages(List<ListImage> listImages) {
-//		this.listImages = listImages;
-//	}
+	public List<Image> getListImages() {
+		return listImages;
+	}
+
+	public void setListImages(List<Image> listImages) {
+		this.listImages = listImages;
+	}
 
 	public List<OrderItem> getOderItem() {
 		return oderItem;
@@ -157,5 +145,17 @@ public class Product implements Serializable{
 
 	public void setCartItem(List<CartItem> cartItem) {
 		this.cartItem = cartItem;
+	}
+
+	public void setCategory(List<Category> category) {
+		this.category = category;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 }

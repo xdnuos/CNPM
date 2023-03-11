@@ -1,38 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head th:replace="admin/layout :: head"></head>
 
 <body>
-	<div class="container-fluid">
-		<div class="row g-0">
-			<div th:replace="admin/layout :: navleft"></div>
-			<div
-				class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
-				<div class="container">
-					<nav th:replace="admin/layout :: navtop"></nav>
-					
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container-fluid">
+        <div class="row g-0">
+            <div th:replace="admin/layout :: navleft"></div>
+            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
+                <div class="container">
+                	<nav th:replace="admin/layout :: navtop"></nav>
+                	<h5 class="text-danger" th:text="${message}"></h5>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Full name</th>
+                                <th scope="col">Phone number</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Status</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="customer : ${customers}">
+                                <td th:text="${customer.customerID}">1</td>
+                                <td th:text="${customer.fullname}">older</td>
+                                <td th:text="${customer.phone}">disappear</td>
+                                <td th:text="${customer.account?.email}">own</td>
+                                <td th:text="${customer.account?.status}" id="disableAccount">own</td>
+                                <td><a th:href="@{/admin/disableCustomer(id=${customer.account?.accountID})}" id="disableAccount-btn">Disable</a></td>
+                                <td><a th:href="@{/admin/viewOrder(id=${customer.customerID})}">View order</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="../static/admin/js/scripts.js"></script>
-	<script>
-		var element = document.getElementById("customer");
-		element.classList.add("active");
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/admin/js/scripts.js"></script>
+    <script>
+	var element = document.getElementById("customer");
+	element.classList.add("active");
+	
+	var add = document.getElementById("cart-icon");
+	
+	add.classList.remove("disable");
+	
+	function foo(){
+		return window.location.href='/admin/addcus'
+	}
 
-		var add = document.getElementById("cart-icon");
-
-		add.classList.remove("disable");
-
-		function foo() {
-			return window.location.href = '/admin/addcustomer'
-		}
-	</script>
+	if($("#disableAccount").text() == "disable"){
+		$("#disableAccount-btn").text("Enable");
+	}else{
+		$("#disableAccount-btn").text("Disable");
+	}
+		
+    </script>
 </body>
 
 </html>

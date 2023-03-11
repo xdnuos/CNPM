@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head th:replace="admin/layout :: head"></head>
+
+   <head>
+      <script
+         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   </head>
+
+   <body>
+      <div class="container-fluid">
+         <div class="row g-0">
+            <div th:replace="admin/layout :: navleft"></div>
+            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10
+               content-column">
+               <div class="container">
+                  <nav th:replace="admin/layout :: navtop"></nav>
+                  <!-- CODE HERE -->
+                  <th:block th:if="${orderPage == null}">
+                     <h2>There is no order</h2>
+                     <a th:href="@{/admin}">Show Product List</a>
+                  </th:block>
+                  <th:block th:if="${orderPage != null}">
+                     <div class="row">
+                        <table class="table table-bordered">
+                           <thead>
+                              <tr>
+                                 <th scope="col">ID</th>
+                                 <th scope="col">Ngày tạo hóa đơn</th>
+                                 <th scope="col">Tổng giá trị đơn hàng</th>
+                                 <th scope="col">Người tạo</th>
+                                 <th scope="col">Mã khách hàng</th>
+                                 <th scope="col">Thao tác</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr th:each="order,state:${orderPage.content}">
+                                 <th th:text="${order.orderID}">1</th>
+                                 <td th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy HH:mm')}">Mark</td>
+                                 <td th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')}+ ' VNĐ'">Otto</td>
+                                 <td th:text="${order.staff?.staffID}">@mdo</td>
+                                 <td th:text="${order.customer?.customerID}">@mdo</td>
+                                 <td><a th:href="@{/admin/orderDetail(orderID=${order.orderID})}">Chi tiết</a></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </th:block>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script>
+      var form = document.getElementById("search-form");
+      form.remove();
+
+      document.getElementById("nav-top").style.justifyContent = "flex-end";
+	
+	var add = document.getElementById("li-btn-add");
+	
+	add.classList.remove("disable");
+	
+	function foo(){
+		return window.location.href='/admin'
+	}
+
+	document.querySelector('#btn-add').innerHTML = 'Thêm sản phẩm';
+   </script>
+      <script th:src="@{/admin/js/scripts.js}"></script>
+   </body>
+
+</html>

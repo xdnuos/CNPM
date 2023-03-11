@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head th:replace="admin/layout :: head"></head>
+
+   <head>
+      <script
+         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   </head>
+
+   <body>
+      <div class="container-fluid">
+         <div class="row g-0">
+            <div th:replace="admin/layout :: navleft"></div>
+            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10
+               content-column">
+               <div class="container">
+                  <nav th:replace="admin/layout :: navtop"></nav>
+                  <!-- CODE HERE -->
+                  <div class="page-title"><h3>Xác nhận đơn hàng</h3></div>
+                  <div class="card" id="customer-info">
+                     <div class="card-body">
+                        <h5 class="card-title">Thông tin khách hàng:</h5>
+                        <div class="cart-text">
+                        	<label class="d-inline">Họ và tên:</label>
+                        	<p class="d-inline" th:utext="${myCart.customer.fullname}"></p>
+                        </div>
+                        <div class="card-text">
+                           <label class="d-inline">SĐT: </label>
+                           <p class="d-inline" th:utext="${myCart.customer.phone}"></p>
+                        </div>
+                        <div class="card-text">
+                           <label class="d-inline">Địa chỉ: </label>
+                           <p class="d-inline" th:utext="${myCart.customer.address}"></p>
+                        </div>
+                        <a th:href="@{/admin/continuteOrder}" class="btn btn-sm btn-outline-primary" style="margin-top: 16px;">Chỉnh sửa thông tin khách hàng</a>
+                     </div>
+
+                  </div>
+
+                  <table class="table table-bordered">
+                     <thead>
+                        <tr>
+                           <th scope="col">ID</th>
+                           <th scope="col">Tên sản phẩm</th>
+                           <th scope="col">Giá</th>
+                           <th scope="col">Số lượng</th>
+                           <th scope="col">Đơn giá</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr th:each="cartItem : ${myCart.cartItems}">
+                           <th scope="row"
+                              th:value="${cartItem.product.productID}">1</th>
+                           <td th:utext="${cartItem.product.name}">Mark</td>
+                           <td
+                              th:text="${#numbers.formatDecimal(cartItem.product.price,
+                              0, 'COMMA', 0, 'POINT')}+ ' VNĐ'">Otto</td>
+                           <td th:utext="${cartItem.quantity}">@mdo</td>
+                           <td
+                              th:text="${#numbers.formatDecimal(cartItem.getAmount,
+                              0, 'COMMA', 0, 'POINT')}+ ' VNĐ'">@mdo</td>
+                        </tr>
+                     </tbody>
+                     <tfoot>
+                        <tr>
+                           <th colspan="4">Tổng</th>
+                           <th th:text="${#numbers.formatDecimal(myCart.getAmountTotal,
+                              0, 'COMMA', 0, 'POINT')}+ ' VNĐ'"> Đơn giá</th>
+                        </tr>
+                     </tfoot>
+                  </table>
+                  <form method="POST" th:action="@{/admin/orderConfirmation}">
+                     <input type="submit" value="Tạo đơn hàng" class="btn btn-primary"
+                        style="margin-bottom:24px;"/>
+                  </form>
+                  <!-- CODE HERE -->
+               </div>
+            </div>
+         </div>
+      </div>
+      <script>
+
+    var form = document.getElementById("search-form");
+    form.remove();
+
+    document.getElementById("nav-top").style.justifyContent = "flex-end";
+  </script>
+      <script th:src="@{/admin/js/scripts.js}"></script>
+   </body>
+
+</html>

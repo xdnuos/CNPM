@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head th:replace="admin/layout :: head"></head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row g-0">
+        <div th:replace="admin/layout :: navleft"></div>
+        <!-- CODE HERE -->
+        <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10
+          content-column">
+          <nav th:replace="admin/layout :: navtop"></nav>
+          <div class="container">
+            <div class="main-board">
+              <div class="container">
+                <div class="row status">
+                  <div class="col-12 col-lg-4">
+                    <div class="card card-one">
+                      <h3 th:text="${totalProduct}">250</h3>
+                      <p>Product</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <div class="card card-two">
+                      <h3 th:text="${totalCustomer}">500+</h3>
+                      <p>Customer</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <div class="card card-three">
+                      <h3 th:text="${income}">89200+</h3>
+                      <p>Imcome today</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <h3>Thống kê doanh thu</h3>
+                <div class="row status">
+                  <div class="col-12 col-lg-3">
+                    <div class="card card-one">
+                      <h3 th:text="${incomeDay}">250</h3>
+                      <p>Ngày</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-3">
+                    <div class="card card-two">
+                      <h3 th:text="${incomeMonth}">500+</h3>
+                      <p>Tháng</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-3">
+                    <div class="card card-three">
+                      <h3 th:text="${incomeQuater}">89200+</h3>
+                      <p>Quý</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-3">
+                    <div class="card card-one">
+                      <h3 th:text="${incomeYear}">89200+</h3>
+                      <p>Năm</p>
+                    </div>
+                  </div>
+                </div>
+               
+                <div class="row">
+                  <div class="col-md-10 col-12 mx-auto">
+                    <h5 class="head-show">Best Product</h5>
+                    <canvas id="bestProduct" width="400" height="200"></canvas>
+                    <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    const ctx = document.getElementById('bestProduct').getContext('2d');
+                    var lables=/*[[${items}]]*/;
+                    var data=/*[[${values}]]*/;
+                    
+                    const bestProduct = new Chart(ctx, {
+                      type: 'bar',
+                      data: {
+                        labels: lables,
+                        datasets: [{
+                          label: 'Best Product',
+                          data: data,
+                          backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)'
+                          ],
+                          borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                          ],
+                          borderWidth: 1
+                        }]
+                      },
+                      options: {
+                        scales: {
+                          y: {
+                            beginAtZero: true
+                          }
+                        }
+                      }
+                    });
+                    /*]]>*/
+                  </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/admin/js/scripts.js"></script>
+    <script>
+	var element = document.getElementById("statistic");
+	element.classList.add("active");
+    </script>
+  </body>
+
+</html>

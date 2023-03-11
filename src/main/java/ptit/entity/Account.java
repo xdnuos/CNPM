@@ -1,7 +1,7 @@
 package ptit.entity;
 
 import java.io.Serializable;
-
+import java.math.BigInteger;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,21 +35,21 @@ public class Account implements Serializable {
 	private Date create_date;
 
 	@Column(nullable = false)
-	private Boolean status;
-
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "permissionID", nullable = false)
 	private Permission permission;
-
+	
 	@OneToOne(mappedBy = "account")
 	private Staff staff;
+
+	@OneToOne(mappedBy = "account")
+	private Customer customer;
     
-    @OneToOne(mappedBy = "account")
-    private Customer customer;
-
 	public Account() {
-
+		
 	}
+	private Boolean status;
 	public Account(Long accountID, @Email @NotEmpty(message = "Vui lòng nhập Email") String email,
 			@Size(min = 6, max = 225, message = "Tên nhân viên phải từ 6-225 kí tự") @NotEmpty(message = "Vui lòng nhập password") String password,
 			Date create_date, Boolean status, Permission permission, Staff staff, Customer customer) {
@@ -62,7 +62,6 @@ public class Account implements Serializable {
 		this.staff = staff;
 		this.customer = customer;
 	}
-
 
 
 
@@ -130,5 +129,20 @@ public class Account implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+public Staff getStaff() {
+	return staff;
+}
 
+public void setStaff(Staff staff) {
+	this.staff = staff;
+}
+
+public Customer getCustomerID() {
+	return customer;
+}
+
+public void setCustomerID(Customer customerID) {
+	this.customer = customerID;
+}
+	
 }

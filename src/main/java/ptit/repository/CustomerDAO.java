@@ -1,15 +1,19 @@
 package ptit.repository;
 
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import ptit.entity.Customer;
 
-@Repository
+
 public interface CustomerDAO extends JpaRepository<Customer, Long>{
-	Customer save(Customer customer);
+	@Query("from Customer as c where c.phone = :phone")
+	Customer findByPhone(@Param("phone") String phone);
 	
-	List<Customer> findAll();
+	@Query("from Customer as c where c.account.status != 0")
+	List<Customer> findActive();
 }

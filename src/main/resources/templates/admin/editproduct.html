@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="admin/layout :: head"></head>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row g-0">
+            <div th:replace="admin/layout :: navleft"></div>
+            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
+                <div class="container">
+                    <nav th:replace="admin/layout :: navtop"></nav>
+                    <!-- CODE HERE -->
+                    <div class="col-md-8 order-md-1 mx-auto">
+                        <h4 class="mb-3">Sửa sản phẩm</h4>
+                        <form class="needs-validation" name="addProduct" enctype="multipart/form-data" method="post"
+                            th:object="${product}" onsubmit="myFunction()">
+                            <div class="row">
+                                <div class="mb-3">
+                                    <label>Tên sản phẩm</label>
+                                    <input type="text" class="form-control" name="name" th:field="*{name}">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                                        th:errors="*{name}"></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label>Giá sản phẩm</label>
+                                    <input type="number" class="form-control" name="price" th:field="*{price}">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}"
+                                        th:errors="*{price}"></div>
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <label>Số lượng</label>
+                                    <input type="number" class="form-control" name="quantity" th:field="*{quantity}">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}"
+                                        th:errors="*{quantity}"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label>Mô tả</label>
+                                <textarea class="form-control" id="desc" name="desc" th:field="*{description}" rows="4"
+                                    cols="50"></textarea>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}"
+                                    th:errors="*{description}"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label>Danh mục</label>
+                                    <div class="form-check" th:each="c : ${categories}">
+                                        <input class="form-check-input" type="checkbox" id="flexCheckDefault"
+                                            th:value="${c.categoryID}" th:field="*{category}" />
+                                        <label class="form-check-label" for="flexCheckDefault" th:text="${c.title}">Danh
+                                            mục:</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label>Nhà sản xuất</label>
+                                    <select class="custom-select d-block w-100" name="manu" th:field="*{manufacturer}">
+                                        <option th:text="*{manufacturer.name}"
+                                            th:value="*{manufacturer.manufacturerID}">Choose...</option>
+                                        <option th:each="m : ${manufacturers}" th:value="${m.manufacturerID}"
+                                            th:text="${m.name}" />
+                                        </option>
+                                    </select>
+                                </div>
+                                <div id="product-image">
+                                    <div class="img-wrap" th:each="i:${images}" th:attr="data-id=${i.listImageID}">
+                                        <span class="close">&times;</span>
+                                        <img th:src="${'data:image/jpeg;charset=utf-8;base64,' + i.imageBase64}" alt=""
+                                            id="item-image">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="upload__box">
+                                <div class="upload__btn-box">
+                                    <label class="btn btn-success" id="btn-upload">
+                                        <p id="btn-upload-text">Upload images</p>
+                                        <input type="file" multiple="" data-max_length="20" class="upload__inputfile"
+                                            name="images">
+                                    </label>
+                                </div>
+                                <div class="upload__img-wrap"></div>
+                            </div>
+                            <hr class="mb-4">
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Lưu</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var form = document.getElementById("search-form");
+        form.remove();
+
+        document.getElementById("nav-top").style.justifyContent = "flex-end";
+        const imageID = [];
+        $('.img-wrap .close').on('click', function () {
+            var id = $(this).closest('.img-wrap').data('id');
+            $(this).parent().addClass("disable");
+            imageID.push(id);
+            alert('remove picture: ' + element);
+        });
+
+        function myFunction() {
+            if (imageID != null) {
+                imageID.forEach(element => sendRequest(element))
+            }
+        }
+
+        function sendRequest(id) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/admin/deleteImage?id=" + id, true);
+            xhttp.send();
+        }
+    </script>
+    <script th:src="@{/admin/js/scripts.js}"></script>
+</body>
+
+</html>

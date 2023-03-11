@@ -4,7 +4,7 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 
 import java.util.Date;
-//import java.util.List;
+import java.util.List;
 
 
 /**
@@ -18,11 +18,7 @@ public class Customer implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long customerID;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "accountID")
-	private Account account;
+	private long customerID;
 	
 	private String address;
 
@@ -35,33 +31,23 @@ public class Customer implements Serializable {
 	private boolean sex;
 
 	//bi-directional many-to-one association to Cart
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
-//	private List<Cart> carts;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
+	private List<Cart> carts;
 
 	//bi-directional many-to-one association to Order
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
-//	private List<Order> orders;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
+	private List<Order> orders;
+	
+//	@OneToOne(mappedBy="customerID")
+//	private Account account;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "accountID")
+	private Account account;
 
 	public Customer() {
 	}
 
-	public Customer(long customerID, Account account, String address, Date birth, String fullname, String phone,
-			boolean sex) {
-		this.customerID = customerID;
-		this.account = account;
-		this.address = address;
-		this.birth = birth;
-		this.fullname = fullname;
-		this.phone = phone;
-		this.sex = sex;
-	}
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
 	public long getCustomerID() {
 		return this.customerID;
 	}
@@ -70,15 +56,8 @@ public class Customer implements Serializable {
 		this.customerID = customerID;
 	}
 
-	public Object getAddress() {
-		return this.address;
-	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Object getBirth() {
+	public Date getBirth() {
 		return this.birth;
 	}
 
@@ -86,7 +65,7 @@ public class Customer implements Serializable {
 		this.birth = birth;
 	}
 
-	public Object getFullname() {
+	public String getFullname() {
 		return this.fullname;
 	}
 
@@ -110,48 +89,66 @@ public class Customer implements Serializable {
 		this.sex = sex;
 	}
 
-//	public List<Cart> getCarts() {
-//		return this.carts;
-//	}
-//
-//	public void setCarts(List<Cart> carts) {
-//		this.carts = carts;
-//	}
-//
-//	public Cart addCart(Cart cart) {
-//		getCarts().add(cart);
-//		cart.setCustomer(this);
-//
-//		return cart;
-//	}
-//
-//	public Cart removeCart(Cart cart) {
-//		getCarts().remove(cart);
-//		cart.setCustomer(null);
-//
-//		return cart;
-//	}
-//
-//	public List<Order> getOrders() {
-//		return this.orders;
-//	}
-//
-//	public void setOrders(List<Order> orders) {
-//		this.orders = orders;
-//	}
+	public List<Cart> getCarts() {
+		return this.carts;
+	}
 
-//	public Order addOrder(Order order) {
-//		getOrders().add(order);
-//		order.setCustomer(this);
-//
-//		return order;
-//	}
-//
-//	public Order removeOrder(Order order) {
-//		getOrders().remove(order);
-//		order.setCustomer(null);
-//
-//		return order;
-//	}
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+
+	public Cart addCart(Cart cart) {
+		getCarts().add(cart);
+		cart.setCustomer(this);
+
+		return cart;
+	}
+
+	public Cart removeCart(Cart cart) {
+		getCarts().remove(cart);
+		cart.setCustomer(null);
+
+		return cart;
+	}
+
+	public List<Order> getOrders() {
+		return this.orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public Order addOrder(Order order) {
+		getOrders().add(order);
+		order.setCustomer(this);
+
+		return order;
+	}
+
+	public Order removeOrder(Order order) {
+		getOrders().remove(order);
+		order.setCustomer(null);
+
+		return order;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	
 
 }
