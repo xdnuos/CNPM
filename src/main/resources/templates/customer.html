@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+<!-- Document Meta============================================= -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--IE Compatibility Meta-->
+<meta name="author" content="zytheme" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="construction html5 template">
+<link href="./images/favicon/favicon.ico" rel="icon">
+
+<!-- Fonts============================================= -->
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i%7CRaleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i%7CUbuntu:300,300i,400,400i,500,500i,700,700i'
+	rel='stylesheet' type='text/css'>
+
+<!-- Stylesheets============================================= -->
+<link href="../static/css/external.css" rel="stylesheet"
+	th:href="@{/css/external.css}">
+<link href="../static/css/bootstrap.min.css" rel="stylesheet"
+	th:href="@{/css/bootstrap.min.css}">
+<link href="../static/css/style.css" rel="stylesheet"
+	th:href="@{/css/style.css}">
+<link href="../static/css/custom.css" rel="stylesheet"
+	th:href="@{/css/custom.css}">
+
+<!-- Javascript============================================= -->
+ <script src="../static/js/bootstrap.min.js"></script>
+  <script src="../static/js/jquery-2.2.4.min.js"></script>
+	<script src="../static/js/functions.js"></script>
+	<script src="../static/js/plugins.js"></script>
+	
+	</head>
+
+<body>
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="wrapper clearfix">
+		<header th:replace="layout :: header"></header>
+		<!-- 	code here -->
+		<section id="register" class="register">
+			<div class="container">
+				<div class="row profile">
+					<h2>CUSTOMER INFO</h2>
+					
+					<div class="col-md-9">
+						
+
+						<div class="profile-content">
+							<table class="table table-striped table-responsive-md">
+								<thead class="thead">
+									<tr>
+										<th>CustomerID</th>
+										<th>Fullname </th>
+										<th>Sex</th>
+										<th>Phone</th>
+										<th>BIRTH</th>
+										<th>ADRESS</th>
+									   	<!--  <th>Permission</th>-->
+									   	<th>Function</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="customer:${customer}">
+										<td width="100" th:text="${customer.customerID}" />
+										<td th:text="${customer.fullname}" />
+										<td th:text="${customer.sex}" />
+										<td th:text="${customer.phone}" />
+										<td th:text="${customer.birth}" />
+										<td th:text="${customer.adress}" />
+										<!--   <td th:text="${staff.accountID}"/>-->
+										<td><a th:href="@{/updateCustomer/{customerID}(customerID=${customer.customerID})}" class="btn btn-update">Update</a>
+											
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- 	end code -->
+		<footer th:replace="layout :: footer"></footer>
+	</div>
+	<script src="./js/jquery-2.2.4.min.js"></script>
+	<script src="./js/plugins.js"></script>
+	<script src="./js/functions.js"></script>
+</body>
+
+</html>

@@ -18,7 +18,7 @@ public class CartItem implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long cartItemID;
 
-	private BigDecimal price;
+	private int price;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="productID")
@@ -34,7 +34,7 @@ public class CartItem implements Serializable {
 	public CartItem() {
 	}
 	
-	public CartItem(long cartItemID, BigDecimal price, ptit.entity.Product product, int quantity, Cart cart) {
+	public CartItem(long cartItemID, int price, ptit.entity.Product product, int quantity, Cart cart) {
 		
 		this.cartItemID = cartItemID;
 		this.price = price;
@@ -51,11 +51,11 @@ public class CartItem implements Serializable {
 		this.cartItemID = cartItemID;
 	}
 
-	public BigDecimal getPrice() {
+	public int getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
@@ -88,6 +88,6 @@ public class CartItem implements Serializable {
 	}
 	
     public double getAmount() {
-        return this.product.getPrice().intValue() * this.quantity;
+        return this.product.getPrice() * this.quantity;
     }
 }

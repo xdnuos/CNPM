@@ -24,10 +24,9 @@ public class Product implements Serializable{
     @NotEmpty(message = "Vui lòng nhập tên sản phẩm")
     private String name;
     
-    @Digits(integer = 9, fraction = 3)
     @Column(name = "price")
     @Min(value=1, message="Giá sản phẩm không hợp lệ") 
-    private BigDecimal price;
+    private int price;
     
     @Size(min = 20, max = 300, message="Độ dài mô tả từ 20-300 kí tự ")
     @Column(name = "description", length = 300)
@@ -79,11 +78,11 @@ public class Product implements Serializable{
 		this.name = name;
 	}
 
-	public BigDecimal getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
