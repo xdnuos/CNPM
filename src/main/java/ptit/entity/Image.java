@@ -2,7 +2,7 @@ package ptit.entity;
 
 import java.io.Serializable;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name="listImage")

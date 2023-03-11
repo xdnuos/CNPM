@@ -3,7 +3,7 @@ package ptit.entity;
 import java.io.Serializable;
 import java.util.Collection;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 /**

@@ -30,11 +30,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 import ptit.entity.Account;
 import ptit.entity.Customer;
 import ptit.service.AccountService;
@@ -90,7 +89,7 @@ public class AdminCustomer {
 	}
 	
 	@GetMapping(value = "/admin/viewOrder")
-	public String viewOrder(Model model, @RequestParam("id") Long id) {
+	public String viewOrder(Model model, @RequestParam Long id) {
 		
 		List<Order> orders = orderDAO.findByUser(id);
 		Customer customer = customerDAO.findById(id).get();
@@ -104,7 +103,7 @@ public class AdminCustomer {
 	@Autowired
 	private AccountService accountService;
 	
-	@RequestMapping(value = "/")
+	@GetMapping("/")
 	public String index() {
 		return "index";
 	}

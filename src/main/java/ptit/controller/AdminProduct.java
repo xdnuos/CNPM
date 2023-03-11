@@ -24,9 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import ptit.entity.Category;
 import ptit.entity.Image;
 import ptit.entity.Manufacturer;
@@ -50,8 +50,8 @@ public class AdminProduct {
 
 	@GetMapping(value = "/admin/product")
 	public String index(Model model,
-            @RequestParam("page") Optional<Integer> page,
-            @RequestParam("size") Optional<Integer> size) {
+            @RequestParam Optional<Integer> page,
+            @RequestParam Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
@@ -128,7 +128,7 @@ public class AdminProduct {
     
     @GetMapping(value = { "/productImage" })
     public void productImage(HttpServletRequest request, HttpServletResponse response, Model model,
-          @RequestParam("code") Long code) throws IOException {
+          @RequestParam Long code) throws IOException {
        Product product = null;
        if (code != null) {
           product = this.productService.findById(code);
@@ -147,7 +147,7 @@ public class AdminProduct {
     
 	@GetMapping(value = "/admin/editproduct{id}" )
 	public ModelAndView editProduct(Model model,
-			@RequestParam("id") Long id,
+			@RequestParam Long id,
 			RedirectAttributes redirectAttributes) {
 		List<Category> categories =categoryService.findAll();
 		List<Manufacturer> manufacturers =manufacturerService.findAll();
@@ -208,13 +208,13 @@ public class AdminProduct {
 	}
 	
 	@GetMapping(value ="/admin/deleteImage")
-	public void deleteImage(@RequestParam("id") Long id) {
+	public void deleteImage(@RequestParam Long id) {
 		if(id!=null) {
 			imageService.deleteByID(id);
 		}
 	}
 	@GetMapping(value ="/admin/deleteProduct")
-	public String deleteProduct(@RequestParam("id") Long id) {
+	public String deleteProduct(@RequestParam Long id) {
 		Product product = productService.findById(id);
 		product.setProductID(id);
 		product.setStatus(false);

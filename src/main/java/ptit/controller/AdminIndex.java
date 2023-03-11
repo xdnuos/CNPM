@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ptit.entity.Category;
@@ -33,10 +32,10 @@ public class AdminIndex {
 	@Autowired
 	ProductService productService;
 	
-	@RequestMapping(value = "/admin")
+	@GetMapping("/admin")
 	public String index(Model model,
-        @RequestParam("page") Optional<Integer> page,
-        @RequestParam("size") Optional<Integer> size) {
+        @RequestParam Optional<Integer> page,
+        @RequestParam Optional<Integer> size) {
     int currentPage = page.orElse(1);
     int pageSize = size.orElse(5);
 
@@ -63,7 +62,7 @@ public class AdminIndex {
 	
 	@PostMapping(value = "/admin/addCategory")
 	public String addCategory(Model model,
-			@RequestParam("name") String name) {
+			@RequestParam String name) {
 		Category newcategory = new Category();
 		newcategory.setTitle(name);
 		categoriesDAO.save(newcategory);
@@ -72,14 +71,14 @@ public class AdminIndex {
 	
 	@GetMapping(value = "/admin/editCategory")
 	public String editCategory(Model model,
-			@RequestParam("id") int id) {
+			@RequestParam int id) {
 		Category category =categoriesDAO.findByCategoryID(id);
 		model.addAttribute("category",category);
 		return "admin/editCategory";
 	}
 	@PostMapping(value = "/admin/editCategory")
 	public String saveCategory(Category category, Model model,
-			@RequestParam("id") int id) {
+			@RequestParam int id) {
 		category.setCategoryID(id);
 		categoriesDAO.save(category);
 		return "redirect:/admin/addCategory";
@@ -96,7 +95,7 @@ public class AdminIndex {
 	
 	@PostMapping(value = "/admin/addManufactor")
 	public String addManufactor(Model model,
-			@RequestParam("name") String name) {
+			@RequestParam String name) {
 		Manufacturer newManufacturer = new Manufacturer();
 		newManufacturer.setName(name);
 		manufactureDAO.save(newManufacturer);
@@ -105,14 +104,14 @@ public class AdminIndex {
 	
 	@GetMapping(value = "/admin/editManufactor")
 	public String editManufactor(Model model,
-			@RequestParam("id") int id) {
+			@RequestParam int id) {
 		Manufacturer manufacturer =manufactureDAO.findByManufacturerID(id);
 		model.addAttribute("manufacturer",manufacturer);
 		return "admin/editManufactor";
 	}
 	@PostMapping(value = "/admin/editManufactor")
 	public String saveManufactor(Manufacturer manufacturer, Model model,
-			@RequestParam("id") int id) {
+			@RequestParam int id) {
 		manufacturer.setManufacturerID(id);
 		manufactureDAO.save(manufacturer);
 		return "redirect:/admin/addManufactor";

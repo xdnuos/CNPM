@@ -1,9 +1,10 @@
 package ptit.entity;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -22,8 +23,7 @@ public class Cart implements Serializable {
 
 	private String cookie;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Timestamp createDate;
+	private Calendar createDate;
 
 	//bi-directional many-to-one association to Customer
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -53,11 +53,11 @@ public class Cart implements Serializable {
 		this.cookie = cookie;
 	}
 
-	public Timestamp getCreateDate() {
+	public Calendar getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Calendar createDate) {
 		this.createDate = createDate;
 	}
 

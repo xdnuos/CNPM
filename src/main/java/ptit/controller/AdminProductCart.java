@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import ptit.entity.Cart;
 import ptit.entity.Customer;
 import ptit.entity.Product;
@@ -33,7 +33,7 @@ public class AdminProductCart {
 		OrderService orderService;
 	   @GetMapping(value ={"/admin/addProductToOrder"})
 	   public String listProductHandler(HttpServletRequest request, Model model, //
-	         @RequestParam(value = "code", defaultValue = "") Long code) {
+	         @RequestParam(defaultValue = "") Long code) {
 
 	      Product product = null;
 	      if (code != null) {
@@ -49,7 +49,7 @@ public class AdminProductCart {
 	   
 	   @GetMapping(value ={"/admin/cartRemoveProduct"})
 	   public String removeProductHandler(HttpServletRequest request, Model model, //
-	         @RequestParam(value = "code", defaultValue = "") Long code) {
+	         @RequestParam(defaultValue = "") Long code) {
 	      Product product = null;
 	      if (code != null) {
 	         product = productService.findById(code);
@@ -73,7 +73,7 @@ public class AdminProductCart {
 	   @PostMapping(value = { "/admin/cart" })
 	   public String shoppingCartUpdateQty(HttpServletRequest request, //
 	         Model model, //
-	         @ModelAttribute("cartForm") Cart cartForm) {
+	         @ModelAttribute Cart cartForm) {
 
 	      Cart cartInfo = Utils.getCartInSession(request);
 	      cartInfo.updateQuantity(cartForm);
@@ -99,7 +99,7 @@ public class AdminProductCart {
 	   }
 	   
 	   @GetMapping(value = { "/admin/checkCustomer" })
-	   public String checkCustomer(HttpServletRequest request, Model model,Customer customer,@RequestParam("phone") String phone) {
+	   public String checkCustomer(HttpServletRequest request, Model model,Customer customer,@RequestParam String phone) {
 
 		      Cart cartInfo = Utils.getCartInSession(request);
 
@@ -120,10 +120,10 @@ public class AdminProductCart {
 	   @PostMapping(value = { "/admin/continuteOrder" })
 	   public String shoppingCartCustomerSave(HttpServletRequest request, //
 	         Model model, //
-	         @ModelAttribute("customer") Customer customer, //
+	         @ModelAttribute Customer customer, //
 	         BindingResult result, //
 	         final RedirectAttributes redirectAttributes,
-	         @RequestParam(value = "gender", defaultValue = "male") String gender) {
+	         @RequestParam(defaultValue = "male") String gender) {
 
 	      Cart cart = Utils.getCartInSession(request);
 	      if(gender=="male") {
@@ -154,8 +154,8 @@ public class AdminProductCart {
 	   // POST: Submit Cart (Save)
 	   @PostMapping(value = { "/admin/orderConfirmation" })
 	   public String shoppingCartConfirmationSave(HttpServletRequest request, Model model,
-			   @RequestParam(value = "note", defaultValue = "") String note,
-			   @RequestParam(value = "payment", defaultValue = "") String payment) {
+			   @RequestParam(defaultValue = "") String note,
+			   @RequestParam(defaultValue = "") String payment) {
 	      Cart cart = Utils.getCartInSession(request);
 
 	      if (cart.isEmpty()) {

@@ -1,6 +1,6 @@
 package ptit.utils;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import ptit.entity.Cart;
 
 public class Utils {

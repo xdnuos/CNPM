@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import ptit.entity.Account;
 import ptit.entity.Permission;
 import ptit.entity.Staff;
@@ -35,7 +34,7 @@ public class AdminStaff {
 	@Autowired
 	private PermissionService permissionService;
 	
-	@RequestMapping(value = "/admin/staff")
+	@GetMapping("/admin/staff")
     public String staff(ModelMap model) {
         model.addAttribute("staffs", staffService.findAll());
         return "admin/staff";
@@ -68,7 +67,7 @@ public class AdminStaff {
 		return"redirect:/admin/staff";
 	}
 	@GetMapping("/admin/updatestaff/{staffID}")
-	public String updateStaff(@PathVariable(value ="staffID") Long staffID, ModelMap model
+	public String updateStaff(@PathVariable Long staffID, ModelMap model
 			 ) {
 		List<Permission> permissions = permissionService.findAll();
 		Optional<Staff> staff = staffService.findById(staffID);
@@ -80,12 +79,12 @@ public class AdminStaff {
 		return"admin/addOrUpdate";
 	}
 	@GetMapping("/admin/deletestaff/{staffID}")
-	public String deleteStaff(@PathVariable(value ="staffID") Long staffID) {
+	public String deleteStaff(@PathVariable Long staffID) {
 		this.staffService.deleteById(staffID);
 		return"redirect:/admin/staff";
 	}
 	@GetMapping("/admin/sortstaff")
-	public String sortStaff(ModelMap model, @RequestParam("field") Optional<String> field) {
+	public String sortStaff(ModelMap model, @RequestParam Optional<String> field) {
 		Sort sort=Sort.by(Direction.ASC, field.orElse("staffID"));
 		List<Staff> ls = staffService.findAll(sort);
 		model.addAttribute("staffs", ls);

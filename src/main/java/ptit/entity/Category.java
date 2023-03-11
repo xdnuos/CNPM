@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name="category")
@@ -17,7 +16,6 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int categoryID;
 	
-	@Nonnull
 	@Column(name = "title", length = 100)
 	private String title;
 	

@@ -1,7 +1,7 @@
 package ptit.entity;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;

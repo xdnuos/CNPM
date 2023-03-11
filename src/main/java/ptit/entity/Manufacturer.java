@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name="manufacturer")
@@ -18,7 +17,6 @@ public class Manufacturer implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int manufacturerID;
 	
-	@Nonnull
 	@Column(name = "name", length = 100)
 	private String name;
 	

@@ -5,10 +5,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.*;
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name="product")
@@ -20,7 +19,6 @@ public class Product implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productID;	
 	
-    @Nonnull
     @Size(min = 4, max = 100,message = "Tên sản phẩm phài từ 1-100 kí tự")
     @Column(name = "name", length = 100)
     @NotEmpty(message = "Vui lòng nhập tên sản phẩm")

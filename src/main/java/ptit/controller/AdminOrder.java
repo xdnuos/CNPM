@@ -23,8 +23,8 @@ public class AdminOrder {
 	
 	@GetMapping(value="/admin/order")
 	public String OrderIndex(Model model,
-            @RequestParam("page") Optional<Integer> page,
-            @RequestParam("size") Optional<Integer> size) {
+            @RequestParam Optional<Integer> page,
+            @RequestParam Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
