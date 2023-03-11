@@ -2,6 +2,10 @@ package ptit.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -22,10 +26,14 @@ public class Customer implements Serializable {
 	
 	private String address;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 
+	@Size(min = 4, max = 100,message = "Tối thiểu 4 kí tự")
+	@NotEmpty(message = "Họ và tên không được để trống")
 	private String fullname;
 
+	@NotEmpty(message = "Số điện thoại không được để trống")
 	private String phone;
 
 	private boolean sex;

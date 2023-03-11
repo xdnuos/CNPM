@@ -2,6 +2,7 @@ package ptit.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,8 +25,7 @@ public class Account implements Serializable {
 	@Column(name = "accountID")
 	private Long accountID;
 	
-	@Email
-	@NotEmpty(message = "Vui lòng nhập Email")
+	@Email(message = "Email không hợp lệ")
 	@Column(name = "email")
 	private String email;
 	
@@ -36,7 +36,7 @@ public class Account implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date create_date;
+	private Calendar create_date;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "permissionID", nullable = false)
@@ -54,7 +54,7 @@ public class Account implements Serializable {
 	private Boolean status;
 	public Account(Long accountID, @Email @NotEmpty(message = "Vui lòng nhập Email") String email,
 			@Size(min = 6, max = 225, message = "Tên nhân viên phải từ 6-225 kí tự") @NotEmpty(message = "Vui lòng nhập password") String password,
-			Date create_date, Boolean status, Permission permission, Staff staff, Customer customer) {
+			Calendar create_date, Boolean status, Permission permission, Staff staff, Customer customer) {
 		this.accountID = accountID;
 		this.email = email;
 		this.password = password;
@@ -65,12 +65,6 @@ public class Account implements Serializable {
 		this.customer = customer;
 	}
 
-
-
-	public String getEmail() {
-		return email;
-	}
-
 	public Long getAccountID() {
 		return accountID;
 	}
@@ -79,9 +73,6 @@ public class Account implements Serializable {
 		this.accountID = accountID;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public String getPassword() {
 		return password;
@@ -91,11 +82,11 @@ public class Account implements Serializable {
 		this.password = password;
 	}
 
-	public Date getCreate_date() {
+	public Calendar getCreate_date() {
 		return create_date;
 	}
 
-	public void setCreate_date(Date create_date) {
+	public void setCreate_date(Calendar create_date) {
 		this.create_date = create_date;
 	}
 
@@ -123,20 +114,30 @@ public class Account implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-public Staff getStaff() {
-	return staff;
-}
+	public Staff getStaff() {
+		return staff;
+	}
+	
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+	
+	public Customer getCustomerID() {
+		return customer;
+	}
+	
+	public void setCustomerID(Customer customerID) {
+		this.customer = customerID;
+	}
 
-public void setStaff(Staff staff) {
-	this.staff = staff;
-}
+	public String getEmail() {
+		return email;
+	}
 
-public Customer getCustomerID() {
-	return customer;
-}
-
-public void setCustomerID(Customer customerID) {
-	this.customer = customerID;
-}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 	
 }

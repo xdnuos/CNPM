@@ -38,5 +38,12 @@ public class CustomerSerivceImpl implements CustomerSerivce {
 	public List<Customer> findAll(Sort sort) {
 		return (List<Customer>)customerDAO.findAll(sort);
 	}
+	@Override
+    public Boolean checkPhone(String phone) {
+    	if(this.customerDAO.checkPhone(phone)==0) {
+    		return true;
+    	}
+    	return false;
+    }
 
 }

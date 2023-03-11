@@ -15,4 +15,6 @@ public interface CustomerSerivce {
 	List<Customer> findAll(Sort sort);
 
 	List<Account> findAllAccount();
+	
+	Boolean checkPhone(String phone);
 }

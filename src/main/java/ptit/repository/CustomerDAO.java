@@ -16,4 +16,7 @@ public interface CustomerDAO extends JpaRepository<Customer, Long>{
 	
 	@Query("from Customer as c where c.account.status != 0")
 	List<Customer> findActive();
+
+	@Query("Select count(*) from Customer as c where c.phone = :phone")
+	Integer checkPhone(@Param("phone") String phone);
 }
