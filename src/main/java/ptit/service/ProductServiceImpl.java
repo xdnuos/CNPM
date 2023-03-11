@@ -27,12 +27,6 @@ public class ProductServiceImpl implements ProductService{
 	public void save(Product product) {
 		this.productDAO.save(product);
 	}
-
-	@Override
-	public Product saveProduct(Product product, int categoryId, int manuId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
 	public Page<Product> findPaginated(Pageable pageable) {
@@ -40,7 +34,7 @@ public class ProductServiceImpl implements ProductService{
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
         List<Product> list;
-        List<Product> allProduct = productDAO.findAllByStatus("active");
+        List<Product> allProduct = productDAO.findAllByStatus(true);
         
         int listProductSize = allProduct.size();
         if (listProductSize < startItem) {

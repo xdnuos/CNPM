@@ -126,7 +126,13 @@ public class AdminProductCart {
 	         @RequestParam(value = "gender", defaultValue = "male") String gender) {
 
 	      Cart cart = Utils.getCartInSession(request);
-	      customer.setSex(gender);
+	      if(gender=="male") {
+	    	  customer.setSex(false);
+	      }
+	      if(gender=="female") {
+	    	  customer.setSex(true);
+	      }
+	      
 	      cart.setCustomer(customer);
 	      return "redirect:/admin/orderConfirmation";
 	   }

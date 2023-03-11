@@ -120,7 +120,7 @@ public class AdminProduct {
 		    }
     	}
     	
-    	product.setStatus("active");
+    	product.setStatus(true);
         productService.save(product);
     	status.setComplete();
         return "redirect:/admin/product";
@@ -217,7 +217,7 @@ public class AdminProduct {
 	public String deleteProduct(@RequestParam("id") Long id) {
 		Product product = productService.findById(id);
 		product.setProductID(id);
-		product.setStatus("disable");
+		product.setStatus(false);
 		productService.save(product);
 		return "redirect:/admin/product";
 	}

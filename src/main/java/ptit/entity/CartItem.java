@@ -34,7 +34,7 @@ public class CartItem implements Serializable {
 	public CartItem() {
 	}
 	
-	public CartItem(long cartItemID, BigDecimal price, ptit.entity.Product product, long quantity, Cart cart) {
+	public CartItem(long cartItemID, BigDecimal price, ptit.entity.Product product, int quantity, Cart cart) {
 		
 		this.cartItemID = cartItemID;
 		this.price = price;

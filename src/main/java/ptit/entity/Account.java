@@ -114,14 +114,6 @@ public class Account implements Serializable {
 		this.permission = permission;
 	}
 
-	public Staff getStaff() {
-		return staff;
-	}
-
-	public void setStaff(Staff staff) {
-		this.staff = staff;
-	}
-
 	public Customer getCustomer() {
 		return customer;
 	}

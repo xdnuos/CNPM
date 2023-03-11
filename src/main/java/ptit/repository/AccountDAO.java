@@ -24,6 +24,6 @@ public interface AccountDAO extends JpaRepository<Account, Long> {
 	List<Account> findAll();
 
 	@Query("from Account as u where u.status = :status")
-	Optional<Account> findActiveAccount(@Param("status") String status);
+	Optional<Account> findActiveAccount(@Param("status") Boolean status);
 	
 }

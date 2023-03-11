@@ -54,7 +54,7 @@ public class AdminStaff {
 	public String saveStaff(@Valid @ModelAttribute("staffs") Staff staff, BindingResult result,ModelMap model,
 			Account account){
 		
-		if(staff.getStaffID()!= null && staff.getStaffID()> 0) {
+		if(staff.getStaffID()!= null) {
 			model.addAttribute("message", "Update success!");
 		}else {
 			model.addAttribute("message", "Add success!");

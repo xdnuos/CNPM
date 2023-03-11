@@ -71,14 +71,14 @@ public class AdminCustomer {
 			return "admin/customer";
 		}
 		
-		BigInteger id = new BigInteger(accountId);
+		Long id = Long.valueOf(accountId);
 		if(accountDAO.findById(id).isPresent()) {
 			Account account = accountDAO.findById(id).get();
-			if(account.getStatus().equals("active")) {
-				account.setStatus("disable");
+			if(account.getStatus()) {
+				account.setStatus(false);
 				message ="Disable complete";
 			}else {
-				account.setStatus("active");
+				account.setStatus(true);
 				message ="Active complete";
 			}
 			
