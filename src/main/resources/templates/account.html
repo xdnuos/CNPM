@@ -69,7 +69,6 @@
 									<th>password</th>
 									<th>status</th>
 									<th>createDate</th>
-									<th>Permission</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -77,9 +76,9 @@
 									<td width="115" th:text="${ac.accountID}"/>
 									<td width="170" th:text="${ac.email}"/>
 									<td th:text="${ac.password}"/>
+
 									<td th:text="${ac.status}"/>
 									<td th:text="${ac.create_date}"/>
-									<td th:text="${ac.permission.name}"/>
 								</tr>
 							</tbody>
 						</table>
