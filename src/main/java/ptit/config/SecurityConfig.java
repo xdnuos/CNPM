@@ -1,5 +1,7 @@
 package ptit.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 //import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import ptit.service.UserDetailsServiceImpl;
 
@@ -44,11 +48,46 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
  
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .anyRequest().authenticated()
-            .and()
-            .formLogin().permitAll()
-            .and()
-            .logout().permitAll();
+
+       http.csrf().disable();
+
+       // Requires login with role ROLE_EMPLOYEE or ROLE_MANAGER.
+       // If not, it will redirect to /admin/login.
+       http.authorizeRequests().antMatchers("/admin", "/admin/product", "/admin/order","/admin/customer")//
+             .access("hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER')");
+
+       // Pages only for MANAGER
+       http.authorizeRequests().antMatchers("/admin/staff","/admin/statistic").access("hasRole('ROLE_MANAGER')");
+
+       // When user login, role XX.
+       // But access to the page requires the YY role,
+       // An AccessDeniedException will be thrown.
+       http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+
+       // Configuration for Login Form.
+       http.authorizeRequests().and().formLogin()//
+
+             //
+             .loginProcessingUrl("/j_spring_security_check") // Submit URL
+             .loginPage("/login")//
+             .defaultSuccessUrl("/")//
+             .failureUrl("/login?error=true")//
+             .usernameParameter("email")//
+             .passwordParameter("password")
+
+             // Configuration for the Logout page.
+             // (After logout, go to home page)
+             .and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
+
     }
+    
+	@Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+		JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+		db.setDataSource(dataSource);
+		return db;
+	}
+	
+    @Autowired
+    private DataSource dataSource;
 }
