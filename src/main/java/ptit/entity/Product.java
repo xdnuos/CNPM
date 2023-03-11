@@ -40,7 +40,7 @@ public class Product implements Serializable{
     private int quantity;
     
     @Column(name="status")
-    private String status;
+    private boolean status;
     
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "manufacturerID")
@@ -105,11 +105,11 @@ public class Product implements Serializable{
 		this.quantity = quantity;
 	}
 
-	public String getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 

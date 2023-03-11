@@ -14,6 +14,6 @@ public interface CustomerDAO extends JpaRepository<Customer, Long>{
 	@Query("from Customer as c where c.phone = :phone")
 	Customer findByPhone(@Param("phone") String phone);
 	
-	@Query("from Customer as c where c.account.status != 'disable'")
+	@Query("from Customer as c where c.account.status != 0")
 	List<Customer> findActive();
 }

@@ -4,15 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import ptit.entity.Account;
+import ptit.entity.Permission;
 
 public interface AccountService {
-	boolean checkLogin(String email, String passwword);
 	
-//	Boolean checkEmail(String email);
+	Boolean checkEmail(String email);
 	
-	Optional<Account> findByEmail(String email);
+	Account findByEmail(String email);
 	
 	List<Account> findAll();
 	
 	void save (Account account);
+
+	List<Permission> findAllPermission();
 }

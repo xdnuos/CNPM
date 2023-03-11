@@ -1,115 +1,241 @@
-<!DOCTYPE html>
-<html lang="en">
 
-  <head th:replace="admin/layout :: head"></head>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+html{
+    scroll-behavior: smooth;
+}
+.container-fluid{
+    --bs-gutter-x: 0 !important;
+}
+.side-panel{
+    background: #EEF2FF;
+    height: 100vh;
+    border-radius: 3px;
+    padding: 20px 0px;
+}
+.side-panel .header-logo{
+    margin-bottom: 20px;
+    
+}
+.side-panel .header-logo img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+.side-panel .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #fff;
+    color: #000;
+    margin: 0;
+    border-radius: 0;
+    padding-left: 25px;
+    border-left: 5px solid #2667FF;
+}
+.side-panel .nav-item .nav-link{
+    padding-left: 30px;
+    font-weight: 600;
+    color: #2667FF;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+}
+.side-panel .nav-item .nav-link svg{
+    padding-right: 10px;
+}
+.side-panel .nav-item{
+    margin-top: 5px;
+  
+}
 
-  <head>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  </head>
+/* =============================================== */
+.main-board{
+    width: 100%;
+    padding: 10px;
+    background-color: #fdfbfb;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+.main-board .status{
+    margin-bottom: 30px;
+}
+.main-board .status .card{
+    padding: 0;
+}
+.main-board .status .card-one{
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: 0;
+    background-color: #eef3ff;
+    border-left: 5px solid #2667FF;
+}
+.main-board .status .card-one h3{
+    font-size: 42px;
+}
+.main-board .status .card-two{
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: 0;
+    background-color: #fff0d3;
+    border-left: 5px solid #FFA500;
+}
+.main-board .status .card-two h3{
+    font-size: 42px;
+}
+.main-board .status .card-three{
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: 0;
+    background-color: #e5ceff;
+    border-left: 5px solid #7900FF;
+}
+.main-board .status .card-three h3{
+    font-size: 42px;
+}
+.main-board .head-show{
+    margin-bottom: 30px;
+}
+.main-board .avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-right: 10px;
+  }
+  
+  a:link, a:visited {
+  text-decoration: none;
+  cursor: auto;
+}
 
-  <body>
-    <div class="container-fluid">
-      <div class="row g-0">
-        <div th:replace="admin/layout :: navleft"></div>
-        <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10
-          content-column">
-          <div class="container">
-            <nav th:replace="admin/layout :: navtop"></nav>
-            <!-- CODE HERE -->
-            <div class="col-md-8 order-md-1 mx-auto">
-              <h4 class="mb-3">Thêm sản phẩm</h4>
-              <form class="needs-validation" name="addProduct"
-                enctype="multipart/form-data" method="post"
-                th:object="${product}">
-                <div class="row">
-                  <div class="mb-3">
-                    <label>Tên sản phẩm</label>
-                    <input type="text" class="form-control" name="name"
-                      th:field="*{name}">
-                    <div class="invalid-feedback"
-                      th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                  </div>
-                </div>
+#cart-icon{
+	margin-right:50px;
+}
+#li-btn-add{
+	margin-right:50px;
+}
 
-                <div class="row">
-                  <div class="mb-3 col-md-6">
-                    <label>Giá sản phẩm</label>
-                    <input type="number" class="form-control" name="price"
-                      th:field="*{price}">
-                    <div class="invalid-feedback"
-                      th:if="${#fields.hasErrors('price')}"
-                      th:errors="*{price}"></div>
-                  </div>
-                  <div class="mb-3 col-md-2">
-                    <label>Số lượng</label>
-                    <input type="number" class="form-control" name="quantity"
-                      th:field="*{quantity}">
-                    <div class="invalid-feedback"
-                      th:if="${#fields.hasErrors('quantity')}"
-                      th:errors="*{quantity}"></div>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label>Mô tả</label>
-                  <textarea class="form-control" id="desc" name="desc"
-                    th:field="*{description}" rows="4" cols="50"></textarea>
-                  <div class="invalid-feedback"
-                    th:if="${#fields.hasErrors('description')}"
-                    th:errors="*{description}"></div>
-                </div>
+.disable{
+	display:none!important;
+}
 
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <label>Danh mục</label><a href="/admin/addCategory"
-                      id="addCategory">Thêm danh mục</a>
-                    <div class="form-check" th:each="c : ${categories}">
-                      <input class="form-check-input" type="checkbox"
-                        id="flexCheckDefault" th:value="${c.categoryID}"
-                        th:field="*{category}"/>
-                      <label class="form-check-label" for="flexCheckDefault"
-                        th:text="${c.title}">Danh mục:</label>
-                    </div>
-                  </div>
-                  <div class="col-md-5 mb-3">
-                    <label>Nhà sản xuất</label> <a href="/admin/addManufactor"
-                      id="addCategory">Thêm nhà sản xuất</a>
-                    <select class="custom-select d-block w-100" name="manu"
-                      th:field="*{manufacturer}">
-                      <option value="0">Choose...</option>
-                      <option th:each="m : ${manufacturers}"
-                        th:value="${m.manufacturerID}"
-                        th:text="${m.name}"/>
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="upload__box">
-                  <div class="upload__btn-box">
-                    <label class="btn btn-success" id="btn-upload">
-                      <p id="btn-upload-text">Upload images</p>
-                      <input type="file" multiple="" data-max_length="20"
-                        class="upload__inputfile" name="images">
-                    </label>
-                  </div>
-                  <div class="upload__img-wrap"></div>
-                </div>
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Lưu</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
+.invalid-feedback{
+	display:inline;
+}
 
-    var form = document.getElementById("search-form");
-    form.remove();
+#product-item{
+	margin-top:12px;
+}
 
-    document.getElementById("nav-top").style.justifyContent = "flex-end";
-  </script>
-    <script th:src="@{/admin/js/scripts.js}"></script>
-  </body>
+.page-link{
+	margin-right:12px;
+}
+ .upload__inputfile {
+	 width: 0.1px;
+	 height: 0.1px;
+	 opacity: 0;
+	 overflow: hidden;
+	 position: absolute;
+	 z-index: -1;
+}
+ .upload__img-wrap {
+	 display: flex;
+	 flex-wrap: wrap;
+	 margin: 0 -10px;
+}
+ .upload__img-box {
+	 width: 200px;
+	 padding: 0 10px;
+	 margin-bottom: 12px;
+}
+ .upload__img-close {
+	 width: 24px;
+	 height: 24px;
+	 border-radius: 50%;
+	 background-color: rgba(0, 0, 0, 0.5);
+	 position: absolute;
+	 top: 10px;
+	 right: 10px;
+	 text-align: center;
+	 line-height: 24px;
+	 z-index: 1;
+	 cursor: pointer;
+}
+ .upload__img-close:after {
+	 content: '\2716';
+	 font-size: 14px;
+	 color: white;
+}
+ .img-bg {
+	 background-repeat: no-repeat;
+	 background-position: center;
+	 background-size: cover;
+	 position: relative;
+	 padding-bottom: 100%;
+}
+#btn-upload-text{
+	margin-bottom:0;
+}
+#btn-upload{
+	margin-bottom:12px;
+}
+#product-image{
+	display:flex;
+ 	flex-wrap: wrap;
+ 	margin-bottom:12px;
+}
+#item-image{
+	width: 100px;
+	height: 100px;
+}
 
-</html>
+.img-wrap {
+    position: relative;
+    display: inline-block;
+    border: 1px red solid;
+    font-size: 0;
+    margin-right:12px;
+}
+.img-wrap .close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 100;
+    background-color: #FFF;
+    padding: 5px 2px 2px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: .2;
+    text-align: center;
+    font-size: 22px;
+    line-height: 10px;
+    border-radius: 50%;
+}
+.img-wrap:hover .close {
+    opacity: 1;
+}
+
+#addCategory{
+	margin-left:12px;
+}
+
+.product-image{
+	height:120px;
+	margin:0 12px;
+}
+.input-quanty{
+width:5rem;
+position: relative;
+display: block;
+margin : 0 auto;
+text-align:center;
+}
+#customer-info{
+	margin-bottom:24px;
+}

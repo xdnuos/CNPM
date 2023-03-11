@@ -27,6 +27,12 @@ public class ProductServiceImpl implements ProductService{
 	public void save(Product product) {
 		this.productDAO.save(product);
 	}
+
+	@Override
+	public Product saveProduct(Product product, int categoryId, int manuId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	@Override
 	public Page<Product> findPaginated(Pageable pageable) {

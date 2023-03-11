@@ -28,7 +28,7 @@ public class Customer implements Serializable {
 
 	private String phone;
 
-	private String sex;
+	private boolean sex;
 
 	//bi-directional many-to-one association to Cart
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
@@ -81,11 +81,11 @@ public class Customer implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getSex() {
+	public boolean getSex() {
 		return this.sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(boolean sex) {
 		this.sex = sex;
 	}
 

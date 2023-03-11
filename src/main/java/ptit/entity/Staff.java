@@ -25,8 +25,7 @@ public class Staff implements Serializable{
 	@Column(name = "fullname", length = 225)
 	private String fullname;
 	
-	@Column(nullable = false)
-	private String sex;
+	private boolean sex;
 	
 	@Column(nullable = false, length = 15)
 	private String phone;
@@ -52,7 +51,7 @@ public class Staff implements Serializable{
 		
 	}
 
-	public Staff(BigInteger staffID, String fullname, String sex, String phone, Date birth, String cccd,
+	public Staff(BigInteger staffID, String fullname, Boolean sex, String phone, Date birth, String cccd,
 			Account account) {
 		super();
 		this.staffID = staffID;
@@ -79,11 +78,11 @@ public class Staff implements Serializable{
 		this.fullname = fullname;
 	}
 
-	public String getSex() {
+	public boolean getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(boolean sex) {
 		this.sex = sex;
 	}
 
