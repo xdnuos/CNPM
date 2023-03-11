@@ -1,8 +1,13 @@
 package ptit.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,4 +114,29 @@ public class OrderService {
 		}
 		return null;
 	}
+	
+	public List<Order> findByTimeDate(String start, String end){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime dateTime = LocalDate.parse(start, formatter).atStartOfDay();
+		LocalDateTime dateTime2 = LocalDate.parse(end, formatter).atStartOfDay();
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		
+		Calendar calendar2 = Calendar.getInstance();
+		calendar.setTimeInMillis(dateTime2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		return orderDAO.findByTime(calendar, calendar2);
+	}
+	
+	public List<Order> findByTime(Calendar start,Calendar end ){
+		return orderDAO.findByTime(start, end);
+	}
+	
+    public Page<Order> convertListToPage(List<Order> productList, int pageNumber, int pageSize) {
+        // Tạo trang từ danh sách
+        Page<Order> page = new PageImpl<>(productList.subList(pageNumber * pageSize - pageSize, Math.min(pageNumber * pageSize, productList.size())),
+                PageRequest.of(pageNumber, pageSize), productList.size());
+
+        return page;
+    }
 }

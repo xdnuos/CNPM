@@ -39,7 +39,7 @@ public class Product implements Serializable{
     @Column(name="status")
     private boolean status;
     
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "manufacturerID")
     private Manufacturer manufacturer;
     

@@ -17,6 +17,18 @@
                <div class="container">
                   <nav th:replace="admin/layout :: navtop"></nav>
                   <!-- CODE HERE -->
+<div class="container">
+  <form class="d-flex" method="post">
+    <div class="col-md-3" style="margin: 24px">
+      <input name="startDate" type="date" class="form-control" placeholder="Start Date">
+    </div>
+    <div class="col-md-3" style="margin: 24px">
+      <input name="endDate" type="date" class="form-control" placeholder="End Date">
+    </div>
+    <button type="submit" class="btn btn-primary " style="margin: 24px">Filter</button>
+  </form>
+</div>
+
                   <th:block th:if="${orderPage == null}">
                      <h2>There is no order</h2>
                      <a th:href="@{/admin}">Show Product List</a>
@@ -47,6 +59,19 @@
                         </table>
                      </div>
                   </th:block>
+                            <!-- page number -->
+         <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center pagination-sm">
+                <li  th:if="${orderPage.totalPages > 0}" class="page-link"
+                      th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{/admin/order(size=${orderPage.size}, page=${pageNumber})}"
+                       th:text=${pageNumber}
+                       th:class="${pageNumber==orderPage.number + 1} ? active"
+                       class="page-link"
+                    ></a>
+                </li>
+            </ul>
+        </nav>
                </div>
             </div>
          </div>

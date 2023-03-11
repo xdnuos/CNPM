@@ -14,7 +14,8 @@ public interface ProductService {
  Page<Product> findPaginated(Pageable pageable);
  List<Product> findAll();
  Page<Product> findAll(Pageable pageable);
-List<Product> findProductCategoryALL(long categoryID);
-Product findProductByName(String name);
+ List<Product> findProductCategoryALL(long categoryID);
+ Product findProductByName(String name);
+ Page<Product> convertListToPage(List<Product> productList, int pageNumber, int pageSize);
  
 }
