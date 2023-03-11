@@ -54,8 +54,8 @@ public class Product implements Serializable{
     inverseJoinColumns = @JoinColumn(name = "categoryID"))
     private List<Category> category = new ArrayList<>();
     
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ListImage> listImages = new ArrayList<>();
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+//    private List<ListImage> listImages = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItem> oderItem = new ArrayList<>();
@@ -135,13 +135,13 @@ public class Product implements Serializable{
 		this.category = listCate;
 	}
 
-	public List<ListImage> getListImages() {
-		return listImages;
-	}
-
-	public void setListImages(List<ListImage> listImages) {
-		this.listImages = listImages;
-	}
+//	public List<ListImage> getListImages() {
+//		return listImages;
+//	}
+//
+//	public void setListImages(List<ListImage> listImages) {
+//		this.listImages = listImages;
+//	}
 
 	public List<OrderItem> getOderItem() {
 		return oderItem;
