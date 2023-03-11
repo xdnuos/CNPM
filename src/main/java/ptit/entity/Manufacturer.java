@@ -23,6 +23,17 @@ public class Manufacturer implements Serializable {
 	
 	@ManyToMany(mappedBy = "manufacturers", cascade = CascadeType.ALL)
     private Collection<Product> productmanu = new ArrayList<>();
+	
+	public Manufacturer() {
+		
+	}
+
+	public Manufacturer(int manufacturerID, String name, Collection<Product> productmanu) {
+		
+		this.manufacturerID = manufacturerID;
+		this.name = name;
+		this.productmanu = productmanu;
+	}
 
 	public int getManufacturerID() {
 		return manufacturerID;

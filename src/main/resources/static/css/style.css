@@ -67,9 +67,9 @@ html {
 body {
 	background-color: #ffffff;
 	font-family: 'Open Sans', sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: 400;
-	color: #a6a6a6;
+	color: #212529;
 	line-height: 1.5;
 	margin: 0;
 }
@@ -1174,7 +1174,7 @@ ul.dot-list li i {
 	font-size: 17px;
 	line-height: 38px;
 	height: 40px;
-	text-transform: capitalize;
+	text-transform: lowercase;
 	border-radius: 3px;
 	background-color: transparent;
 	border: none;
