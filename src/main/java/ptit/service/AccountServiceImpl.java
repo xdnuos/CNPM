@@ -50,5 +50,9 @@ public class AccountServiceImpl implements AccountService {
     	}
     	return false;
     }
+	@Override
+	public Account findById(Long id) {
+		return this.accountDAO.findById(id).get();
+	}
 
 }

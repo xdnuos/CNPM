@@ -65,7 +65,7 @@ public class AdminOrder {
 			@RequestParam("startDate") String start,
 			@RequestParam("endDate") String end) throws ParseException {
 
-		List<Order> order = orderService.findByTimeDate(start,end);
+		List<Order> order = orderService.findByTimeDate(end,start);
 		Page<Order> orderPage = orderService.convertListToPage(order, 1, 5);
 		 model.addAttribute("orderPage", orderPage);
 	        int totalPages = orderPage.getTotalPages();

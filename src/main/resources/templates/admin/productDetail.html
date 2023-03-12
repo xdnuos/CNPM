@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head th:replace="admin/layout :: head"></head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row g-0">
+        <div th:replace="admin/layout :: navleft"></div>
+        <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10
+          content-column">
+          <div class="container">
+            <nav th:replace="admin/layout :: navtop"></nav>
+            <!-- CODE HERE -->
+<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-6">
+				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+				  <div class="carousel-indicators">
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				  </div>
+				  <div class="carousel-inner">
+				    <div class="carousel-item active" th:each="i:${images}">
+				      <img th:src="${'data:image/jpeg;charset=utf-8;base64,' + i.imageBase64}" alt=""
+                                            class="d-block w-100">
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<h1 class="mb-3" th:text="${product.name}">Tên sản phẩm</h1>
+				<p class="lead" th:text="${product.description}">Mô tả sản phẩm</p>
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<th scope="row">Thương hiệu:</th>
+							<td th:text="${product.manufacturer.name}">Nhãn hiệu sản phẩm</td>
+						</tr>
+						<tr>
+							<th scope="row">Mã sản phẩm:</th>
+							<td th:text="${product.productID}">Mã SP001</td>
+						</tr>
+						<tr>
+							<th scope="row">Số lương:</th>
+							<td th:text="${product.quantity}">Mã SP001</td>
+						</tr>
+						<tr>
+							<th scope="row">Giá:</th>
+							<td th:text="${#numbers.formatDecimal(product.price, 0,
+                            'COMMA', 0, 'POINT')}+ ' VNĐ'">100.000 VNĐ</td>
+						</tr>
+						<tr>
+							<th scope="row">Danh mục:</th>
+							<td ><ul th:each="c : ${categories}"><li th:text="${c.title}"></li></ul> </td>
+						</tr>
+					</tbody>
+				</table>
+                          <a class="btn btn-primary mt-2" role="button"
+                            th:href="@{/admin/addProductToOrder(code=${product.productID})}">Add
+                            to Cart</a>
+			</div>
+		</div>
+	</div>
+            <!-- CODE HERE -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+	var element = document.getElementById("create");
+	element.classList.add("active");
+
+	// Lọc sản phẩm theo danh mục
+	function filterSelection(category) {
+	  var products = document.getElementsByClassName("product");
+	  if (category == "all") category = "";
+	  for (var i = 0; i < products.length; i++) {
+	    removeClass(products[i], "show");
+	    if (products[i].className.indexOf(category) > -1) addClass(products[i], "show");
+	  }
+	}
+
+	//
+		
+    </script>
+  </body>
+
+</html>

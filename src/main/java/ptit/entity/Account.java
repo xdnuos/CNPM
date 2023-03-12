@@ -8,8 +8,10 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -21,28 +23,31 @@ public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "accountID")
 	private Long accountID;
 	
-	@Email(message = "Email không hợp lệ")
+	@NotEmpty(message = "Please enter email")
+	@Email(message = "Wrong email")
 	@Column(name = "email")
 	private String email;
 	
-	@Size(min = 6, max = 225, message = "Tên nhân viên phải từ 6-225 kí tự")
-	@NotEmpty(message = "Vui lòng nhập password")
+	@Size(min = 6, max = 225, message = "Password must be 6-225 digit")
+	@NotEmpty(message = "Please enter password")
 	@Column(name = "password")
 	private String password;
 
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar create_date;
-
+	
+	@NotNull(message="Permission cannot be null")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "permissionID", nullable = false)
 	private Permission permission;
 	
-	@OneToOne(mappedBy = "account")
+	@Valid
+	@OneToOne(mappedBy = "account",fetch = FetchType.EAGER)
 	private Staff staff;
 
 //	@OneToOne(mappedBy = "account")
@@ -114,13 +119,6 @@ public class Account implements Serializable {
 //	public void setCustomer(Customer customer) {
 //		this.customer = customer;
 //	}
-	public Staff getStaff() {
-		return staff;
-	}
-	
-	public void setStaff(Staff staff) {
-		this.staff = staff;
-	}
 	
 //	public Customer getCustomerID() {
 //		return customer;
@@ -136,6 +134,14 @@ public class Account implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
 	}
 	
 	

@@ -274,4 +274,26 @@ public class AdminProduct {
 		productService.save(product);
 		return "redirect:/admin/product";
 	}
+	
+	@GetMapping(value = "/admin/productDetail")
+	public ModelAndView productDetail(Model model,
+			@RequestParam Long id,
+			RedirectAttributes redirectAttributes) {
+		Product product = productService.findById(id);
+		List<Category> categories =product.getCategory();
+		List<Image> images = product.getListImages();
+		images.forEach((i) -> 
+			i.setImageBase64(convertImage(i.getImages()))
+		);
+		
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("product", product);
+        mav.addObject("images", images);
+        List<Integer> listImageID = new ArrayList<Integer>();
+        model.addAttribute(listImageID);
+        model.addAttribute("categories",categories);
+        
+        redirectAttributes.addAttribute("id", id);
+		return mav;
+	}  
 }

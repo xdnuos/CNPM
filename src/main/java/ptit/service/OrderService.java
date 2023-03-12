@@ -116,18 +116,16 @@ public class OrderService {
 	}
 	
 	public List<Order> findByTimeDate(String start, String end){
+		return orderDAO.findByTime(string2Calendar(start), string2Calendar(end));
+	}
+	public Calendar string2Calendar(String date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime dateTime = LocalDate.parse(start, formatter).atStartOfDay();
-		LocalDateTime dateTime2 = LocalDate.parse(end, formatter).atStartOfDay();
+		LocalDateTime dateTime = LocalDate.parse(date, formatter).atStartOfDay();
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-		
-		Calendar calendar2 = Calendar.getInstance();
-		calendar.setTimeInMillis(dateTime2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-		return orderDAO.findByTime(calendar, calendar2);
+		return calendar;
 	}
-	
 	public List<Order> findByTime(Calendar start,Calendar end ){
 		return orderDAO.findByTime(start, end);
 	}

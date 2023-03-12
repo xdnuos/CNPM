@@ -40,10 +40,11 @@
 								<td th:text="${staff.account.permission.name}"/>
 								
 								<td th:text="${staff.account.status} ? 'Active' : 'Disable'"/>
-								<td><a
-									th:href="@{/admin/updatestaff/{staffID}(staffID=${staff.staffID})}"
-									class="btn btn-outline-danger">Update</a> <a
-									th:href="@{/admin/deletestaff/{staffID}(staffID=${staff.staffID})}"
+								<td>
+								
+								<a th:href="@{/admin/editstaff(staffid=${staff.staffID})}"
+									class="btn btn-outline-danger">Update</a>
+								<a th:href="@{/admin/deletestaff/{staffID}(staffID=${staff.staffID})}"
 									class="btn btn-outline-primary">Delete</a>
 								</td>
 							</tr>
