@@ -45,8 +45,8 @@ public class Account implements Serializable {
 	@OneToOne(mappedBy = "account")
 	private Staff staff;
 
-	@OneToOne(mappedBy = "account")
-	private Customer customer;
+//	@OneToOne(mappedBy = "account")
+//	private Customer customer;
     
 	public Account() {
 		
@@ -62,7 +62,7 @@ public class Account implements Serializable {
 		this.status = status;
 		this.permission = permission;
 		this.staff = staff;
-		this.customer = customer;
+//		this.customer = customer;
 	}
 
 	public Long getAccountID() {
@@ -107,13 +107,13 @@ public class Account implements Serializable {
 		this.permission = permission;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+//	public Customer getCustomer() {
+//		return customer;
+//	}
+//
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
 	public Staff getStaff() {
 		return staff;
 	}
@@ -122,13 +122,13 @@ public class Account implements Serializable {
 		this.staff = staff;
 	}
 	
-	public Customer getCustomerID() {
-		return customer;
-	}
+//	public Customer getCustomerID() {
+//		return customer;
+//	}
 	
-	public void setCustomerID(Customer customerID) {
-		this.customer = customerID;
-	}
+//	public void setCustomerID(Customer customerID) {
+//		this.customer = customerID;
+//	}
 
 	public String getEmail() {
 		return email;

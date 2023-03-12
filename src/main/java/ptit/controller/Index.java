@@ -35,48 +35,48 @@ public class Index {
 		return"login";
 	}
 
-	@GetMapping("/register")
-	public String showRegistrationForm(Model model) {
-		Customer neCustomer = new Customer();
-		Account account = new Account();
-		neCustomer.setAccount(account);
-		model.addAttribute("customer", new Customer());
-	    model.addAttribute("ERROR","o");
-	    model.addAttribute("phoneError","o");
-	    return "register";
-	}
+//	@GetMapping("/register")
+//	public String showRegistrationForm(Model model) {
+//		Customer neCustomer = new Customer();
+//		Account account = new Account();
+//		neCustomer.setAccount(account);
+//		model.addAttribute("customer", new Customer());
+//	    model.addAttribute("ERROR","o");
+//	    model.addAttribute("phoneError","o");
+//	    return "register";
+//	}
 	
-	@PostMapping("/register")
-	public String processRegister(@Valid Customer customer,BindingResult result, SessionStatus status, ModelMap model) {
-		  if (result.hasErrors()) {
-//			  System.out.print(result.getAllErrors());
-			    return "register";
-			  }
-		  
-		  if(!customerSerivce.checkPhone(customer.getPhone())) {
-		    	model.addAttribute("phoneError", "Số điện thoại đã tồn tại, vui lòng sử dụng số điện thoại khác");
-		    	return "register";
-		  }
-		  
-	    if(accountService.checkEmail(customer.getAccount().getEmail())) {
-	    	Permission permission = new Permission();
-	    	permission.setPermissionID((long) 3);
-	    	Calendar calendar = Calendar.getInstance();
-		    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		    String encodedPassword = passwordEncoder.encode(customer.getAccount().getPassword());
-		    customer.getAccount().setPassword(encodedPassword);
-		    customer.getAccount().setCreate_date(calendar);
-		    customer.getAccount().setStatus(true);
-		    customer.getAccount().setPermission(permission);
-	    	customerSerivce.save(customer);
-	    	status.setComplete();
-	    } else {
-	    	model.addAttribute("ERROR", "Email đã tồn tại, vui lòng sử dụng email khác");
-	    	return "register";
-	    }
-	    
-	    return "redirect:login";
-	}
+//	@PostMapping("/register")
+//	public String processRegister(@Valid Customer customer,BindingResult result, SessionStatus status, ModelMap model) {
+//		  if (result.hasErrors()) {
+////			  System.out.print(result.getAllErrors());
+//			    return "register";
+//			  }
+//		  
+//		  if(!customerSerivce.checkPhone(customer.getPhone())) {
+//		    	model.addAttribute("phoneError", "Số điện thoại đã tồn tại, vui lòng sử dụng số điện thoại khác");
+//		    	return "register";
+//		  }
+//		  
+//	    if(accountService.checkEmail(customer.getAccount().getEmail())) {
+//	    	Permission permission = new Permission();
+//	    	permission.setPermissionID((long) 3);
+//	    	Calendar calendar = Calendar.getInstance();
+//		    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		    String encodedPassword = passwordEncoder.encode(customer.getAccount().getPassword());
+//		    customer.getAccount().setPassword(encodedPassword);
+//		    customer.getAccount().setCreate_date(calendar);
+//		    customer.getAccount().setStatus(true);
+//		    customer.getAccount().setPermission(permission);
+//	    	customerSerivce.save(customer);
+//	    	status.setComplete();
+//	    } else {
+//	    	model.addAttribute("ERROR", "Email đã tồn tại, vui lòng sử dụng email khác");
+//	    	return "register";
+//	    }
+//	    
+//	    return "redirect:login";
+//	}
  
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

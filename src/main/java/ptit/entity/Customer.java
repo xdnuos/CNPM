@@ -39,8 +39,8 @@ public class Customer implements Serializable {
 	private boolean sex;
 
 	//bi-directional many-to-one association to Cart
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
-	private List<Cart> carts;
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
+//	private List<Cart> carts;
 
 	//bi-directional many-to-one association to Order
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
@@ -49,9 +49,9 @@ public class Customer implements Serializable {
 //	@OneToOne(mappedBy="customerID")
 //	private Account account;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "accountID")
-	private Account account;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "accountID")
+//	private Account account;
 
 	public Customer() {
 	}
@@ -97,27 +97,27 @@ public class Customer implements Serializable {
 		this.sex = sex;
 	}
 
-	public List<Cart> getCarts() {
-		return this.carts;
-	}
+//	public List<Cart> getCarts() {
+//		return this.carts;
+//	}
+//
+//	public void setCarts(List<Cart> carts) {
+//		this.carts = carts;
+//	}
 
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
-	}
-
-	public Cart addCart(Cart cart) {
-		getCarts().add(cart);
-		cart.setCustomer(this);
-
-		return cart;
-	}
-
-	public Cart removeCart(Cart cart) {
-		getCarts().remove(cart);
-		cart.setCustomer(null);
-
-		return cart;
-	}
+//	public Cart addCart(Cart cart) {
+//		getCarts().add(cart);
+//		cart.setCustomer(this);
+//
+//		return cart;
+//	}
+//
+//	public Cart removeCart(Cart cart) {
+//		getCarts().remove(cart);
+//		cart.setCustomer(null);
+//
+//		return cart;
+//	}
 
 	public List<Order> getOrders() {
 		return this.orders;
@@ -141,13 +141,13 @@ public class Customer implements Serializable {
 		return order;
 	}
 
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
+//	public Account getAccount() {
+//		return account;
+//	}
+//
+//	public void setAccount(Account account) {
+//		this.account = account;
+//	}
 
 	public String getAddress() {
 		return address;

@@ -9,26 +9,26 @@ import java.math.BigDecimal;
  * The persistent class for the cartItem database table.
  * 
  */
-@Entity
-@Table(name="cartItem")
+//@Entity
+//@Table(name="cartItem")
 public class CartItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long cartItemID;
 
 	private int price;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="productID")
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="productID")
 	private Product product;
 
 	private int quantity;
 
 	//bi-directional many-to-one association to Cart
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="cartID")
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="cartID")
 	private Cart cart;
 
 	public CartItem() {

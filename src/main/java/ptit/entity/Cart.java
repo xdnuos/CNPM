@@ -12,13 +12,13 @@ import java.util.List;
  * The persistent class for the cart database table.
  * 
  */
-@Entity
-@Table(name="cart")
+//@Entity
+//@Table(name="cart")
 public class Cart implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long cartID;
 
 	private String cookie;
@@ -26,12 +26,12 @@ public class Cart implements Serializable {
 	private Calendar createDate;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="customerID")
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="customerID")
 	private Customer customer;
 
 	//bi-directional many-to-one association to CartItem
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="cart")
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy="cart")
 	private List<CartItem> cartItems = new ArrayList<CartItem>();
 
 	public Cart() {

@@ -55,8 +55,8 @@ public class Product implements Serializable{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItem> oderItem = new ArrayList<>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private List<CartItem> cartItem = new ArrayList<>();
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+//    private List<CartItem> cartItem = new ArrayList<>();
 
 	public Product() {
 		super();
@@ -136,13 +136,13 @@ public class Product implements Serializable{
 		this.oderItem = oderItem;
 	}
 
-	public List<CartItem> getCartItem() {
-		return cartItem;
-	}
-
-	public void setCartItem(List<CartItem> cartItem) {
-		this.cartItem = cartItem;
-	}
+//	public List<CartItem> getCartItem() {
+//		return cartItem;
+//	}
+//
+//	public void setCartItem(List<CartItem> cartItem) {
+//		this.cartItem = cartItem;
+//	}
 
 	public void setCategory(List<Category> category) {
 		this.category = category;
