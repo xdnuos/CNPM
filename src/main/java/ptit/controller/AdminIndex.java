@@ -60,15 +60,15 @@ public class AdminIndex {
     Pageable pageable = sort == null ? PageRequest.of(currentPage - 1, pageSize) : PageRequest.of(currentPage - 1, pageSize, sort);
 
     
-    Page<Product> productPage = productDAO.findWithPageble(pageable);
+    Page<Product> productPage = productDAO.findWithPageble(pageable,true);
     if(manufactor != -1 && category !=-1) {
-    	productPage = productDAO.findByCateManu(category,manufactor,pageable);
+    	productPage = productDAO.findByCateManu(category,manufactor,pageable,true);
     } else 
     if(manufactor != -1) {
-    	productPage = productDAO.findByManufactor(manufactor,pageable);
+    	productPage = productDAO.findByManufactor(manufactor,pageable,true);
     } else 
     if(category != -1) {
-    	productPage = productDAO.findByCategory(category,pageable);
+    	productPage = productDAO.findByCategory(category,pageable,true);
     }
     model.addAttribute("productPage", productPage);
 
@@ -89,7 +89,7 @@ public class AdminIndex {
 	
 	@PostMapping("/admin")
 	public String findProduct(Model model,@RequestParam("search") String text) {
-		List<Product> products = productDAO.searchByName(text);
+		List<Product> products = productDAO.searchByName(text,true);
 		Page<Product> page = productService.convertListToPage(products, 1, 5);
 		model.addAttribute("productPage",page);
 		return "admin/index";

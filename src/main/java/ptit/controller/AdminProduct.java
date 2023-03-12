@@ -84,15 +84,15 @@ public class AdminProduct {
 	    Pageable pageable = sort == null ? PageRequest.of(currentPage - 1, pageSize) : PageRequest.of(currentPage - 1, pageSize, sort);
 
 	    
-	    Page<Product> productPage = productDAO.findWithPageble(pageable);
+	    Page<Product> productPage = productDAO.findWithPagebleA(pageable);
 	    if(manufactor != -1 && category !=-1) {
-	    	productPage = productDAO.findByCateManu(category,manufactor,pageable);
+	    	productPage = productDAO.findByCateManuA(category,manufactor,pageable);
 	    } else 
 	    if(manufactor != -1) {
-	    	productPage = productDAO.findByManufactor(manufactor,pageable);
+	    	productPage = productDAO.findByManufactorA(manufactor,pageable);
 	    } else 
 	    if(category != -1) {
-	    	productPage = productDAO.findByCategory(category,pageable);
+	    	productPage = productDAO.findByCategoryA(category,pageable);
 	    }
 	    model.addAttribute("productPage", productPage);
 
@@ -111,7 +111,7 @@ public class AdminProduct {
 	}
 	@PostMapping("/admin/product")
 	public String findProduct(Model model,@RequestParam("search") String text) {
-		List<Product> products = productDAO.searchByName(text);
+		List<Product> products = productDAO.searchByNameA(text);
 		Page<Product> page = productService.convertListToPage(products, 1, 5);
 		model.addAttribute("productPage",page);
 		return "admin/product";
@@ -266,7 +266,11 @@ public class AdminProduct {
 	public String deleteProduct(@RequestParam Long id) {
 		Product product = productService.findById(id);
 		product.setProductID(id);
-		product.setStatus(false);
+		if(product.getStatus()) {
+			product.setStatus(false);
+		}else {
+			product.setStatus(true);
+		}
 		productService.save(product);
 		return "redirect:/admin/product";
 	}

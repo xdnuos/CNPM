@@ -80,6 +80,8 @@
                         <br>
                         <span>Product ID: </span>
                         <span th:text="${product.productID}">Số lương: </span>
+                        <br>
+                        <span th:if="${!product.status}" class="text-danger" id="productDisable">Product is disable</span>
                       </div>
                       <p class="text-truncate mb-4 mb-md-0" th:text="${product.description}">
                         There are many variations of passages of Lorem Ipsum available, but the
@@ -94,7 +96,8 @@
                       <div class="d-flex flex-column mt-4">
                         <a class="btn btn btn-info btn-sm" role="button" >Detail</a>
                         <a class="btn btn-warning btn-sm mt-2" role="button" th:href="@{/admin/editproduct(id=${product.productID})}">Edit</a>
-                        <a class="btn btn-danger btn-sm mt-2" role="button" th:href="@{/admin/deleteProduct(id=${product.productID})}">Delete</a>
+                        <a class="btn btn-danger btn-sm mt-2" role="button" id="btn-disableProduct" th:href="@{/admin/deleteProduct(id=${product.productID})}" th:if="${product.status}">Disable</a>
+                        <a class="btn btn-danger btn-sm mt-2" role="button" id="btn-disableProduct" th:href="@{/admin/deleteProduct(id=${product.productID})}" th:if="${!product.status}">Enable</a>
                       </div>
                     </div>
                   </div>

@@ -28,18 +28,34 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 		 @Query("from Product as p where p.name = :name")
 		Product findProductByName(@Param("name") String name);
 
+	@Query("select p from Product p where p.status = :status")
+	Page<Product>findWithPageble(Pageable pageable,@Param("status") Boolean status);
+	
+	@Query("from Product as p where p.manufacturer.manufacturerID = :manufactor and p.status = :status")
+	Page<Product>findByManufactor(@Param("manufactor") int manufactor,Pageable pageable,@Param("status") Boolean status);
+	
+	@Query("select p from Product p join p.category c where c.categoryID = :category and p.status = :status")
+	Page<Product>findByCategory(@Param("category") int category,Pageable pageable,@Param("status") Boolean status);
+	
+	@Query("select p from Product p join p.category c where c.categoryID = :category and p.manufacturer.manufacturerID = :manufactor and p.status = :status")
+	Page<Product>findByCateManu(@Param("category") int category,@Param("manufactor") int manufactor,Pageable pageable,@Param("status") Boolean status);
+	
+	@Query("from Product as p where p.name LIKE %:name% and p.status = :status")
+	List<Product> searchByName(@Param("name") String name,@Param("status") Boolean status);
+	
+//	---------------------
 	@Query("select p from Product p")
-	Page<Product>findWithPageble(Pageable pageable);
+	Page<Product>findWithPagebleA(Pageable pageable);
 	
 	@Query("from Product as p where p.manufacturer.manufacturerID = :manufactor")
-	Page<Product>findByManufactor(@Param("manufactor") int manufactor,Pageable pageable);
+	Page<Product>findByManufactorA(@Param("manufactor") int manufactor,Pageable pageable);
 	
 	@Query("select p from Product p join p.category c where c.categoryID = :category")
-	Page<Product>findByCategory(@Param("category") int category,Pageable pageable);
+	Page<Product>findByCategoryA(@Param("category") int category,Pageable pageable);
 	
 	@Query("select p from Product p join p.category c where c.categoryID = :category and p.manufacturer.manufacturerID = :manufactor")
-	Page<Product>findByCateManu(@Param("category") int category,@Param("manufactor") int manufactor,Pageable pageable);
-	
+	Page<Product>findByCateManuA(@Param("category") int category,@Param("manufactor") int manufactor,Pageable pageable);
+
 	@Query("from Product as p where p.name LIKE %:name%")
-	List<Product> searchByName(@Param("name") String name);
+	List<Product> searchByNameA(@Param("name") String name);
 }
