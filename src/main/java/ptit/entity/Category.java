@@ -23,13 +23,6 @@ public class Category implements Serializable {
     @ManyToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Collection<Product> productcate = new ArrayList<>();
     
-    @Column(name = "left_value")
-    private Integer left;
-
-    @Column(name = "right_value")
-    private Integer right;
-
-    
 	public Category() {
 		super();
 	}
@@ -65,25 +58,4 @@ public class Category implements Serializable {
 	public void setProductcate(Collection<Product> productcate) {
 		this.productcate = productcate;
 	}
-	
-
-	public Integer getLeft() {
-		return left;
-	}
-
-	public void setLeft(Integer left) {
-		this.left = left;
-	}
-
-	public Integer getRight() {
-		return right;
-	}
-
-	public void setRight(Integer right) {
-		this.right = right;
-	}
-
-    public boolean isAncestorOf(Category category) {
-        return category.getLeft() > this.getLeft() && category.getRight() < this.getRight();
-    }
 }

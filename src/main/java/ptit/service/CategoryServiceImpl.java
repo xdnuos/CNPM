@@ -29,10 +29,4 @@ public class CategoryServiceImpl implements CategoryService{
 	public void save(Category category) {
 		this.categoriesDAO.save(category);
 	}
-	
-	@Override
-	public List<Category> findAlll() {
-		// TODO Auto-generated method stub
-		return this.categoriesDAO.findAlll();
-	}
 }

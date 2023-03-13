@@ -11,7 +11,4 @@ public interface CategoriesDAO extends JpaRepository<Category, Integer> {
 	Category findByCategoryID(int CategoryID);
 	
 	List<Category> findAll();
-
-    @Query("SELECT c FROM Category c ORDER BY c.left ASC")
-    List<Category> findAlll();
 }
