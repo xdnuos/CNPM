@@ -175,8 +175,8 @@ public class AdminProductCart {
 	      try {
 	    	  orderService.saveCart2Order(cart, note,"live");
 	      } catch (Exception e) {
-	    	 return e.getMessage();
-//	         return "redirect:/admin/orderConfirmation";
+//	    	 return e.getMessage();
+	         return "redirect:/admin/orderConfirmation";
 	      }
 
 	      // Remove Cart from Session.

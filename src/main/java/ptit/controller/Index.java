@@ -133,15 +133,20 @@ public class Index {
 	}
 	
 	@PostMapping("/admin/accountInfo")
-	public String saveAccountInfo(Account account, Model model, SessionStatus status, @RequestParam("bisss") @DateTimeFormat(pattern ="yyyy-MM-dd") Date birth,
+	public String saveAccountInfo(@Valid Account account,BindingResult result, Model model, SessionStatus status,
 			@RequestParam("newpassword") String newPassword) {
+		if(result.hasErrors()) {
+			model.addAttribute("account",account);
+			return "admin/accountInfo";
+		}
+		
 		Staff staff = staffDAO.findById(account.getStaff().getStaffID()).get();
 		staff.setCccd(account.getStaff().getCccd());
 //		staff.setBirth(account.getStaff().getBirth());
 		staff.setFullname(account.getStaff().getFullname());
 		staff.setPhone(account.getStaff().getPhone());
 		staff.setSex(account.getStaff().getSex());
-		staff.setBirth(birth);
+//		staff.setBirth(birth);
 		//nhung thu k thay doi
 		account.setAccountID(account.getAccountID());
 		account.setPermission(account.getPermission());

@@ -33,7 +33,7 @@ public class Customer implements Serializable {
 	private Date birth;
 
 	@NotBlank(message="Full name cannot be blank")
-    @Pattern(regexp="^[\\p{L} \\.'\\-]+$", message="Full name must contain only letters and spaces")
+//    @Pattern(regexp="^[\\p{L} \\.'\\-]+$", message="Full name must contain only letters and spaces")
 	private String fullname;
 
 	@Pattern(regexp="\\d{9}|\\d{10}", message="Phone number must be 9 or 10 digits")

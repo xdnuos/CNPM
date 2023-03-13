@@ -25,26 +25,34 @@
                     <input th:field="*{email}" th type="email" class="form-control" id="email"
                       placeholder="example@example.com"
                       value="example@example.com">
+                      											<div class="invalid-feedback"
+												th:if="${#fields.hasErrors('email')}"
+												th:errors="*{email}"></div>
                   </div>
                   <div class="col-sm-6">
                     <label for="fullname" class="form-label">Full name</label>
                     <input th:field="*{staff.fullname}" type="text" class="form-control" id="fullname"
                       placeholder="Nguyễn Văn A" value="Nguyễn Văn A">
+                      											<div class="invalid-feedback"
+												th:if="${#fields.hasErrors('staff.fullname')}"
+												th:errors="*{staff.fullname}"></div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-sm-6 ">
                     <div class="mb-3">
                       <label for="text" class="form-label">Identify ID</label>
-                      <input th:field="*{staff.cccd}" type="text" class="form-control" id="text"
-                        placeholder="example@example.com"
-                        value="example@example.com">
+                      <input th:field="*{staff.cccd}" type="text" class="form-control" id="text">
+                      											<div class="invalid-feedback"
+												th:if="${#fields.hasErrors('staff.cccd')}" th:errors="*{staff.cccd}"></div>
                     </div>
                     <div class="mb-3">
                       <label for="date" class="form-label">Birth</label>
                       <input type="date" class="form-control" id="date"
-                        placeholder="example@example.com" name="bisss" th:value="*{staff.birth}"
-                        value="example@example.com">
+                        placeholder="example@example.com" name="bisss" th:field="*{staff.birth}">
+                        											<div class="invalid-feedback"
+												th:if="${#fields.hasErrors('staff.birth')}" th:errors="*{staff.birth}"></div>
+                        
                     </div>
                     <div class="mb-3">
                       <label>Permission: </label><p th:text="*{permission.name}" for="dob" class="form-label">Permission</p>
@@ -60,6 +68,8 @@
                       <label for="phone" class="form-label">Phone number</label>
                       <input th:field="*{staff.phone}" type="tel" class="form-control" id="phone"
                         placeholder="0123456789" value="0123456789">
+                        											<div class="invalid-feedback"
+												th:if="${#fields.hasErrors('staff.phone')}" th:errors="*{staff.phone}"></div>
                     </div>
 
 
