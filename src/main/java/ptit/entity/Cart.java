@@ -139,25 +139,40 @@ public class Cart implements Serializable {
         return total;
     }
 
-    public void updateQuantity(Cart cartForm) {
+    public String updateQuantity(Cart cartForm) {
+    	String status ="ok";
         if (cartForm != null) {
             List<CartItem> lines = cartForm.getCartItems();
             for (CartItem line : lines) {
-                this.updateProduct(line.getProduct().getProductID(), line.getQuantity());
+            	status = this.updateProduct(line.getProduct().getProductID(), line.getQuantity());
+            	if(status.equals("ok")) {
+            		return "ok";
+            	}
             }
         }
+        return status;
     }
     
-    public void updateProduct(Long code, int quantity) {
+    public String updateProduct(Long code, int quantity) {
         CartItem line = this.findLineByCode(code);
 
         if (line != null) {
             if (quantity <= 0) {
                 this.cartItems.remove(line);
-            } else {
+                return "ok";
+            } else if(isAvailble(line, quantity)){
                 line.setQuantity(quantity);
+                return "ok";
             }
         }
+        return line.getProduct().getName();
+    }
+    
+    public boolean isAvailble(CartItem cartItem,int quantity) {
+    	if (quantity>cartItem.getProduct().getQuantity()) {
+			return false;
+		}
+    	return true;
     }
     
     public boolean isEmpty() {

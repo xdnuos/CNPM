@@ -15,15 +15,15 @@
         <div class="container">
           <nav th:replace="admin/layout :: navtop"></nav>
           <!-- CODE HERE -->
-          <h2 class="mb-3 text-center">Quản lý nhà sản xuất</h2>
+          <h2 class="mb-3 text-center">Manufacture Management</h2>
           <div class="row">
             <div class="col-md-8 order-md-1 mx-auto">
-              <h4 class="mb-3">Danh sách nhà sản xuất</h4>
+              <h4 class="mb-3">List of manufacturers</h4>
               <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">Mã số</th>
-                    <th scope="col">Tên nhà sản xuất</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -31,23 +31,23 @@
                   <tr th:each="c : ${manufacturers}">
                     <th th:text=${c.manufacturerID}>1</th>
                     <td th:text=${c.name}>Mark</td>
-                    <td><a class="btn btn-outline-info" th:href="@{/admin/editManufactor(id=${c.manufacturerID})}" id="cust_btn" data-toggle="modal" data-target="#myModal">Sửa</a>
+                    <td><a class="btn btn-outline-info" th:href="@{/admin/editManufactor(id=${c.manufacturerID})}" id="cust_btn" data-toggle="modal" data-target="#myModal">Edit</a>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div class="col-md-4 order-md-1 mx-auto">
-              <h4 class="mb-3">Thêm nhà sản xuất</h4>
+              <h4 class="mb-3">Add new Manufacture</h4>
               <form class="needs-validation" name="addManufactor" enctype="multipart/form-data" method="post">
                 <div class="row">
                   <div class="mb-3 col-md-10">
-                    <label>Tên nhà sản xuất</label>
+                    <label>Manufacture name</label>
                     <input type="text" class="form-control" name="name">
                     <div class="invalid-feedback"></div>
                   </div>
                 </div>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Lưu</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
               </form>
             </div>
           </div>

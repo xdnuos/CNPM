@@ -17,23 +17,23 @@
                <div class="container">
                   <nav th:replace="admin/layout :: navtop"></nav>
                   <!-- CODE HERE -->
-                  <div class="page-title"><h3>Xác nhận đơn hàng</h3></div>
+                  <div class="page-title"><h3>Order confirmation</h3></div>
                   <div class="card" id="customer-info">
                      <div class="card-body">
-                        <h5 class="card-title">Thông tin khách hàng:</h5>
+                        <h5 class="card-title">Customer information:</h5>
                         <div class="cart-text">
-                        	<label class="d-inline">Họ và tên:</label>
+                        	<label class="d-inline">Full name:</label>
                         	<p class="d-inline" th:utext="${myCart.customer.fullname}"></p>
                         </div>
                         <div class="card-text">
-                           <label class="d-inline">SĐT: </label>
+                           <label class="d-inline">Phone number: </label>
                            <p class="d-inline" th:utext="${myCart.customer.phone}"></p>
                         </div>
                         <div class="card-text">
-                           <label class="d-inline">Địa chỉ: </label>
+                           <label class="d-inline">Address: </label>
                            <p class="d-inline" th:utext="${myCart.customer.address}"></p>
                         </div>
-                        <a th:href="@{/admin/continuteOrder}" class="btn btn-sm btn-outline-primary" style="margin-top: 16px;">Chỉnh sửa thông tin khách hàng</a>
+                        <a th:href="@{/admin/continuteOrder}" class="btn btn-sm btn-outline-primary" style="margin-top: 16px;">Edit customer information</a>
                      </div>
 
                   </div>
@@ -42,10 +42,10 @@
                      <thead>
                         <tr>
                            <th scope="col">ID</th>
-                           <th scope="col">Tên sản phẩm</th>
-                           <th scope="col">Giá</th>
-                           <th scope="col">Số lượng</th>
-                           <th scope="col">Đơn giá</th>
+                           <th scope="col">Product's name</th>
+                           <th scope="col">Price</th>
+                           <th scope="col">Quantity</th>
+                           <th scope="col">Total amount</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -64,14 +64,14 @@
                      </tbody>
                      <tfoot>
                         <tr>
-                           <th colspan="4">Tổng</th>
+                           <th colspan="4" class="text-danger">Total order value</th>
                            <th th:text="${#numbers.formatDecimal(myCart.getAmountTotal,
-                              0, 'COMMA', 0, 'POINT')}+ ' VNĐ'"> Đơn giá</th>
+                              0, 'COMMA', 0, 'POINT')}+ ' VNĐ'" class="text-danger"> Đơn giá</th>
                         </tr>
                      </tfoot>
                   </table>
-                  <form method="POST" th:action="@{/admin/orderConfirmation}">
-                     <input type="submit" value="Tạo đơn hàng" class="btn btn-primary"
+                  <form method="POST">
+                     <input type="submit" value="Create Order" class="btn btn-primary"
                         style="margin-bottom:24px;"/>
                   </form>
                   <!-- CODE HERE -->

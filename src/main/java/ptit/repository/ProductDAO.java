@@ -2,9 +2,12 @@ package ptit.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -58,4 +61,12 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 
 	@Query("from Product as p where p.name LIKE %:name%")
 	List<Product> searchByNameA(@Param("name") String name);
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE Product p SET p.quantity = :qty WHERE p.id = :id")
+	Integer updateQty(@Param("qty") int qty,@Param("id") Long id);
+	
+	@Query("SELECT p.quantity FROM Product p WHERE p.id = :id")
+	Integer getProductQty(@Param("id") Long id);
 }

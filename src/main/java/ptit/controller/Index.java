@@ -1,6 +1,7 @@
 package ptit.controller;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -20,16 +21,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.Authentication;
 
 import ptit.entity.Account;
 import ptit.entity.Customer;
+import ptit.entity.PasswordResetToken;
 import ptit.entity.Permission;
 import ptit.entity.Staff;
 import ptit.repository.AccountDAO;
+import ptit.repository.PasswordResetTokenRepository;
 import ptit.repository.StaffDAO;
 import ptit.service.AccountService;
 import ptit.service.CustomerSerivce;
+import ptit.service.ISecurityUserService;
+import ptit.service.SendEmailService;
 
 @Controller
 public class Index {
@@ -39,12 +45,24 @@ public class Index {
 	CustomerSerivce customerSerivce;
 	@Autowired
 	StaffDAO staffDAO;
+	@Autowired
+	PasswordResetTokenRepository passwordResetTokenRepository;
+	
+	@Autowired
+	SendEmailService emailService;
+	
+	@Autowired
+	ISecurityUserService iSecurityUserService;
 	
 	@GetMapping("/login")
-	public String login(Model model,@RequestParam(value = "error",defaultValue = "false") String error) {
+	public String login(Model model,@RequestParam(value = "error",defaultValue = "false") String error,@RequestParam(value = "message",defaultValue = "false") String message) {
 		if(error.equals("true")) {
 			model.addAttribute("error",true);
 		}
+		if(!message.equals("false")) {
+			model.addAttribute("message",message);
+		}
+		
 		return"/admin/login";
 	}
 
@@ -141,4 +159,85 @@ public class Index {
 		status.setComplete();
 		return "redirect:/admin";
 	}
+	
+	@GetMapping("/fogetpassword")
+	public String forgetpassword(Model model,@RequestParam(value = "error",defaultValue = "") String error) {
+		if(!error.equals("")) {
+			model.addAttribute("error",true);
+		}
+		return "/admin/forgetpass";
+	}
+	
+	@PostMapping("/fogetpassword")
+	public String resetPassword(Model model, @RequestParam("email") String email,RedirectAttributes attributes) {
+		Account account = accountService.findByEmail(email);
+		
+		if(account==null) {
+			model.addAttribute("error","Email does not exist");
+			return "/admin/forgetpass";
+		}
+		//send email
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken passwordResetToken = new PasswordResetToken();
+        passwordResetToken.setAccount(account);
+        passwordResetToken.setToken(token);
+        passwordResetToken.setExpiryDate(new Date(System.currentTimeMillis() + 600000));
+        passwordResetTokenRepository.save(passwordResetToken);
+
+        // Gửi email khôi phục mật khẩu
+        String subject = "Reset Password";
+        String message = "Click here to reset your password: "
+                + "http://localhost:8080/reset-password?token=" + token;
+        try {
+        	emailService.sendEmail(email, subject, message);
+        }catch (Exception e) {
+        	attributes.addAttribute("message","Sorry! Something is wrong. Please try again");
+        	return "redirect:/login";
+		}
+
+        model.addAttribute("error","Please check your email!");
+		return "/admin/forgetpass";
+	}
+	
+	@GetMapping("/reset-password")
+	public String resetpass(Model model, @RequestParam(value = "token", defaultValue = "no") String token,RedirectAttributes attributes) {
+		if(token.equals("no")) {
+			attributes.addAttribute("message","Sorry! Something is wrong");
+		}
+		
+		String value=iSecurityUserService.validatePasswordResetToken(token);
+		if(value.equals("ok")) {
+//			model.addAttribute("token",token);
+			return "/admin/reset-password";
+		}else if (value.equals("invalidToken")) {
+			attributes.addAttribute("message","Sorry! Something is wrong");
+		}else if (value.equals("expiredToken")) {
+			attributes.addAttribute("message","Sorry! This link is expired");
+		}
+		return "redirect:/login";
+	}
+	
+	@PostMapping("/reset-password")
+    public String updatePassword(@RequestParam("token") String token,@RequestParam("password") String newPassword, RedirectAttributes attributes) {
+		PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
+		
+        if (passwordResetToken == null) {
+        	System.out.print("ddddddddddddddddddddddddddddd"+token+"ssssssssss");
+        	attributes.addAttribute("message","Sorry! Something is wrong");
+        	return "redirect:/login";
+        }
+        
+        Account account = passwordResetToken.getAccount();
+        
+        
+        // Cập nhật mật khẩu mới cho người dùng và xoá token khôi phục mật khẩu
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    String encodedPassword = passwordEncoder.encode(newPassword);
+        account.setPassword(encodedPassword);
+        
+        accountService.save(account);
+        passwordResetTokenRepository.deleteById(passwordResetToken.getId());
+        attributes.addAttribute("message", "Password recovery successful!");
+        return "redirect:/login";
+    }
 }

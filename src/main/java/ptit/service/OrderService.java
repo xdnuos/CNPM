@@ -26,9 +26,11 @@ import ptit.entity.CartItem;
 import ptit.entity.Customer;
 import ptit.entity.Order;
 import ptit.entity.OrderItem;
+import ptit.entity.Product;
 import ptit.repository.AccountDAO;
 import ptit.repository.CustomerDAO;
 import ptit.repository.OrderDAO;
+import ptit.repository.ProductDAO;
 
 @Service
 public class OrderService {
@@ -40,6 +42,9 @@ public class OrderService {
 	
 	@Autowired
 	AccountDAO accountDAO;
+	
+	@Autowired
+	ProductDAO productDAO;
 
 	public void saveCart2Order(Cart cart,String note,String payment) {
    	 Order order = new Order();
@@ -53,6 +58,9 @@ public class OrderService {
    	 Calendar date = Calendar.getInstance();	
    	 order.setOrderDate(date);
    	 cart.getCartItems().forEach((element)->{
+   		 
+   		updateQty(element);
+ 		
 		OrderItem orderItem = new OrderItem();
 		orderItem.setProduct(element.getProduct());
 		orderItem.setAmount(element.getAmount());
@@ -73,6 +81,12 @@ public class OrderService {
    	 orderDAO.save(order);
 	}
 	
+	private void updateQty(CartItem cartItem) {
+		int qty = cartItem.getQuantity();
+		Long productID = cartItem.getProduct().getProductID();
+		int productqty = productDAO.getProductQty(productID);
+		productDAO.updateQty(productqty-qty,productID);
+	}
 	private List<OrderItem> cartItem2OrderItem(List<CartItem> cartItems){
 		List<OrderItem> orderItems = new ArrayList<>();
 		

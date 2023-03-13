@@ -114,8 +114,10 @@ public class AdminProduct {
 		List<Product> products = productDAO.searchByNameA(text);
 		Page<Product> page = productService.convertListToPage(products, 1, 5);
 		model.addAttribute("productPage",page);
+		//
 		return "admin/product";
 	}
+
 	
 	@GetMapping(value = "/admin/addproduct")
 	public ModelAndView addProduct(Model model) {
