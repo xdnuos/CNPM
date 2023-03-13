@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import ptit.entity.Account;
@@ -41,8 +42,9 @@ public class AdminStaff {
 	private PermissionService permissionService;
 	
 	@GetMapping("/admin/staff")
-    public String staff(ModelMap model) {
+    public String staff(ModelMap model,@RequestParam(value = "message",defaultValue = "") String message) {
         model.addAttribute("staffs", staffService.findAll());
+        model.addAttribute("message",message);
         return "admin/staff";
     }
 	@GetMapping("/admin/addstaff")
@@ -57,7 +59,7 @@ public class AdminStaff {
 	}
 	@PostMapping("/admin/addstaff")
 	public String saveStaff(@Valid Staff staff, BindingResult result,
-			Account account, ModelMap model){
+			Account account, ModelMap model, SessionStatus stas,RedirectAttributes redirectAttributes ){
 
 		if (result.hasErrors()) {
 			model.addAttribute("staffID", staff.getStaffID());
@@ -73,12 +75,15 @@ public class AdminStaff {
 		    return "admin/addstaff";
 		}
 	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	    account.setStatus(true);
 	    String encodedPassword = passwordEncoder.encode(staff.getAccount().getPassword());
 	    staff.getAccount().setPassword(encodedPassword);
 		Calendar calendar = Calendar.getInstance();
 		staff.getAccount().setCreate_date(calendar);
+		staff.getAccount().setStatus(true);
 		staffService.save(staff);
+		stas.setComplete();
+		
+		redirectAttributes.addAttribute("message","Create account complete!");
 		return "redirect:/admin/staff";
 	}
 	@GetMapping("/admin/editstaff")
@@ -86,14 +91,12 @@ public class AdminStaff {
 		List<Permission> permissions = permissionService.findAll();
 		model.addAttribute("permissions", permissions);
 		Staff staff = staffService.findById(staffID).get();
-		
-		// set staff as a model attribute 
+
 		model.addAttribute("staff", staff);
-		model.addAttribute("message", "Staff Update");
 		return "admin/editStaff";
 	}
 	@PostMapping("/admin/editstaff")
-	public String editStaff(@Valid Staff staff, BindingResult result,ModelMap model){
+	public String editStaff(@Valid Staff staff, BindingResult result,ModelMap model,SessionStatus stas, RedirectAttributes attributes){
 		if (result.hasErrors()) {
 			model.addAttribute("staffID", staff.getStaffID());
 		    return "admin/updatestaff";
@@ -107,23 +110,31 @@ public class AdminStaff {
 		staff.setAccount(account);
 //		staff.setBirth(birth);
 		staffService.save(staff);
+		
+		stas.setComplete();
+		
+		attributes.addAttribute("message","Change information success!");
 		return "redirect:/admin/staff";
 	}
 	@GetMapping("/admin/deletestaff/{staffID}")
-	public String deleteStaff(@PathVariable Long staffID, SessionStatus stas, Model model) {
+	public String deleteStaff(@PathVariable Long staffID, SessionStatus stas, Model model,RedirectAttributes attributes) {
 		Staff staff = staffService.findById(staffID).get();
 		
 		if(staff.getAccount().getPermission().getName().equals("ROLE_MANAGER")) {
-			model.addAttribute("error","Không thể vô hiệu hóa tài khoản quản trị");
+			attributes.addAttribute("message","Cannot disable administrator account");
 			return"redirect:/admin/staff";
 		}
-		if(staff.getAccount().getStatus()) {
+		if(staff.getAccount().getStatus() | staff.getAccount().getStatus()==null) {
 			staff.getAccount().setStatus(false);
+			
+			attributes.addAttribute("message","Account deactivation successful");
 		} else {
 			staff.getAccount().setStatus(true);
+			attributes.addAttribute("message","Account activation successful");
 		}
 		staffService.save(staff);
 		stas.setComplete();
+		
 		return"redirect:/admin/staff";
 	}
 	@GetMapping("/admin/sortstaff")
@@ -140,5 +151,17 @@ public class AdminStaff {
 //		model.addAttribute("staff", page);
 //		return"staff";
 //	}
+	
+	@GetMapping("/resetPasswordStaff")
+	public String resetPasswordStaff(@RequestParam("id") long id, RedirectAttributes attributes) {
+		Account account = accountService.findById(id);
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    String encodedPassword = passwordEncoder.encode("123456");
+	    account.setPassword(encodedPassword);
+	    accountService.save(account);
+	    
+	    attributes.addAttribute("message","Reset password for "+account.getStaff().getFullname()+" complete! Password default is '123456'");
+        return "redirect:/admin/staff";
+	}
 	
 }

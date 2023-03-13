@@ -147,6 +147,10 @@ public class AdminProduct {
     		 SessionStatus status) {
     	
 	  if (result.hasErrors()) {
+			List<Category> categories =categoryService.findAll();
+			List<Manufacturer> manufacturers =manufacturerService.findAll();
+			model.addAttribute("manufacturers", manufacturers);
+			model.addAttribute("categories", categories);
 		    return "admin/addproduct";
 		  }
     	

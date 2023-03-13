@@ -12,6 +12,7 @@
 				class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
 				<div class="container">
 					<nav th:replace="admin/layout :: navtop"></nav>
+					<div th:if="${message != '' and message != null}" th:text="${message}" class="alert alert-success text-center" role="alert"></div>
 					<table class="table table-hover">
 						<!--  <table class="table table-striped table-responsive-md">-->
 						<thead class="thead">
@@ -37,20 +38,22 @@
 								<td th:text="${staff.phone}" />
 								<td th:text="${staff.birth}" />
 								
-								<td th:text="${staff.account.permission.name}"/>
+								<td th:if="${staff.account.permission.name.contains('ROLE_EMPLOYEE')}" th:text="Staff"/>
+								<td th:if="${staff.account.permission.name.contains('ROLE_MANAGER')}" th:text="Manager"/>
 								
 								<td th:text="${staff.account.status} ? 'Active' : 'Disable'"/>
 								<td>
 								
 								<a th:href="@{/admin/editstaff(staffid=${staff.staffID})}"
 									class="btn btn-outline-danger">Update</a>
-								<a th:href="@{/admin/deletestaff/{staffID}(staffID=${staff.staffID})}"
-									class="btn btn-outline-primary">Delete</a>
+								<a th:if="${!staff.account.status}" th:href="@{/admin/deletestaff/{staffID}(staffID=${staff.staffID})}"
+									class="btn btn-outline-primary">Enable</a>
+								<a th:if="${staff.account.status}" th:href="@{/admin/deletestaff/{staffID}(staffID=${staff.staffID})}"
+									class="btn btn-outline-primary">Disable</a>
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					<h6 th:text="${message}"></h6>
 				</div>
 			</div>
 		</div>
@@ -63,13 +66,15 @@
 		var element = document.getElementById("staff");
 		element.classList.add("active");
 
-		var add = document.getElementById("cart-icon");
-
+		var add = document.getElementById("li-btn-add");
+		
 		add.classList.remove("disable");
-
-		function foo() {
-			return window.location.href = '/admin/addstaff'
+		
+		function foo(){
+			return window.location.href='/admin/addstaff'
 		}
+
+		document.querySelector('#btn-add').innerHTML = 'Create Staff';
 	</script>
 </body>
 
