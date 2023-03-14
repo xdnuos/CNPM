@@ -11,6 +11,9 @@
         <div class="container">
         <nav th:replace="admin/layout :: navtop"></nav>
           <!-- CODE HERE -->
+          	<div th:if="${not #strings.isEmpty(message)}" id="error-message" class="alert alert-success text-center" role="alert" th:text="${message}">
+				    Tài khoản hoặc mật khẩu không chính xác!
+	</div>
                       <div class="container">
               <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
@@ -72,11 +75,14 @@
                         </a>
                       </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 col-xl-6">
+                    <div class="col-md-6">
                       <h5 th:text="${product.name}">Quant trident shirts</h5>
                       <div class="mt-1 mb-0 text-muted small">
+                      	<div th:if="${product.quantity>0}">
                       	<span>Quantity: </span>
-                        <span th:text="${product.quantity}">Số lương: </span>
+                        <span  th:text="${product.quantity}">Số lương: </span>
+                      	</div>
+						<span th:if="${product.quantity==0}" class="text-danger">Product out of stock</span>
                         <br>
                         <span>Product ID: </span>
                         <span th:text="${product.productID}">Số lương: </span>

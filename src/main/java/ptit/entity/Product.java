@@ -33,7 +33,7 @@ public class Product implements Serializable{
     private String description;
     
     @Column(name = "quantity")
-    @Min(value=1, message="Số lượng sản phẩm không hợp lệ") 
+    @Min(value=0, message="Số lượng sản phẩm không hợp lệ") 
     private int quantity;
     
     @Column(name="status")

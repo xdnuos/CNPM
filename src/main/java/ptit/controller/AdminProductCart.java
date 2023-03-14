@@ -165,7 +165,7 @@ public class AdminProductCart {
 	   @PostMapping(value = { "/admin/orderConfirmation" })
 	   public String shoppingCartConfirmationSave(HttpServletRequest request, Model model,
 			   @RequestParam(defaultValue = "") String note,
-			   @RequestParam(defaultValue = "") String payment) {
+			   @RequestParam(defaultValue = "") String payment, SessionStatus sessionStatus) {
 	      Cart cart = Utils.getCartInSession(request);
 
 	      if (cart.isEmpty()) {
@@ -184,6 +184,8 @@ public class AdminProductCart {
 
 	      // Store last cart.
 	      Utils.storeLastOrderedCartInSession(request, cart);
+	      
+	      sessionStatus.setComplete();
 	      return "redirect:/admin/orderFinalize";
 	   }
 	   

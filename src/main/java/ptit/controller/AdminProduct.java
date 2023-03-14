@@ -67,7 +67,8 @@ public class AdminProduct {
 	        @RequestParam(value="name",defaultValue = "none") String name,
 	        @RequestParam(value="price",defaultValue = "none") String price,
 	        @RequestParam(value="category",defaultValue = "-1") int category,
-	        @RequestParam(value="manufactor",defaultValue = "-1") int manufactor) {
+	        @RequestParam(value="manufactor",defaultValue = "-1") int manufactor,
+	        @RequestParam(value = "message",required = false) String message) {
 	    int currentPage = page.orElse(1);
 	    int pageSize = size.orElse(5);
 	    
@@ -107,6 +108,7 @@ public class AdminProduct {
 		model.addAttribute("category",categories);
 		List<Manufacturer> manufacturers = manufactureDAO.findAll();
 		model.addAttribute("manufactor",manufacturers);
+		model.addAttribute("message",message);
 		return "admin/product";
 	}
 	@PostMapping("/admin/product")
@@ -146,7 +148,7 @@ public class AdminProduct {
     @PostMapping(value = "admin/addproduct")
     public String addProduct(@Valid Product product,BindingResult result, Model model,
     		 @RequestParam("images") MultipartFile[] listImages,
-    		 SessionStatus status) {
+    		 SessionStatus status, RedirectAttributes attributes) {
     	
 	  if (result.hasErrors()) {
 			List<Category> categories =categoryService.findAll();
@@ -177,6 +179,7 @@ public class AdminProduct {
     	product.setStatus(true);
         productService.save(product);
     	status.setComplete();
+    	attributes.addAttribute("message","Add new product complete");
         return "redirect:/admin/product";
     }
     
@@ -227,7 +230,7 @@ public class AdminProduct {
     public String editProduct(@Valid Product product,BindingResult result, Model model,
     		 @RequestParam("images") MultipartFile[] listImages,
     		 @RequestParam("id") long productID,
-    		 SessionStatus status) {
+    		 SessionStatus status,RedirectAttributes attributes) {
     	
 	  if (result.hasErrors()) {
 		    return "admin/editproduct";
@@ -254,6 +257,7 @@ public class AdminProduct {
     	product.setProductID(productID);
         productService.save(product);
     	status.setComplete();
+    	attributes.addAttribute("message","Edit product complete");
         return "redirect:/admin/product";
     }
 	
