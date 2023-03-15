@@ -273,15 +273,19 @@ public class AdminProduct {
 		}
 	}
 	@GetMapping(value ="/admin/deleteProduct")
-	public String deleteProduct(@RequestParam Long id) {
+	public String deleteProduct(@RequestParam Long id,
+			RedirectAttributes redirectAttributes) {
 		Product product = productService.findById(id);
 		product.setProductID(id);
 		if(product.getStatus()) {
 			product.setStatus(false);
+			redirectAttributes.addAttribute("message","Disable product "+product.getName()+" complete!");
 		}else {
 			product.setStatus(true);
+			redirectAttributes.addAttribute("message","Enable product "+product.getName()+" complete!");
 		}
 		productService.save(product);
+		
 		return "redirect:/admin/product";
 	}
 	

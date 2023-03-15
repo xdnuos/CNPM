@@ -43,7 +43,8 @@ public class AdminIndex {
         @RequestParam(value="name",defaultValue = "none") String name,
         @RequestParam(value="price",defaultValue = "none") String price,
         @RequestParam(value="category",defaultValue = "-1") int category,
-        @RequestParam(value="manufactor",defaultValue = "-1") int manufactor) {
+        @RequestParam(value="manufactor",defaultValue = "-1") int manufactor,
+        @RequestParam(value = "message",required = false) String message) {
     int currentPage = page.orElse(1);
     int pageSize = size.orElse(8);
     
@@ -83,6 +84,7 @@ public class AdminIndex {
 	model.addAttribute("category",categories);
 	List<Manufacturer> manufacturers = manufactureDAO.findAll();
 	model.addAttribute("manufactor",manufacturers);
+	model.addAttribute("message",message);
 	return "admin/index";
 	}
 	

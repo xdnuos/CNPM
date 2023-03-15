@@ -39,7 +39,7 @@ public class AdminProductCart {
 		OrderService orderService;
 	   @GetMapping(value ={"/admin/addProductToOrder"})
 	   public String listProductHandler(HttpServletRequest request, Model model, //
-	         @RequestParam(defaultValue = "") Long code) {
+	         @RequestParam(defaultValue = "") Long code,RedirectAttributes attributes) {
 
 	      Product product = null;
 	      if (code != null) {
@@ -49,13 +49,14 @@ public class AdminProductCart {
 	         Cart cart = Utils.getCartInSession(request);
 	         cart.addProduct(product,1);
 	      }
-
-	      return "redirect:/admin/cart";
+	      attributes.addAttribute("message","Add product "+ product.getName() +" to cart complete!");
+	      return "redirect:/admin";
 	   }
 	   
 	   @GetMapping(value ={"/admin/cartRemoveProduct"})
 	   public String removeProductHandler(HttpServletRequest request, Model model, //
-	         @RequestParam(defaultValue = "") Long code) {
+	         @RequestParam(defaultValue = "") Long code,
+	         RedirectAttributes attributes) {
 	      Product product = null;
 	      if (code != null) {
 	         product = productService.findById(code);
@@ -67,14 +68,18 @@ public class AdminProductCart {
 	         cart.removeProduct(product);
 
 	      }
+	      attributes.addAttribute("toast", "Delete product "+product.getName()+" from cart complete!");
 	      return "redirect:/admin/cart";
 	   }
 	   @GetMapping(value = { "/admin/cart" })
-	   public String shoppingCartHandler(HttpServletRequest request, Model model,@RequestParam(value = "message",required = false) String message) {
+	   public String shoppingCartHandler(HttpServletRequest request, Model model,
+			   @RequestParam(value = "message",required = false) String message,
+			   @RequestParam(value = "toast",required = false) String toast) {
 		   Cart myCart = Utils.getCartInSession(request);
 
 	      model.addAttribute("cartForm", myCart);
 	      model.addAttribute("message", message);
+	      model.addAttribute("toast", toast);
 	      return "/admin/cart";
 	   }
 	   @PostMapping(value = { "/admin/cart" })
@@ -165,7 +170,7 @@ public class AdminProductCart {
 	   @PostMapping(value = { "/admin/orderConfirmation" })
 	   public String shoppingCartConfirmationSave(HttpServletRequest request, Model model,
 			   @RequestParam(defaultValue = "") String note,
-			   @RequestParam(defaultValue = "") String payment, SessionStatus sessionStatus) {
+			   @RequestParam(defaultValue = "") String payment, SessionStatus sessionStatus, RedirectAttributes attributes) {
 	      Cart cart = Utils.getCartInSession(request);
 
 	      if (cart.isEmpty()) {
@@ -176,6 +181,7 @@ public class AdminProductCart {
 	    	  orderService.saveCart2Order(cart, note,"live");
 	      } catch (Exception e) {
 //	    	 return e.getMessage();
+	    	  attributes.addAttribute("message","Some thing is wrong! Please try again");
 	         return "redirect:/admin/orderConfirmation";
 	      }
 
@@ -186,7 +192,9 @@ public class AdminProductCart {
 	      Utils.storeLastOrderedCartInSession(request, cart);
 	      
 	      sessionStatus.setComplete();
-	      return "redirect:/admin/orderFinalize";
+	      
+	      attributes.addAttribute("message","Create order complete!");
+	      return "redirect:/admin";
 	   }
 	   
 	   @GetMapping(value = { "admin/orderFinalize" })

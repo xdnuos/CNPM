@@ -2,67 +2,114 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="admin/layout :: head"></head>
+	<head th:replace="admin/layout :: head"></head>
 
-<body>
-	<div class="container-fluid">
-		<div class="row g-0">
-			<div th:replace="admin/layout :: navleft"></div>
-			<div
-				class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
-				<div class="container">
-					<nav th:replace="admin/layout :: navtop"></nav>
-					<div th:if="${message != '' and message != null}" th:text="${message}" class="alert alert-success text-center" role="alert"></div>
-					<table class="table table-hover">
-						<!--  <table class="table table-striped table-responsive-md">-->
-						<thead class="thead">
-							<tr>
-								<th><a href="/admin/sortstaff?field=staffID">StaffID</a></th>
-								<th><a href="/admin/sortstaff?field=fullname">Fullname</a></th>
-								<th>Account</th>
-								<th>Sex</th>
-								<th>Phone</th>
-								<th><a href="/admin/sortstaff?field=birth">Birth</a></th>
-								<th>Permission</th>
-								<th>Status</th>
-								<th>Function</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="staff:${staffs}">
-								<td width="100" th:text="${staff.staffID}" />
-								<td th:text="${staff.fullname}" />
-								<td th:text="${staff.account.email}" />
-								<td th:text="${staff.sex} ? 'Male' : 'Female'"/> 
-									
-								<td th:text="${staff.phone}" />
-								<td th:text="${staff.birth}" />
-								
-								<td th:if="${staff.account.permission.name.contains('ROLE_EMPLOYEE')}" th:text="Staff"/>
-								<td th:if="${staff.account.permission.name.contains('ROLE_MANAGER')}" th:text="Manager"/>
-								
-								<td th:text="${staff.account.status} ? 'Active' : 'Disable'"/>
-								<td>
-								
-								<a th:href="@{/admin/editstaff(staffid=${staff.staffID})}"
-									class="btn btn-outline-danger">Update</a>
-								<a th:if="${!staff.account.status}" th:href="@{/admin/deletestaff/{staffID}(staffID=${staff.staffID})}"
-									class="btn btn-outline-primary">Enable</a>
-								<a th:if="${staff.account.status}" th:href="@{/admin/deletestaff/{staffID}(staffID=${staff.staffID})}"
-									class="btn btn-outline-primary">Disable</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+	<body>
+		<div class="container-fluid">
+			<div class="row g-0">
+				<div th:replace="admin/layout :: navleft"></div>
+				<div
+					class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10 content-column">
+					<div class="container">
+						<nav th:replace="admin/layout :: navtop"></nav>
+            <div th:if="${not #strings.isEmpty(message)}"
+              data-bs-animation="autohide" class="position-fixed top-1 end-0 p-3
+              " style="z-index:
+              11">
+              <div id="liveToast" class="toast align-items-center text-white
+                bg-success border-0" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                  <div class="toast-body" th:text="${message}">
+                    Hello, world! This is a toast message.
+                  </div>
+                  <button type="button" class="btn-close btn-close-white me-2
+                    m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+						<table class="table table-hover">
+							<!--  <table class="table table-striped table-responsive-md">-->
+							<thead class="thead">
+								<tr>
+									<th><a href="/admin/sortstaff?field=staffID">StaffID</a></th>
+									<th><a href="/admin/sortstaff?field=fullname">Fullname</a></th>
+									<th>Account</th>
+									<th>Sex</th>
+									<th>Phone</th>
+									<th><a href="/admin/sortstaff?field=birth">Birth</a></th>
+									<th>Permission</th>
+									<th>Status</th>
+									<th>Function</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="staff:${staffs}">
+									<td width="100" th:text="${staff.staffID}" />
+										<td th:text="${staff.fullname}" />
+											<td th:text="${staff.account.email}" />
+												<td th:text="${staff.sex} ? 'Male' : 'Female'"/>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="../static/admin/js/scripts.js"></script>
-	<script>
+													<td th:text="${staff.phone}" />
+														<td th:text="${staff.birth}" />
+
+															<td
+																th:if="${staff.account.permission.name.contains('ROLE_EMPLOYEE')}"
+																th:text="Staff"/>
+																<td
+																	th:if="${staff.account.permission.name.contains('ROLE_MANAGER')}"
+																	th:text="Manager"/>
+
+																	<td th:text="${staff.account.status} ? 'Active' : 'Disable'"/>
+																		<td>
+
+																			<a th:href="@{/admin/editstaff(staffid=${staff.staffID})}"
+																				class="btn btn-outline-danger">Update</a>
+																			<a th:if="${!staff.account.status}"
+																				class="btn btn-outline-primary" data-bs-toggle="modal" th:attr="data-bs-target='#confirmModal'+${staff.staffID}">Enable</a>
+																			<a th:if="${staff.account.status}"
+																				class="btn btn-outline-primary" data-bs-toggle="modal" th:attr="data-bs-target='#confirmModal'+${staff.staffID}">Disable</a>
+																		</td>
+																		<div class="modal fade" id="confirmModal"
+																			th:id="'confirmModal'+${staff.staffID}" tabindex="-1"
+																			aria-labelledby="confirmModalLabel" aria-hidden="true">
+																			<div class="modal-dialog">
+																				<div class="modal-content">
+																					<div class="modal-header">
+																						<h5 class="modal-title"
+																							id="confirmModalLabel">Warning</h5>
+																						<button type="button" class="btn-close"
+																							data-bs-dismiss="modal" aria-label="Close"></button>
+																					</div>
+																					<div th:if="${!staff.account.status}" class="modal-body"
+																						th:text="'Are you sure you want to enable account
+																						'+${staff.fullname}"></div>
+																					<div th:if="${staff.account.status}" class="modal-body"
+																						th:text="'Are you sure you want to disable account
+																						'+${staff.fullname}"></div>
+																					<div class="modal-footer">
+																						<button type="button" class="btn btn-secondary"
+																							data-bs-dismiss="modal">Cancel</button>
+																						<a
+																							th:href="@{/admin/deletestaff/{staffID}(staffID=${staff.staffID})}"
+																							type="button" class="btn btn-primary"
+																							id="confirmButton">Confirm</a>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<script
+												src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+											<script src="../static/admin/js/scripts.js"></script>
+											<script>
 		var element = document.getElementById("staff");
 		element.classList.add("active");
 
@@ -75,7 +122,15 @@
 		}
 
 		document.querySelector('#btn-add').innerHTML = 'Create Staff';
-	</script>
-</body>
 
-</html>
+		window.onload = (event) => {
+			  let myAlert = document.querySelectorAll('.toast')[0];
+			  if (myAlert) {
+			    let bsAlert = new bootstrap.Toast(myAlert);
+			    bsAlert.show();
+			  }
+			};
+	</script>
+										</body>
+
+									</html>

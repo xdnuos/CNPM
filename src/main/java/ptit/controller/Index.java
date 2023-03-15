@@ -134,7 +134,8 @@ public class Index {
 	
 	@PostMapping("/admin/accountInfo")
 	public String saveAccountInfo(@Valid Account account,BindingResult result, Model model, SessionStatus status,
-			@RequestParam("newpassword") String newPassword) {
+			@RequestParam("newpassword") String newPassword,
+			RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			model.addAttribute("account",account);
 			return "admin/accountInfo";
@@ -162,6 +163,7 @@ public class Index {
 		accountService.save(account);
 		
 		status.setComplete();
+		attributes.addAttribute("message","Save information complete!");
 		return "redirect:/admin";
 	}
 	

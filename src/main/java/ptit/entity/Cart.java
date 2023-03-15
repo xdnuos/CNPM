@@ -145,8 +145,8 @@ public class Cart implements Serializable {
             List<CartItem> lines = cartForm.getCartItems();
             for (CartItem line : lines) {
             	status = this.updateProduct(line.getProduct().getProductID(), line.getQuantity());
-            	if(status.equals("ok")) {
-            		return "ok";
+            	if(!status.equals("ok")) {
+            		return status;
             	}
             }
         }

@@ -18,9 +18,10 @@
                   <nav th:replace="admin/layout :: navtop"></nav>
                   <!-- CODE HERE -->
                   
-
+					<div class="card col-md-6 mx-auto m-5 p-5">
+					
                   <form method="POST" th:object="${customer}"
-                     th:action="@{/admin/continuteOrder}" class="col-md-8 mx-auto">
+                     th:action="@{/admin/continuteOrder}">
                      <div class="page-title" style="margin-bottom: 24px;"><h4>Enter Customer information</h4></div>
                      <div class="row">
                         <input id="id" class="form-control" th:field="*{customerID}" style="display: none;">
@@ -71,6 +72,7 @@
                      <button style="float: right;" class="btn btn-primary btn-lg btn-block"
                         type="submit">Save</button>
                   </form>
+                  </div>
                   <!-- CODE HERE -->
                </div>
             </div>

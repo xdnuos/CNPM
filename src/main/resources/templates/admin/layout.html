@@ -86,7 +86,25 @@
         <th:block sec:authorize="isAuthenticated()">
 		<li class="nav-item"><a th:href="@{/admin/accountInfo(id=${#request.userPrincipal.name})}"
 		th:utext="${#request.userPrincipal.name}">..</a></li>&nbsp;|&nbsp;
-		<li class="nav-item"><a th:href="@{/logout}">Logout</a></li>
+		<li class="nav-item"><a id="btn-disableProduct" data-bs-toggle="modal" data-bs-target="#confirmLogout">Logout</a></li>
+		<div class="modal fade" id="confirmLogout" tabindex="-1"
+         aria-labelledby="confirmModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">Login out?</h5>
+               <button type="button" class="btn-close"
+                 data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary"
+                 data-bs-dismiss="modal">Cancel</button>
+               <a th:href="@{/logout}" type="button" class="btn btn-primary"
+                 id="confirmButton">Logout</a>
+             </div>
+           </div>
+         </div>
+       </div>
 		</th:block>
     </ul>
   </div>
