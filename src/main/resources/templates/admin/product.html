@@ -11,9 +11,7 @@
         <div class="container">
         <nav th:replace="admin/layout :: navtop"></nav>
           <!-- CODE HERE -->
-          	<div th:if="${not #strings.isEmpty(message)}" id="error-message" class="alert alert-success text-center" role="alert" th:text="${message}">
-				    Tài khoản hoặc mật khẩu không chính xác!
-	</div>
+          	<div th:if="${not #strings.isEmpty(message)}" id="error-message" class="alert alert-success text-center" role="alert" th:text="${message}"></div>
                       <div class="container">
               <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
@@ -78,18 +76,18 @@
                     <div class="col-md-6">
                       <h5 th:text="${product.name}">Quant trident shirts</h5>
                       <div class="mt-1 mb-0 text-muted small">
-                      	<div th:if="${product.quantity>0}">
-                      	<span>Quantity: </span>
-                        <span  th:text="${product.quantity}">Số lương: </span>
-                      	</div>
-						<span th:if="${product.quantity==0}" class="text-danger">Product out of stock</span>
-                        <br>
                         <span>Product ID: </span>
                         <span th:text="${product.productID}">Số lương: </span>
                         <br>
+                      	<span th:if="${product.quantity>0}">
+                      	<span>Available: </span>
+                        <a  th:text="${product.quantity}">Số lương: </a>
+                      	</span>
+						<span th:if="${product.quantity==0}" class="text-danger">Product out of stock</span>
+                        <br>
                         <span th:if="${!product.status}" class="text-danger" id="productDisable">Product is disable</span>
                       </div>
-                      <p class="text-truncate mb-4 mb-md-0" th:text="${product.description}">
+                      <p class="mb-4 mb-md-0" th:text="${#strings.abbreviate(product.description,200)}">
                         There are many variations of passages of Lorem Ipsum available, but the
                         majority have suffered alteration in some form, by injected humour, or
                         randomised words which don't look even slightly believable.
@@ -102,9 +100,30 @@
                       <div class="d-flex flex-column mt-4">
                         <a class="btn btn btn-info btn-sm" role="button" th:href="@{/admin/productDetail(id=${product.productID})}" >Detail</a>
                         <a class="btn btn-warning btn-sm mt-2" role="button" th:href="@{/admin/editproduct(id=${product.productID})}">Edit</a>
-                        <a class="btn btn-danger btn-sm mt-2" role="button" id="btn-disableProduct" th:href="@{/admin/deleteProduct(id=${product.productID})}" th:if="${product.status}">Disable</a>
-                        <a class="btn btn-danger btn-sm mt-2" role="button" id="btn-disableProduct" th:href="@{/admin/deleteProduct(id=${product.productID})}" th:if="${!product.status}">Enable</a>
+                        <a class="btn btn-danger btn-sm mt-2" role="button" id="btn-disableProduct" th:if="${product.status}" data-bs-toggle="modal" th:attr="data-bs-target='#confirmModal'+${product.productID }">Disable</a>
+                        <a class="btn btn-danger btn-sm mt-2" role="button" id="btn-disableProduct" th:if="${!product.status}" data-bs-toggle="modal" th:attr="data-bs-target='#confirmModal'+${product.productID }">Enable</a>
                       </div>
+		              <div class="modal fade" id="confirmModal" th:id="'confirmModal'+${product.productID }" tabindex="-1"
+		              aria-labelledby="confirmModalLabel" aria-hidden="true">
+		              <div class="modal-dialog">
+		                <div class="modal-content">
+		                  <div class="modal-header">
+		                    <h5 th:if="${!product.status}" class="modal-title" id="confirmModalLabel" >Enable product</h5>
+		                    <h5 th:if="${product.status}" class="modal-title" id="confirmModalLabel" >Disable product</h5>
+		                    <button type="button" class="btn-close"
+		                      data-bs-dismiss="modal" aria-label="Close"></button>
+		                  </div>
+							<div th:if="${!product.status}" class="modal-body" th:text="'Are you sure you want to enable product '+${product.name}"></div>
+							<div th:if="${product.status}" class="modal-body" th:text="'Are you sure you want to disable product '+${product.name}"></div>
+		                  <div class="modal-footer">
+		                    <button type="button" class="btn btn-secondary"
+		                      data-bs-dismiss="modal">Cancel</button>
+		                    <a th:href="@{/admin/deleteProduct(id=${product.productID})}" type="button" class="btn btn-primary"
+		                      id="confirmButton">Confirm</a>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
                     </div>
                   </div>
                 </div>

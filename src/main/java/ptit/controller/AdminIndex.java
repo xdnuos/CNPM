@@ -45,7 +45,7 @@ public class AdminIndex {
         @RequestParam(value="category",defaultValue = "-1") int category,
         @RequestParam(value="manufactor",defaultValue = "-1") int manufactor) {
     int currentPage = page.orElse(1);
-    int pageSize = size.orElse(5);
+    int pageSize = size.orElse(8);
     
     Sort sort = null;
     if (!name.equals("none")) {

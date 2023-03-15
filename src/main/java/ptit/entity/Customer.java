@@ -37,7 +37,7 @@ public class Customer implements Serializable {
 	private String fullname;
 
 	@Pattern(regexp="\\d{9}|\\d{10}", message="Phone number must be 9 or 10 digits")
-	@Column(nullable = false, length = 15)
+	@Column(nullable = false, length = 15,unique=true)
 	private String phone;
 
 	@NotNull(message="Gender cannot be null")

@@ -34,7 +34,7 @@ public class Staff implements Serializable{
 	private boolean sex;
 	
 	@Pattern(regexp="\\d{9}|\\d{10}", message="Phone number must be 9 or 10 digits")
-	@Column(nullable = false, length = 15)
+	@Column(nullable = false, length = 15,unique=true)
 	private String phone;
 	
 	@NotNull(message="Birth date cannot be null")
@@ -44,7 +44,7 @@ public class Staff implements Serializable{
 	private Date birth;
 	
 	@Pattern(regexp="\\d{9}|\\d{12}", message="Identity ID must be 9 or 12 digits")
-	@Column(name ="cccd")
+	@Column(name ="cccd",unique=true)
 	private String cccd;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL)
@@ -56,8 +56,9 @@ public class Staff implements Serializable{
 	@JoinColumn(name = "accountID")
 	private Account account;
 	
+//	@Column(name = "IDManager")
 	@ManyToOne
-	private Staff staff;
+	private Staff manager;
 	
 	public Staff() {
 		
@@ -139,10 +140,10 @@ public class Staff implements Serializable{
 	}
 
 	public Staff getStaff() {
-		return staff;
+		return manager;
 	}
 
 	public void setStaff(Staff staff) {
-		this.staff = staff;
+		this.manager = staff;
 	}
 }

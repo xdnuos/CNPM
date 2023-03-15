@@ -29,7 +29,7 @@ public class Account implements Serializable {
 	
 	@NotEmpty(message = "Please enter email")
 	@Email(message = "Wrong email")
-	@Column(name = "email")
+	@Column(name = "email",unique=true)
 	private String email;
 	
 	@Size(min = 6, max = 225, message = "Password must be 6-225 digit")
@@ -127,8 +127,8 @@ public class Account implements Serializable {
 		return staff;
 	}
 
-	public void setStaff(Staff staff) {
-		this.staff = staff;
+	public void setStaff(Staff IDManager) {
+		this.staff = IDManager;
 	}
 	
 	

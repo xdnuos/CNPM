@@ -32,7 +32,7 @@ public class AdminOrder {
             @RequestParam Optional<Integer> page,
             @RequestParam Optional<Integer> size) {
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(15);
 
         Page<Order> orderPage = orderService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
 

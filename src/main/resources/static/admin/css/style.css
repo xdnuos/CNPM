@@ -239,3 +239,11 @@ text-align:center;
 #customer-info{
 	margin-bottom:24px;
 }
+
+.panel-heading{
+    display: inline-block;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}

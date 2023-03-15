@@ -245,4 +245,9 @@ public class Index {
         attributes.addAttribute("message", "Password recovery successful!");
         return "redirect:/login";
     }
+	
+	@GetMapping("/test")
+	public String test() {
+		return "admin/test";
+	}
 }
