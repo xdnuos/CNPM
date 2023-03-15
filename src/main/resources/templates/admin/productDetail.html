@@ -38,29 +38,29 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<h1 class="mb-3" th:text="${product.name}">Tên sản phẩm</h1>
-				<p class="lead" th:text="${product.description}">Mô tả sản phẩm</p>
+				<h1 class="mb-3" th:text="${product.name}">Product name</h1>
+				<p class="lead" th:text="${product.description}">Description</p>
 				<table class="table table-bordered">
 					<tbody>
 						<tr>
-							<th scope="row">Thương hiệu:</th>
-							<td th:text="${product.manufacturer.name}">Nhãn hiệu sản phẩm</td>
+							<th scope="row">Manufacture:</th>
+							<td th:text="${product.manufacturer.name}">Manufacture</td>
 						</tr>
 						<tr>
-							<th scope="row">Mã sản phẩm:</th>
+							<th scope="row">ID:</th>
 							<td th:text="${product.productID}">Mã SP001</td>
 						</tr>
 						<tr>
-							<th scope="row">Số lương:</th>
+							<th scope="row">Quantity:</th>
 							<td th:text="${product.quantity}">Mã SP001</td>
 						</tr>
 						<tr>
-							<th scope="row">Giá:</th>
+							<th scope="row">Price:</th>
 							<td th:text="${#numbers.formatDecimal(product.price, 0,
                             'COMMA', 0, 'POINT')}+ ' VNĐ'">100.000 VNĐ</td>
 						</tr>
 						<tr>
-							<th scope="row">Danh mục:</th>
+							<th scope="row">Category:</th>
 							<td ><ul th:each="c : ${categories}"><li th:text="${c.title}"></li></ul> </td>
 						</tr>
 					</tbody>
@@ -77,8 +77,13 @@
       </div>
     </div>
     <script>
-	var element = document.getElementById("create");
+  	var element = document.getElementById("order");
 	element.classList.add("active");
+	
+      var form = document.getElementById("search-form");
+      form.remove();
+
+      document.getElementById("nav-top").style.justifyContent = "flex-end";
 
 	// Lọc sản phẩm theo danh mục
 	function filterSelection(category) {

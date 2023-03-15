@@ -24,7 +24,7 @@ public class Account implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "accountID")
+	@Column(name = "ID")
 	private Long accountID;
 	
 	@NotEmpty(message = "Please enter email")
@@ -48,26 +48,13 @@ public class Account implements Serializable {
 	
 	@Valid
 	@OneToOne(mappedBy = "account",fetch = FetchType.EAGER)
+	@PrimaryKeyJoinColumn
 	private Staff staff;
 
-//	@OneToOne(mappedBy = "account")
-//	private Customer customer;
-    
+	private Boolean status;
+	
 	public Account() {
 		
-	}
-	private Boolean status;
-	public Account(Long accountID, @Email @NotEmpty(message = "Vui lòng nhập Email") String email,
-			@Size(min = 6, max = 225, message = "Tên nhân viên phải từ 6-225 kí tự") @NotEmpty(message = "Vui lòng nhập password") String password,
-			Calendar create_date, Boolean status, Permission permission, Staff staff, Customer customer) {
-		this.accountID = accountID;
-		this.email = email;
-		this.password = password;
-		this.create_date = create_date;
-		this.status = status;
-		this.permission = permission;
-		this.staff = staff;
-//		this.customer = customer;
 	}
 
 	public Long getAccountID() {

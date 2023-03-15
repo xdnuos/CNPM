@@ -126,7 +126,7 @@
               <ul class="pagination justify-content-center pagination-sm">
                 <li th:if="${productPage.totalPages> 0}" class="page-link"
                   th:each="pageNumber : ${pageNumbers}">
-                  <a th:href="@{/admin/product(size=${productPage.size},
+                  <a th:href="@{/admin(size=${productPage.size},
                     page=${pageNumber})}"
                     th:text=${pageNumber}
                     th:class="${pageNumber==productPage.number + 1} ? active"

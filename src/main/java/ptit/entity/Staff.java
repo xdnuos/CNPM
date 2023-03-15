@@ -18,14 +18,11 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "staff")
 public class Staff implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name ="staffID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name ="ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long staffID;
 	
 	@NotBlank(message="Full name cannot be blank")
@@ -52,14 +49,15 @@ public class Staff implements Serializable{
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL)
     private Collection<Order> order;
-	
-//	@OneToOne(mappedBy="staffID")
-//	private Account account;
-	
+
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
+	@MapsId
 	@JoinColumn(name = "accountID")
 	private Account account;
+	
+	@ManyToOne
+	private Staff staff;
 	
 	public Staff() {
 		
@@ -140,4 +138,11 @@ public class Staff implements Serializable{
 		this.account = account;
 	}
 
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
 }

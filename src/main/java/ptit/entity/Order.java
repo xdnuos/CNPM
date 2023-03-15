@@ -21,7 +21,7 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long orderID;
 
-	private String adress;
+	private String address;
 
 	private String fullname;
 
@@ -62,11 +62,11 @@ public class Order implements Serializable {
 	}
 
 	public Object getAdress() {
-		return this.adress;
+		return this.address;
 	}
 
 	public void setAdress(String adress) {
-		this.adress = adress;
+		this.address = adress;
 	}
 
 	public String getFullname() {

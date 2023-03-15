@@ -122,7 +122,7 @@ public class Index {
 	
 	@GetMapping("/")
 	public String index() {
-		return "index";
+		return "redirect:/admin";
 	}
 	
 	@GetMapping("/admin/accountInfo")
