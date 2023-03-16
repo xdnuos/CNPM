@@ -8,6 +8,11 @@ import javax.persistence.*;
 @Table(name="listImage")
 public class Image implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long listImageID;
@@ -59,6 +64,7 @@ public class Image implements Serializable{
 		this.imageName = imageName;
 	}
     
+	@Transient
 	private String imageBase64;
 
 	public String getImageBase64() {

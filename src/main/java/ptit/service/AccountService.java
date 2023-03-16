@@ -17,4 +17,6 @@ public interface AccountService {
 	void save (Account account);
 
 	List<Permission> findAllPermission();
+	
+	Account findById(Long id);
 }

@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ptit.entity.Manufacturer;
 import ptit.entity.Product;
 import ptit.repository.ProductDAO;
 
@@ -66,11 +67,18 @@ public class ProductServiceImpl implements ProductService{
 		return list;
 	}
 
-
 	@Override
 	public Product findProductByName(String name) {
 		Product product = productDAO.findProductByName(name);
-	
 	return product;
 	}
+	
+	@Override
+    public Page<Product> convertListToPage(List<Product> productList, int pageNumber, int pageSize) {
+        // Tạo trang từ danh sách
+        Page<Product> page = new PageImpl<>(productList.subList(pageNumber * pageSize - pageSize, Math.min(pageNumber * pageSize, productList.size())),
+                PageRequest.of(pageNumber, pageSize), productList.size());
+
+        return page;
+    }
 }

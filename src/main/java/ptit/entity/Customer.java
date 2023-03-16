@@ -2,7 +2,10 @@ package ptit.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,26 +24,28 @@ public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long customerID;
 	
 	private String address;
-
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 
-	@Size(min = 4, max = 100,message = "Tối thiểu 4 kí tự")
-	@NotEmpty(message = "Họ và tên không được để trống")
+	@NotBlank(message="Full name cannot be blank")
+//    @Pattern(regexp="^[\\p{L} \\.'\\-]+$", message="Full name must contain only letters and spaces")
 	private String fullname;
 
-	@NotEmpty(message = "Số điện thoại không được để trống")
+	@Pattern(regexp="\\d{9}|\\d{10}", message="Phone number must be 9 or 10 digits")
+	@Column(nullable = false, length = 15,unique=true)
 	private String phone;
 
+	@NotNull(message="Gender cannot be null")
 	private boolean sex;
 
 	//bi-directional many-to-one association to Cart
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
-	private List<Cart> carts;
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
+//	private List<Cart> carts;
 
 	//bi-directional many-to-one association to Order
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
@@ -49,9 +54,9 @@ public class Customer implements Serializable {
 //	@OneToOne(mappedBy="customerID")
 //	private Account account;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "accountID")
-	private Account account;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "accountID")
+//	private Account account;
 
 	public Customer() {
 	}
@@ -97,27 +102,27 @@ public class Customer implements Serializable {
 		this.sex = sex;
 	}
 
-	public List<Cart> getCarts() {
-		return this.carts;
-	}
+//	public List<Cart> getCarts() {
+//		return this.carts;
+//	}
+//
+//	public void setCarts(List<Cart> carts) {
+//		this.carts = carts;
+//	}
 
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
-	}
-
-	public Cart addCart(Cart cart) {
-		getCarts().add(cart);
-		cart.setCustomer(this);
-
-		return cart;
-	}
-
-	public Cart removeCart(Cart cart) {
-		getCarts().remove(cart);
-		cart.setCustomer(null);
-
-		return cart;
-	}
+//	public Cart addCart(Cart cart) {
+//		getCarts().add(cart);
+//		cart.setCustomer(this);
+//
+//		return cart;
+//	}
+//
+//	public Cart removeCart(Cart cart) {
+//		getCarts().remove(cart);
+//		cart.setCustomer(null);
+//
+//		return cart;
+//	}
 
 	public List<Order> getOrders() {
 		return this.orders;
@@ -141,13 +146,13 @@ public class Customer implements Serializable {
 		return order;
 	}
 
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
+//	public Account getAccount() {
+//		return account;
+//	}
+//
+//	public void setAccount(Account account) {
+//		this.account = account;
+//	}
 
 	public String getAddress() {
 		return address;

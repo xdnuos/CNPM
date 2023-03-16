@@ -17,8 +17,8 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Full name</th>
                                 <th scope="col">Phone number</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Status</th>
+<!--                                 <th scope="col">Email</th>
+                                <th scope="col">Status</th> -->
                                 <th colspan="2"></th>
                             </tr>
                         </thead>
@@ -27,9 +27,9 @@
                                 <td th:text="${customer.customerID}">1</td>
                                 <td th:text="${customer.fullname}">older</td>
                                 <td th:text="${customer.phone}">disappear</td>
-                                <td th:text="${customer.account?.email}">own</td>
-                                <td th:text="${customer.account?.status}" id="disableAccount">own</td>
-                                <td><a th:href="@{/admin/disableCustomer(id=${customer.account?.accountID})}" id="disableAccount-btn">Disable</a></td>
+<!--                                 <td th:text="${customer.account?.email}">own</td> -->
+<!--                                 <td th:text="${customer.account?.status}" id="disableAccount">Active</td> -->
+<!--                                 <td><a th:href="@{/admin/disableCustomer(id=${customer.account?.accountID})}" id="disableAccount-btn">Disable</a></td> -->
                                 <td><a th:href="@{/admin/viewOrder(id=${customer.customerID})}">View order</a></td>
                             </tr>
                         </tbody>

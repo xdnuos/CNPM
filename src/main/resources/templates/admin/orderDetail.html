@@ -19,17 +19,17 @@
                   <!-- CODE HERE -->
                   <div class="card" id="customer-info">
                      <div class="card-body">
-                        <h5 class="card-title">Thông tin hóa đơn:</h5>
+                        <h5 class="card-title">Invoice information:</h5>
                         <div class="cart-text">
-                        	<label class="d-inline">Mã hóa đơn: </label>
+                        	<label class="d-inline">Code Bill: </label>
                         	<p class="d-inline" th:utext="${order.orderID}"></p>
                         </div>
                         <div class="card-text">
-                           <label class="d-inline">Thời gian tạo: </label>
+                           <label class="d-inline">Creation time: </label>
                            <p class="d-inline" th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy HH:mm')}"></p>
                         </div>
                         <div class="card-text">
-                           <label class="d-inline">Tổng giá trị đơn hàng: </label>
+                           <label class="d-inline">Total order amount: </label>
                            <p class="d-inline" th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')}+ ' VNĐ'"></p>
                         </div>
                      </div>
@@ -37,31 +37,31 @@
                   </div>
                   <div class="card" id="customer-info">
                      <div class="card-body">
-                        <h5 class="card-title">Thông tin khách hàng:</h5>
+                        <h5 class="card-title">Customer information:</h5>
                         <div class="cart-text">
-                        	<label class="d-inline">Họ và tên:</label>
+                        	<label class="d-inline">Full name:</label>
                         	<p class="d-inline" th:utext="${order.customer.fullname}"></p>
                         </div>
                         <div class="card-text">
-                           <label class="d-inline">SĐT: </label>
+                           <label class="d-inline">Phone number: </label>
                            <p class="d-inline" th:utext="${order.customer.phone}"></p>
                         </div>
                         <div class="card-text">
-                           <label class="d-inline">Địa chỉ: </label>
+                           <label class="d-inline">Address: </label>
                            <p class="d-inline" th:utext="${order.customer.address}"></p>
                         </div>
                      </div>
 
                   </div>
-                  <h3>Danh sách sản phẩm</h3>
+                  <h3>List of products</h3>
                      <div class="row">
                         <table class="table table-bordered">
                            <thead>
                               <tr>
                                  <th scope="col">ID</th>
-                                 <th scope="col">Tên sản phẩm</th>
-                                 <th scope="col">Số lượng</th>
-                                 <th scope="col">Đơn giá</th>
+                                 <th scope="col">Name</th>
+                                 <th scope="col">Quantity</th>
+                                 <th scope="col">Amount</th>
                               </tr>
                            </thead>
                                                            
@@ -80,20 +80,17 @@
          </div>
       </div>
       <script>
-      var form = document.getElementById("search-form");
-      form.remove();
+    	var element = document.getElementById("order");
+    	element.classList.add("active");
+    	
+          var form = document.getElementById("search-form");
+          form.remove();
 
-      document.getElementById("nav-top").style.justifyContent = "flex-end";
-	
-	var add = document.getElementById("li-btn-add");
-	
-	add.classList.remove("disable");
+          document.getElementById("nav-top").style.justifyContent = "flex-end";
 	
 	function foo(){
 		return window.location.href='/admin'
 	}
-
-	document.querySelector('#btn-add').innerHTML = 'Thêm sản phẩm';
    </script>
       <script th:src="@{/admin/js/scripts.js}"></script>
    </body>

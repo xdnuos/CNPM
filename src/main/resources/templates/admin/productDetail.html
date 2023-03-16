@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head th:replace="admin/layout :: head"></head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row g-0">
+        <div th:replace="admin/layout :: navleft"></div>
+        <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10
+          content-column">
+          <div class="container">
+            <nav th:replace="admin/layout :: navtop"></nav>
+            <!-- CODE HERE -->
+<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-6">
+				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+				  <div class="carousel-inner">
+				    <div th:each="picture, iterstat : ${images}" th:class="${iterstat.index}== 0  ? 'carousel-item active':'carousel-item'">
+				        <img th:src="${'data:image/jpeg;charset=utf-8;base64,' + picture.imageBase64}" class="d-block w-100" />
+				    </div>
+				  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<h1 class="mb-3" th:text="${product.name}">Product name</h1>
+				<p class="lead" th:text="${product.description}">Description</p>
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<th scope="row">Manufacture:</th>
+							<td th:text="${product.manufacturer.name}">Manufacture</td>
+						</tr>
+						<tr>
+							<th scope="row">ID:</th>
+							<td th:text="${product.productID}">Mã SP001</td>
+						</tr>
+						<tr>
+							<th scope="row">Available:</th>
+							<td th:text="${product.quantity}">Mã SP001</td>
+						</tr>
+						<tr>
+							<th scope="row">Price:</th>
+							<td th:text="${#numbers.formatDecimal(product.price, 0,
+                            'COMMA', 0, 'POINT')}+ ' VNĐ'">100.000 VNĐ</td>
+						</tr>
+						<tr>
+							<th scope="row">Category:</th>
+							<td ><ul th:each="c : ${categories}"><li th:text="${c.title}"></li></ul> </td>
+						</tr>
+					</tbody>
+				</table>
+                          <a class="btn btn-primary mt-2" role="button"
+                            th:href="@{/admin/addProductToOrder(code=${product.productID})}">Add
+                            to Cart</a>
+			</div>
+		</div>
+	</div>
+            <!-- CODE HERE -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+  	var element = document.getElementById("order");
+	element.classList.add("active");
+	
+      var form = document.getElementById("search-form");
+      form.remove();
+
+      document.getElementById("nav-top").style.justifyContent = "flex-end";
+
+	// Lọc sản phẩm theo danh mục
+	function filterSelection(category) {
+	  var products = document.getElementsByClassName("product");
+	  if (category == "all") category = "";
+	  for (var i = 0; i < products.length; i++) {
+	    removeClass(products[i], "show");
+	    if (products[i].className.indexOf(category) > -1) addClass(products[i], "show");
+	  }
+	}
+
+	//
+		
+    </script>
+  </body>
+
+</html>

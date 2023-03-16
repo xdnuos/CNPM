@@ -1,5 +1,10 @@
 package ptit.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ptit.entity.Order;
@@ -26,7 +32,7 @@ public class AdminOrder {
             @RequestParam Optional<Integer> page,
             @RequestParam Optional<Integer> size) {
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(15);
 
         Page<Order> orderPage = orderService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
 
@@ -52,6 +58,24 @@ public class AdminOrder {
 			return "404";
 		}
 		return "/admin/orderDetail";
+	}
+	
+	@PostMapping(value="/admin/order")
+	public String filterOrder(Model model,
+			@RequestParam("startDate") String start,
+			@RequestParam("endDate") String end) throws ParseException {
+
+		List<Order> order = orderService.findByTimeDate(end,start);
+		Page<Order> orderPage = orderService.convertListToPage(order, 1, 5);
+		 model.addAttribute("orderPage", orderPage);
+	        int totalPages = orderPage.getTotalPages();
+	        if (totalPages > 0) {
+	            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+	                    .boxed()
+	                    .collect(Collectors.toList());
+	            model.addAttribute("pageNumbers", pageNumbers);
+	        }
+			return "/admin/order";
 	}
 	
 }

@@ -33,13 +33,13 @@ public class Product implements Serializable{
     private String description;
     
     @Column(name = "quantity")
-    @Min(value=1, message="Số lượng sản phẩm không hợp lệ") 
+    @Min(value=0, message="Số lượng sản phẩm không hợp lệ") 
     private int quantity;
     
     @Column(name="status")
     private boolean status;
     
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "manufacturerID")
     private Manufacturer manufacturer;
     
@@ -55,8 +55,8 @@ public class Product implements Serializable{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItem> oderItem = new ArrayList<>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private List<CartItem> cartItem = new ArrayList<>();
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+//    private List<CartItem> cartItem = new ArrayList<>();
 
 	public Product() {
 		super();
@@ -136,13 +136,13 @@ public class Product implements Serializable{
 		this.oderItem = oderItem;
 	}
 
-	public List<CartItem> getCartItem() {
-		return cartItem;
-	}
-
-	public void setCartItem(List<CartItem> cartItem) {
-		this.cartItem = cartItem;
-	}
+//	public List<CartItem> getCartItem() {
+//		return cartItem;
+//	}
+//
+//	public void setCartItem(List<CartItem> cartItem) {
+//		this.cartItem = cartItem;
+//	}
 
 	public void setCategory(List<Category> category) {
 		this.category = category;

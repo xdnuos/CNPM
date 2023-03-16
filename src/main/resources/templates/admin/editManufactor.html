@@ -15,20 +15,20 @@
         <div class="container">
           <nav th:replace="admin/layout :: navtop"></nav>
           <!-- CODE HERE -->
-          <h2 class="mb-3 text-center">Quản lý nhà sản xuất</h2>
+          <h2 class="mb-3 text-center">Manufacture Management</h2>
           <div class="row">
             <div class="col-md-10 order-md-1 mx-auto">
-              <h4 class="mb-3">Sửa nhà sản xuất</h4>
+              <h4 class="mb-3">Edit Manufacture</h4>
               <form class="needs-validation" name="addCategory" th:object="${manufacturer}" enctype="multipart/form-data"
                 method="post">
                 <div class="row">
                   <div class="mb-3 col-md-10">
-                    <label>Tên danh mục</label>
+                    <label>Name</label>
                     <input type="text" class="form-control" name="name" th:field="*{name}">
                     <div class="invalid-feedback"></div>
                   </div>
                 </div>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Lưu</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
               </form>
             </div>
           </div>

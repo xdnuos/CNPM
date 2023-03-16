@@ -12,13 +12,13 @@ import java.util.List;
  * The persistent class for the cart database table.
  * 
  */
-@Entity
-@Table(name="cart")
+//@Entity
+//@Table(name="cart")
 public class Cart implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long cartID;
 
 	private String cookie;
@@ -26,12 +26,12 @@ public class Cart implements Serializable {
 	private Calendar createDate;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="customerID")
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="customerID")
 	private Customer customer;
 
 	//bi-directional many-to-one association to CartItem
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="cart")
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy="cart")
 	private List<CartItem> cartItems = new ArrayList<CartItem>();
 
 	public Cart() {
@@ -139,25 +139,40 @@ public class Cart implements Serializable {
         return total;
     }
 
-    public void updateQuantity(Cart cartForm) {
+    public String updateQuantity(Cart cartForm) {
+    	String status ="ok";
         if (cartForm != null) {
             List<CartItem> lines = cartForm.getCartItems();
             for (CartItem line : lines) {
-                this.updateProduct(line.getProduct().getProductID(), line.getQuantity());
+            	status = this.updateProduct(line.getProduct().getProductID(), line.getQuantity());
+            	if(!status.equals("ok")) {
+            		return status;
+            	}
             }
         }
+        return status;
     }
     
-    public void updateProduct(Long code, int quantity) {
+    public String updateProduct(Long code, int quantity) {
         CartItem line = this.findLineByCode(code);
 
         if (line != null) {
             if (quantity <= 0) {
                 this.cartItems.remove(line);
-            } else {
+                return "ok";
+            } else if(isAvailble(line, quantity)){
                 line.setQuantity(quantity);
+                return "ok";
             }
         }
+        return line.getProduct().getName();
+    }
+    
+    public boolean isAvailble(CartItem cartItem,int quantity) {
+    	if (quantity>cartItem.getProduct().getQuantity()) {
+			return false;
+		}
+    	return true;
     }
     
     public boolean isEmpty() {

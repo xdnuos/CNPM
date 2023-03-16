@@ -1,8 +1,13 @@
 package ptit.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +26,11 @@ import ptit.entity.CartItem;
 import ptit.entity.Customer;
 import ptit.entity.Order;
 import ptit.entity.OrderItem;
+import ptit.entity.Product;
 import ptit.repository.AccountDAO;
 import ptit.repository.CustomerDAO;
 import ptit.repository.OrderDAO;
+import ptit.repository.ProductDAO;
 
 @Service
 public class OrderService {
@@ -35,6 +42,9 @@ public class OrderService {
 	
 	@Autowired
 	AccountDAO accountDAO;
+	
+	@Autowired
+	ProductDAO productDAO;
 
 	public void saveCart2Order(Cart cart,String note,String payment) {
    	 Order order = new Order();
@@ -48,6 +58,9 @@ public class OrderService {
    	 Calendar date = Calendar.getInstance();	
    	 order.setOrderDate(date);
    	 cart.getCartItems().forEach((element)->{
+   		 
+   		updateQty(element);
+ 		
 		OrderItem orderItem = new OrderItem();
 		orderItem.setProduct(element.getProduct());
 		orderItem.setAmount(element.getAmount());
@@ -68,6 +81,12 @@ public class OrderService {
    	 orderDAO.save(order);
 	}
 	
+	private void updateQty(CartItem cartItem) {
+		int qty = cartItem.getQuantity();
+		Long productID = cartItem.getProduct().getProductID();
+		int productqty = productDAO.getProductQty(productID);
+		productDAO.updateQty(productqty-qty,productID);
+	}
 	private List<OrderItem> cartItem2OrderItem(List<CartItem> cartItems){
 		List<OrderItem> orderItems = new ArrayList<>();
 		
@@ -109,4 +128,27 @@ public class OrderService {
 		}
 		return null;
 	}
+	
+	public List<Order> findByTimeDate(String start, String end){
+		return orderDAO.findByTime(string2Calendar(start), string2Calendar(end));
+	}
+	public Calendar string2Calendar(String date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime dateTime = LocalDate.parse(date, formatter).atStartOfDay();
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		return calendar;
+	}
+	public List<Order> findByTime(Calendar start,Calendar end ){
+		return orderDAO.findByTime(start, end);
+	}
+	
+    public Page<Order> convertListToPage(List<Order> productList, int pageNumber, int pageSize) {
+        // Tạo trang từ danh sách
+        Page<Order> page = new PageImpl<>(productList.subList(pageNumber * pageSize - pageSize, Math.min(pageNumber * pageSize, productList.size())),
+                PageRequest.of(pageNumber, pageSize), productList.size());
+
+        return page;
+    }
 }

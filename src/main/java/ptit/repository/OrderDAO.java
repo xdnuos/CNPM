@@ -1,6 +1,7 @@
 package ptit.repository;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,5 +16,8 @@ public interface OrderDAO extends JpaRepository<Order, Long>{
 	List<Order> findByUser(@Param("id") Long id);
 	
 	@Query("from Order as o where o.orderDate between :end and :start")
-	List<Order> findByTime(@Param("start") Calendar start, @Param("end") Calendar end);
+	List<Order> findByTime(@Param("start") Calendar date, @Param("end") Calendar date2);
+	
+	@Query("from Order as o where o.orderDate between :end and :start")
+	List<Order> findByTimeDate(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 }

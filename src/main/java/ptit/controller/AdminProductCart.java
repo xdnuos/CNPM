@@ -10,11 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import ptit.entity.Cart;
 import ptit.entity.Customer;
+import ptit.entity.Permission;
 import ptit.entity.Product;
 import ptit.repository.CustomerDAO;
 import ptit.service.OrderService;
@@ -33,7 +39,7 @@ public class AdminProductCart {
 		OrderService orderService;
 	   @GetMapping(value ={"/admin/addProductToOrder"})
 	   public String listProductHandler(HttpServletRequest request, Model model, //
-	         @RequestParam(defaultValue = "") Long code) {
+	         @RequestParam(defaultValue = "") Long code,RedirectAttributes attributes) {
 
 	      Product product = null;
 	      if (code != null) {
@@ -43,13 +49,14 @@ public class AdminProductCart {
 	         Cart cart = Utils.getCartInSession(request);
 	         cart.addProduct(product,1);
 	      }
-
-	      return "redirect:/admin/cart";
+	      attributes.addAttribute("message","Add product "+ product.getName() +" to cart complete!");
+	      return "redirect:/admin";
 	   }
 	   
 	   @GetMapping(value ={"/admin/cartRemoveProduct"})
 	   public String removeProductHandler(HttpServletRequest request, Model model, //
-	         @RequestParam(defaultValue = "") Long code) {
+	         @RequestParam(defaultValue = "") Long code,
+	         RedirectAttributes attributes) {
 	      Product product = null;
 	      if (code != null) {
 	         product = productService.findById(code);
@@ -61,23 +68,31 @@ public class AdminProductCart {
 	         cart.removeProduct(product);
 
 	      }
+	      attributes.addAttribute("toast", "Delete product "+product.getName()+" from cart complete!");
 	      return "redirect:/admin/cart";
 	   }
 	   @GetMapping(value = { "/admin/cart" })
-	   public String shoppingCartHandler(HttpServletRequest request, Model model) {
+	   public String shoppingCartHandler(HttpServletRequest request, Model model,
+			   @RequestParam(value = "message",required = false) String message,
+			   @RequestParam(value = "toast",required = false) String toast) {
 		   Cart myCart = Utils.getCartInSession(request);
 
 	      model.addAttribute("cartForm", myCart);
+	      model.addAttribute("message", message);
+	      model.addAttribute("toast", toast);
 	      return "/admin/cart";
 	   }
 	   @PostMapping(value = { "/admin/cart" })
 	   public String shoppingCartUpdateQty(HttpServletRequest request, //
 	         Model model, //
-	         @ModelAttribute Cart cartForm) {
+	         @ModelAttribute Cart cartForm, RedirectAttributes attributes) {
 
 	      Cart cartInfo = Utils.getCartInSession(request);
-	      cartInfo.updateQuantity(cartForm);
-
+	      String status = cartInfo.updateQuantity(cartForm);
+	      if(status.equals("ok")) {
+	    	  return "redirect:/admin/cart";
+	      }
+	      attributes.addAttribute("message", "Product "+status+" exceed the quantity in stock");
 	      return "redirect:/admin/cart";
 	   }
 	   
@@ -118,13 +133,13 @@ public class AdminProductCart {
 	   }
 	   // POST: Save customer information.
 	   @PostMapping(value = { "/admin/continuteOrder" })
-	   public String shoppingCartCustomerSave(HttpServletRequest request, //
+	   public String shoppingCartCustomerSave(@Valid Customer customer,BindingResult result,
+			 HttpServletRequest request, //
 	         Model model, //
-	         @ModelAttribute Customer customer, //
-	         BindingResult result, //
-	         final RedirectAttributes redirectAttributes,
 	         @RequestParam(defaultValue = "male") String gender) {
-
+		if (result.hasErrors()) {
+		    return "admin/continuteOrder";
+		  }
 	      Cart cart = Utils.getCartInSession(request);
 	      if(gender=="male") {
 	    	  customer.setSex(false);
@@ -155,7 +170,7 @@ public class AdminProductCart {
 	   @PostMapping(value = { "/admin/orderConfirmation" })
 	   public String shoppingCartConfirmationSave(HttpServletRequest request, Model model,
 			   @RequestParam(defaultValue = "") String note,
-			   @RequestParam(defaultValue = "") String payment) {
+			   @RequestParam(defaultValue = "") String payment, SessionStatus sessionStatus, RedirectAttributes attributes) {
 	      Cart cart = Utils.getCartInSession(request);
 
 	      if (cart.isEmpty()) {
@@ -165,6 +180,8 @@ public class AdminProductCart {
 	      try {
 	    	  orderService.saveCart2Order(cart, note,"live");
 	      } catch (Exception e) {
+//	    	 return e.getMessage();
+	    	  attributes.addAttribute("message","Some thing is wrong! Please try again");
 	         return "redirect:/admin/orderConfirmation";
 	      }
 
@@ -173,8 +190,11 @@ public class AdminProductCart {
 
 	      // Store last cart.
 	      Utils.storeLastOrderedCartInSession(request, cart);
-
-	      return "redirect:/admin/orderFinalize";
+	      
+	      sessionStatus.setComplete();
+	      
+	      attributes.addAttribute("message","Create order complete!");
+	      return "redirect:/admin";
 	   }
 	   
 	   @GetMapping(value = { "admin/orderFinalize" })

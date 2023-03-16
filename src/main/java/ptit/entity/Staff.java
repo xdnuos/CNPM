@@ -8,50 +8,63 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "staff")
 public class Staff implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name ="staffID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger staffID;
+	@Column(name ="ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long staffID;
 	
+	@NotBlank(message="Full name cannot be blank")
+    @Pattern(regexp="^[\\p{L} \\.'\\-]+$", message="Full name must contain only letters and spaces")
 	@Column(name = "fullname", length = 225)
 	private String fullname;
 	
+	@NotNull(message="Gender cannot be null")
 	private boolean sex;
 	
-	@Column(nullable = false, length = 15)
+	@Pattern(regexp="\\d{9}|\\d{10}", message="Phone number must be 9 or 10 digits")
+	@Column(nullable = false, length = 15,unique=true)
 	private String phone;
 	
+	@NotNull(message="Birth date cannot be null")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern ="MM/dd/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past(message="Birth date must be in the past")
 	private Date birth;
 	
-	@Column(name ="cccd")
+	@Pattern(regexp="\\d{9}|\\d{12}", message="Identity ID must be 9 or 12 digits")
+	@Column(name ="cccd",unique=true)
 	private String cccd;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staff", cascade = CascadeType.ALL)
     private Collection<Order> order;
-	
-//	@OneToOne(mappedBy="staffID")
-//	private Account account;
-	
+
+	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
+	@MapsId
 	@JoinColumn(name = "accountID")
 	private Account account;
+	
+//	@Column(name = "IDManager")
+	@ManyToOne
+	private Staff manager;
 	
 	public Staff() {
 		
 	}
 
-	public Staff(BigInteger staffID, String fullname, Boolean sex, String phone, Date birth, String cccd,
+	public Staff(Long staffID, String fullname, Boolean sex, String phone, Date birth, String cccd,
 			Account account) {
 		super();
 		this.staffID = staffID;
@@ -62,11 +75,11 @@ public class Staff implements Serializable{
 		this.cccd = cccd;
 	}
 
-	public BigInteger getStaffID() {
+	public Long getStaffID() {
 		return staffID;
 	}
 
-	public void setStaffID(BigInteger staffID) {
+	public void setStaffID(Long staffID) {
 		this.staffID = staffID;
 	}
 
@@ -126,4 +139,11 @@ public class Staff implements Serializable{
 		this.account = account;
 	}
 
+	public Staff getStaff() {
+		return manager;
+	}
+
+	public void setStaff(Staff staff) {
+		this.manager = staff;
+	}
 }

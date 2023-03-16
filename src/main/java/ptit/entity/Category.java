@@ -3,6 +3,7 @@ package ptit.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -21,7 +22,7 @@ public class Category implements Serializable {
 	
     @ManyToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Collection<Product> productcate = new ArrayList<>();
-
+    
 	public Category() {
 		super();
 	}
@@ -57,5 +58,4 @@ public class Category implements Serializable {
 	public void setProductcate(Collection<Product> productcate) {
 		this.productcate = productcate;
 	}
-	
 }

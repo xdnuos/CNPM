@@ -29,6 +29,4 @@ public class CategoryServiceImpl implements CategoryService{
 	public void save(Category category) {
 		this.categoriesDAO.save(category);
 	}
-	
-	
 }

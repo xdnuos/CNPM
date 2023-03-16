@@ -18,28 +18,34 @@
                   <nav th:replace="admin/layout :: navtop"></nav>
                   <!-- CODE HERE -->
                   
-
+					<div class="card col-md-6 mx-auto m-5 p-5">
+					
                   <form method="POST" th:object="${customer}"
-                     th:action="@{/admin/continuteOrder}" class="col-md-8 mx-auto">
-                     <div class="page-title" style="margin-bottom: 24px;"><h4>Nhập thông tin khách hàng</h4></div>
+                     th:action="@{/admin/continuteOrder}">
+                     <div class="page-title" style="margin-bottom: 24px;"><h4>Enter Customer information</h4></div>
                      <div class="row">
                         <input id="id" class="form-control" th:field="*{customerID}" style="display: none;">
                         <input id="id" class="form-control" th:field="*{birth}" style="display: none;">
                         <input id="id" class="form-control" th:field="*{sex}" style="display: none;">
                         <div class="col-md-8">
-                           <label for="fullname">Tên khách hàng</label>
+                           <label for="fullname">Full name</label>
                            <input id="fullname" class="form-control"
                               th:field="*{fullname}">
+                              											<div class="invalid-feedback"
+												th:if="${#fields.hasErrors('fullname')}"
+												th:errors="*{fullname}"></div>
                         </div>
                         <div class="col-md-4">
-                           <label for="phone">Số điện thoại</label>
+                           <label for="phone">Phone number</label>
                            <input id="phone" name="phone" class="form-control"
                               th:field="*{phone}" onblur="myFunction()"/>
+                              <div class="invalid-feedback"
+								th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
                         </div>
                      </div>
                      <div class="row">
                         <div class="col-md-12">
-                           <label for="address">Địa chỉ</label>
+                           <label for="address">Address</label>
                            <input id="address" class="form-control"
                               th:field="*{address}">
                         </div>
@@ -50,20 +56,23 @@
                               id="male" name="gender" value="male" th:checked="${!customer.sex}">
                            <label class="form-check-label"
                               for="male">
-                              Nam
+                              Male
                            </label>
                         </div>
                         <div class="form-check form-check-inline">
                            <input class="form-check-input" type="radio" id="female" name="gender" value="female" th:checked="${customer.sex}">
                            <label class="form-check-label"
                               for="female" >
-                              Nữ
+                              Female
                            </label>
                         </div>
+											<div class="invalid-feedback"
+												th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></div>
                      </div>
                      <button style="float: right;" class="btn btn-primary btn-lg btn-block"
-                        type="submit">Lưu</button>
+                        type="submit">Save</button>
                   </form>
+                  </div>
                   <!-- CODE HERE -->
                </div>
             </div>
