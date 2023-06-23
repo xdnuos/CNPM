@@ -1,4 +1,4 @@
-package ptit.controller;
+package ptit.controller.user;
 
 import java.awt.print.Pageable;
 import java.util.List;
@@ -81,23 +81,3 @@ public class ProductController  {
 	 }
 	
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
