@@ -151,4 +151,7 @@ public class OrderService {
 
         return page;
     }
+	public List<Order> findOrder(String searchValue){
+		return orderDAO.findOrder(searchValue);
+	}
 }

@@ -19,8 +19,7 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import ptit.config.CustomAccessDeniedHandler;
-
-import ptit.service.UserDetailsServiceImpl;
+import ptit.service.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity

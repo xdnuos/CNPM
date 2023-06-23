@@ -1,4 +1,4 @@
-package ptit.service;
+package ptit.service.impl;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import ptit.entity.Account;
 import ptit.entity.Customer;
 import ptit.repository.AccountDAO;
 import ptit.repository.CustomerDAO;
+import ptit.service.CustomerSerivce;
 
 @Service
 public class CustomerSerivceImpl implements CustomerSerivce {

@@ -1,4 +1,4 @@
-package ptit.service;
+package ptit.service.impl;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ptit.entity.Manufacturer;
 import ptit.repository.ManufactureDAO;
+import ptit.service.ManufacturerService;
 
 @Service
 public class ManufactureServiceImpl implements ManufacturerService{

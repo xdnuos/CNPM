@@ -1,4 +1,4 @@
-package ptit.controller;
+package ptit.controller.admin;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import ptit.service.ProductService;
 import ptit.utils.Utils;
 
 @Controller
-public class AdminProductCart {
+public class AdminOrder2Cart {
 		@Autowired
 		ProductService productService;
 		
@@ -37,22 +37,8 @@ public class AdminProductCart {
 		
 		@Autowired
 		OrderService orderService;
-	   @GetMapping(value ={"/admin/addProductToOrder"})
-	   public String listProductHandler(HttpServletRequest request, Model model, //
-	         @RequestParam(defaultValue = "") Long code,RedirectAttributes attributes) {
-
-	      Product product = null;
-	      if (code != null) {
-	         product = productService.findById(code);
-	      }
-	      if (product != null) {
-	         Cart cart = Utils.getCartInSession(request);
-	         cart.addProduct(product,1);
-	      }
-	      attributes.addAttribute("message","Add product "+ product.getName() +" to cart complete!");
-	      return "redirect:/admin";
-	   }
 	   
+//	   Xoa sp khoi gio hang
 	   @GetMapping(value ={"/admin/cartRemoveProduct"})
 	   public String removeProductHandler(HttpServletRequest request, Model model, //
 	         @RequestParam(defaultValue = "") Long code,
@@ -82,6 +68,8 @@ public class AdminProductCart {
 	      model.addAttribute("toast", toast);
 	      return "/admin/cart";
 	   }
+	   
+//	   Gio hang, neu sp vuot qua sl trong kho thi thong bao, neu du sl thi tiep tuc
 	   @PostMapping(value = { "/admin/cart" })
 	   public String shoppingCartUpdateQty(HttpServletRequest request, //
 	         Model model, //
@@ -96,6 +84,7 @@ public class AdminProductCart {
 	      return "redirect:/admin/cart";
 	   }
 	   
+//	   ?
 	   @GetMapping(value = { "/admin/continuteOrder" })
 	   public String shoppingCartCustomerForm(HttpServletRequest request, Model model,Customer customer) {
 
@@ -113,6 +102,7 @@ public class AdminProductCart {
 		      return "/admin/continuteOrder";
 	   }
 	   
+//	   kiem tra sdt da co trong he thong chua, neu chua co thi them thong tin KH, neu co thi tu fill thong tin va tiep tuc
 	   @GetMapping(value = { "/admin/checkCustomer" })
 	   public String checkCustomer(HttpServletRequest request, Model model,Customer customer,@RequestParam String phone) {
 

@@ -1,4 +1,4 @@
-package ptit.controller;
+package ptit.controller.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

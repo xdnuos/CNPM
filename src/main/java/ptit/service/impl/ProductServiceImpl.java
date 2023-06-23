@@ -1,4 +1,4 @@
-package ptit.service;
+package ptit.service.impl;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import ptit.entity.Manufacturer;
 import ptit.entity.Product;
 import ptit.repository.ProductDAO;
+import ptit.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService{

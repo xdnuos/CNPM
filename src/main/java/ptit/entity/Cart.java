@@ -99,7 +99,14 @@ public class Cart implements Serializable {
         }
         return null;
     }
-    
+    public int getItemQuantity(Product product) {
+    	CartItem line = this.findLineByCode(product.getProductID());
+    	
+    	if(line != null) {
+    		return line.getQuantity();
+    	}
+		return 0;
+	}
 	public void addProduct(Product product, int quantity) {
 		CartItem line = this.findLineByCode(product.getProductID());
         if (line == null) {

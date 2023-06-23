@@ -1,4 +1,4 @@
-package ptit.service;
+package ptit.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;

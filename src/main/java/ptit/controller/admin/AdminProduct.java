@@ -1,4 +1,4 @@
-package ptit.controller;
+package ptit.controller.admin;
 
 import java.io.IOException;
 import java.util.ArrayList;

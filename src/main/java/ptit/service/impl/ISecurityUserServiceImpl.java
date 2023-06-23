@@ -1,4 +1,4 @@
-package ptit.service;
+package ptit.service.impl;
 
 import java.util.Calendar;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ptit.entity.PasswordResetToken;
 import ptit.repository.PasswordResetTokenRepository;
+import ptit.service.ISecurityUserService;
 
 @Service
 public class ISecurityUserServiceImpl implements ISecurityUserService {

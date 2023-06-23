@@ -1,4 +1,4 @@
-package ptit.controller;
+package ptit.controller.admin;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ptit.entity.Order;
+import ptit.entity.Product;
 import ptit.service.OrderService;
 
 @Controller
@@ -77,5 +78,18 @@ public class AdminOrder {
 	        }
 			return "/admin/order";
 	}
-	
+//	@PostMapping("/admin/order")
+//	public String findOrder(Model model,@RequestParam("search") String text) {
+//		List<Order> order = orderService.findByTimeDate(end,start);
+//		Page<Order> orderPage = orderService.convertListToPage(order, 1, 5);
+//		 model.addAttribute("orderPage", orderPage);
+//	        int totalPages = orderPage.getTotalPages();
+//	        if (totalPages > 0) {
+//	            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+//	                    .boxed()
+//	                    .collect(Collectors.toList());
+//	            model.addAttribute("pageNumbers", pageNumbers);
+//	        }
+//			return "/admin/order";
+//	}
 }

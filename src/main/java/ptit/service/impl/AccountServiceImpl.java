@@ -1,4 +1,4 @@
-package ptit.service;
+package ptit.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +11,7 @@ import ptit.entity.Account;
 import ptit.entity.Permission;
 import ptit.repository.AccountDAO;
 import ptit.repository.PermissionDAO;
+import ptit.service.AccountService;
 
 @Service
 public class AccountServiceImpl implements AccountService {

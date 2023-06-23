@@ -1,4 +1,4 @@
-package ptit.controller;
+package ptit.controller.admin;
 
 
 
