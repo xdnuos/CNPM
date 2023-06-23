@@ -50,7 +50,8 @@ public class AdminIndex {
         @RequestParam(value="price",defaultValue = "none") String price,
         @RequestParam(value="category",defaultValue = "-1") int category,
         @RequestParam(value="manufactor",defaultValue = "-1") int manufactor,
-        @RequestParam(value = "message",required = false) String message) {
+        @RequestParam(value = "Smessage",required = false) String Smessage,
+        @RequestParam(value = "Fmessage",required = false) String Fmessage) {
     int currentPage = page.orElse(1);
     int pageSize = size.orElse(8);
     
@@ -90,7 +91,8 @@ public class AdminIndex {
 	model.addAttribute("category",categories);
 	List<Manufacturer> manufacturers = manufactureDAO.findAll();
 	model.addAttribute("manufactor",manufacturers);
-	model.addAttribute("message",message);
+	model.addAttribute("Smessage",Smessage);
+	model.addAttribute("Fmessage",Fmessage);
 	return "admin/index";
 	}
 	
@@ -108,13 +110,13 @@ public class AdminIndex {
 //		   kiem tra sl sp trong gio hang, neu sl sp trong gio lon hon trong kho thi bao het sp
 		  int buyItemQuantity = cart.getItemQuantity(product);
 		  if(buyItemQuantity > product.getQuantity()) {
-			  attributes.addAttribute("message","Product "+ product.getName() +" out of stock!");
+			  attributes.addAttribute("Fmessage","Product "+ product.getName() +" out of stock!");
 			  return "redirect:/admin";
 		  } else {
 			  cart.addProduct(product,1);
 		  }
       }
-      attributes.addAttribute("message","Add product "+ product.getName() +" to cart complete!");
+      attributes.addAttribute("Smessage","Add product "+ product.getName() +" to cart complete!");
       return "redirect:/admin";
    }
    
