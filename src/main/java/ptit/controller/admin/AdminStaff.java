@@ -42,8 +42,15 @@ public class AdminStaff {
 	private PermissionService permissionService;
 	
 	@GetMapping("/admin/staff")
-    public String staff(ModelMap model,@RequestParam(value = "message",defaultValue = "") String message) {
-        model.addAttribute("staffs", staffService.findAll());
+    public String staff(ModelMap model,
+    		@RequestParam(value = "message",defaultValue = "") String message,
+    		@RequestParam(value = "search",defaultValue = "") String search) {
+		if (!search.equals("")) {
+			model.addAttribute("staffs", staffService.findStaff(search));
+		}else {
+			model.addAttribute("staffs", staffService.findAll());
+		}
+		model.addAttribute("search",search);
         model.addAttribute("message",message);
         return "admin/staff";
     }

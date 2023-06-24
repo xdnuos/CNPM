@@ -64,10 +64,11 @@ public class AdminProduct {
 	public String index(Model model,
 	        @RequestParam Optional<Integer> page,
 	        @RequestParam Optional<Integer> size,
+	        @RequestParam(value="search",defaultValue = "") String search,
 	        @RequestParam(value="name",defaultValue = "none") String name,
 	        @RequestParam(value="price",defaultValue = "none") String price,
 	        @RequestParam(value="category",defaultValue = "-1") int category,
-	        @RequestParam(value="manufactor",defaultValue = "-1") int manufactor,
+	        @RequestParam(value="manufacturer",defaultValue = "-1") int manufactor,
 	        @RequestParam(value = "message",required = false) String message) {
 	    int currentPage = page.orElse(1);
 	    int pageSize = size.orElse(5);
@@ -95,6 +96,9 @@ public class AdminProduct {
 	    if(category != -1) {
 	    	productPage = productDAO.findByCategoryA(category,pageable);
 	    }
+	    if(!search.equals("")) {
+	    	productPage = productDAO.searchByName(search,pageable,true);
+	    }
 	    model.addAttribute("productPage", productPage);
 
 	    int totalPages = productPage.getTotalPages();
@@ -109,6 +113,11 @@ public class AdminProduct {
 		List<Manufacturer> manufacturers = manufactureDAO.findAll();
 		model.addAttribute("manufactor",manufacturers);
 		model.addAttribute("message",message);
+		model.addAttribute("selectedManufacturer", manufactor);
+		model.addAttribute("selectedCategory", category);
+		model.addAttribute("price", price);
+		model.addAttribute("name", name);
+		model.addAttribute("search",search);
 		return "admin/product";
 	}
 	@PostMapping("/admin/product")

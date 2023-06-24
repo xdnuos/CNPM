@@ -161,7 +161,13 @@
 	var element = document.getElementById("create");
 	element.classList.add("active");
 
-	// Lọc sản phẩm theo danh mục
+	window.onload = (event) => {
+		  let myAlert = document.querySelectorAll('.toast')[0];
+		  if (myAlert) {
+		    let bsAlert = new bootstrap.Toast(myAlert);
+		    bsAlert.show();
+		  }
+		};
 
     </script>
   </body>

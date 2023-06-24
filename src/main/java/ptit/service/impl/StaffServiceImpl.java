@@ -55,6 +55,10 @@ public class StaffServiceImpl implements StaffService{
 //	public Page<Staff> findAll(Pageable pageable) {
 //		return (Page<Staff>)staffDAO.findAll(pageable);
 //	}
+	@Override
+	public List<Staff> findStaff(String searchvalue) {
+		return staffDAO.findStaffs(searchvalue);
+	}
 	
 
 //	public List<Staff> findByNameLikeOrderByName(String fullname) {

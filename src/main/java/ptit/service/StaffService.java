@@ -26,5 +26,5 @@ public interface StaffService {
 
 	List<Account> findAllAccount();
 	
-	//List<Staff> findByNameLikeOrderByName(String fullname);
+	List<Staff> findStaff(String searchvalue);
 }

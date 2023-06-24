@@ -47,6 +47,7 @@ public class AdminIndex {
 	public String index(Model model,
         @RequestParam Optional<Integer> page,
         @RequestParam Optional<Integer> size,
+        @RequestParam(value="search",defaultValue = "") String search,
         @RequestParam(value="name",defaultValue = "asc") String name,
         @RequestParam(value="price",defaultValue = "asc") String price,
         @RequestParam(value="category",defaultValue = "-1") int category,
@@ -87,6 +88,9 @@ public class AdminIndex {
     if(category != -1) {
     	productPage = productDAO.findByCategory(category,pageable,true);
     }
+    if(!search.equals("")) {
+    	productPage = productDAO.searchByName(search,pageable,true);
+    }
     model.addAttribute("productPage", productPage);
 
     int totalPages = productPage.getTotalPages();
@@ -106,6 +110,7 @@ public class AdminIndex {
 	model.addAttribute("Fmessage",Fmessage);
 	model.addAttribute("selectedManufacturer", manufactor);
 	model.addAttribute("selectedCategory", category);
+	model.addAttribute("search",search);
 	return "admin/index";
 	}
 	
@@ -122,7 +127,7 @@ public class AdminIndex {
          Cart cart = Utils.getCartInSession(request);
 //		   kiem tra sl sp trong gio hang, neu sl sp trong gio lon hon trong kho thi bao het sp
 		  int buyItemQuantity = cart.getItemQuantity(product);
-		  if(buyItemQuantity > product.getQuantity()) {
+		  if(buyItemQuantity >= product.getQuantity()) {
 			  attributes.addAttribute("Fmessage","Product "+ product.getName() +" out of stock!");
 			  return "redirect:/admin";
 		  } else {
@@ -133,16 +138,8 @@ public class AdminIndex {
       return "redirect:/admin";
    }
    
-	@PostMapping("/admin")
-	public String findProduct(Model model,@RequestParam("search") String text) {
-		List<Product> products = productDAO.searchByName(text,true);
-		Page<Product> page = productService.convertListToPage(products, 1, 5);
-		model.addAttribute("productPage",page);
-		return "admin/index";
-	}
-	
-//	@PostMapping("/admin/filter")
-//	public String filter(Model model,@RequestParam("search") String text) {
+//	@GetMapping("/admin")
+//	public String findProduct(Model model,@RequestParam("search") String text) {
 //		List<Product> products = productDAO.searchByName(text,true);
 //		Page<Product> page = productService.convertListToPage(products, 1, 5);
 //		model.addAttribute("productPage",page);

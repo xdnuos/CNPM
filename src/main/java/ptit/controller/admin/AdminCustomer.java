@@ -51,10 +51,15 @@ public class AdminCustomer {
 	OrderDAO orderDAO;
 	
 	@GetMapping(value = "/admin/customer")
-	public String index(Model model) {
+	public String index(Model model,
+			@RequestParam(value = "search",defaultValue = "") String search) {
 		
-		List<Customer> customers = customerDAO.findAll();
-		
+		List<Customer> customers;
+		if (!search.equals("")) {
+			customers = customerDAO.findCustomer(search);
+		}else {
+			customers = customerDAO.findAll();
+		}
 		model.addAttribute("customers", customers);
 		return "admin/customer";
 	}

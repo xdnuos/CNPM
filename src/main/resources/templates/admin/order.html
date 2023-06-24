@@ -1,83 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 
-   <head th:replace="admin/layout :: head"></head>
+<head th:replace="admin/layout :: head"></head>
 
-   <head>
-      <script
-         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   </head>
+<head>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
 
-   <body>
-      <div class="container-fluid">
-         <div class="row g-0">
-            <div th:replace="admin/layout :: navleft"></div>
-            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10
+<body>
+   <div class="container-fluid">
+      <div class="row g-0">
+         <div th:replace="admin/layout :: navleft"></div>
+         <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xxl-10
                content-column">
+            <div class="container">
+               <nav th:replace="admin/layout :: navtop"></nav>
+               <!-- CODE HERE -->
                <div class="container">
-                  <nav th:replace="admin/layout :: navtop"></nav>
-                  <!-- CODE HERE -->
-<div class="container">
-  <form class="d-flex" method="post">
-    <div class="col-md-3" style="margin: 24px">
-      <input name="startDate" type="date" class="form-control" placeholder="Start Date">
-    </div>
-    <div class="col-md-3" style="margin: 24px">
-      <input name="endDate" type="date" class="form-control" placeholder="End Date">
-    </div>
-    <button type="submit" class="btn btn-primary " style="margin: 24px">Filter</button>
-  </form>
-</div>
-
-                  <th:block th:if="${orderPage == null}">
-                     <h2>There is no order</h2>
-                     <a th:href="@{/admin}">Show Product List</a>
-                  </th:block>
-                  <th:block th:if="${orderPage != null}">
-                     <div class="row">
-                        <table class="table table-bordered">
-                           <thead>
-                              <tr>
-                                 <th scope="col">ID</th>
-                                 <th scope="col">Create date</th>
-                                 <th scope="col">Total</th>
-                                 <th scope="col">Create by</th>
-                                 <th scope="col">Customer ID</th>
-                                 <th scope="col">Action</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr th:each="order,state:${orderPage.content}">
-                                 <th th:text="${order.orderID}">1</th>
-                                 <td th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy HH:mm')}">Mark</td>
-                                 <td th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')}+ ' VNĐ'">Otto</td>
-                                 <td th:text="${order.staff?.fullname}">@mdo</td>
-                                 <td th:text="${order.customer?.customerID}">@mdo</td>
-                                 <td><a th:href="@{/admin/orderDetail(orderID=${order.orderID})}">Detail</a></td>
-                              </tr>
-                           </tbody>
-                        </table>
+                  <form class="d-flex" method="get">
+                     <div class="col-md-3" style="margin-right: 24px">
+                        <label>Start Date</label>
+                        <input name="startDate" type="date" class="form-control" placeholder="Start Date"
+                           th:value="${startDate}">
                      </div>
-                  </th:block>
-                            <!-- page number -->
-         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center pagination-sm">
-                <li  th:if="${orderPage.totalPages > 0}" class="page-link"
-                      th:each="pageNumber : ${pageNumbers}">
-                    <a th:href="@{/admin/order(size=${orderPage.size}, page=${pageNumber})}"
-                       th:text=${pageNumber}
-                       th:class="${pageNumber==orderPage.number + 1} ? active"
-                       class="page-link"
-                    ></a>
-                </li>
-            </ul>
-        </nav>
+                     <div class="col-md-3" style="margin-right: 24px">
+                        <label>End Date</label>
+                        <input name="endDate" type="date" class="form-control" placeholder="End Date"
+                           th:value="${endDate}">
+                     </div>
+                     <button type="submit" class="btn btn-primary " style="margin: 24px">Filter</button>
+                  </form>
                </div>
+               <th:block th:if="${orderPage.isEmpty()}">
+       				<div class="alert alert-warning text-center" role="alert">
+					No order, please try again!
+					</div>
+                  <a th:href="@{/admin}" class="text-center mt-5">Show Product List</a>
+               </th:block>
+               <th:block th:unless="${orderPage.isEmpty()}">
+                  <div class="row">
+                     <table class="table table-bordered">
+                        <thead>
+                           <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">Create date</th>
+                              <th scope="col">Total</th>
+                              <th scope="col">Create by</th>
+                              <th scope="col">Customer Name</th>
+                              <th scope="col">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr th:each="order,state:${orderPage.content}">
+                              <th th:text="${order.orderID}">1</th>
+                              <td th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy HH:mm')}">Mark</td>
+                              <td th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')}+ ' VNĐ'">Otto
+                              </td>
+                              <td th:text="${order.staff?.fullname}">@mdo</td>
+                              <td th:text="${order.customer?.fullname}">@mdo</td>
+                              <td><a th:href="@{/admin/orderDetail(orderID=${order.orderID})}">Detail</a></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </th:block>
+               <!-- page number -->
+               <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center pagination-sm">
+                     <li th:if="${orderPage.totalPages > 0}" class="page-link" th:each="pageNumber : ${pageNumbers}">
+                        <a th:href="@{/admin/order(size=${orderPage.size}, page=${pageNumber})}" th:text=${pageNumber}
+                           th:class="${pageNumber==orderPage.number + 1} ? active" class="page-link"></a>
+                     </li>
+                  </ul>
+               </nav>
             </div>
          </div>
       </div>
+   </div>
 
-      <script th:src="@{/admin/js/scripts.js}"></script>
-   </body>
+   <script th:src="@{/admin/js/scripts.js}"></script>
+   <script>
+      var element = document.getElementById("order");
+      element.classList.add("active");
+   </script>
+</body>
 
 </html>

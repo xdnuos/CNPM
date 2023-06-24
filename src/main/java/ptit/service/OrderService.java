@@ -147,7 +147,7 @@ public class OrderService {
     public Page<Order> convertListToPage(List<Order> productList, int pageNumber, int pageSize) {
         // Tạo trang từ danh sách
         Page<Order> page = new PageImpl<>(productList.subList(pageNumber * pageSize - pageSize, Math.min(pageNumber * pageSize, productList.size())),
-                PageRequest.of(pageNumber, pageSize), productList.size());
+                PageRequest.of(pageNumber - 1, pageSize), productList.size());
 
         return page;
     }

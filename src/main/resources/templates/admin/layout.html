@@ -76,8 +76,8 @@
 <!-- NAV-TOP -->
 <nav class="navbar bg-body-tertiary" th:fragment="navtop" >
   <div class="container-fluid" id="nav-top">
-    <form class="d-flex" role="search" id="search-form" method="post">
-      <input class="form-control me-2" name="search" type="search" placeholder="Find something ..." aria-label="Search">
+    <form class="d-flex" role="search" id="search-form" method="get">
+      <input class="form-control me-2" name="search" type="search" placeholder="Find something ..." aria-label="Search" th:value="${search}">
       <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
     <ul class="navbar-nav d-flex flex-row align-items-center">

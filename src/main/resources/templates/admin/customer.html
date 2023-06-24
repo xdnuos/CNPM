@@ -34,6 +34,11 @@
                             </tr>
                         </tbody>
                     </table>
+                    <th:block th:if="${#lists.isEmpty(customers)}">
+						<div class="alert alert-warning text-center" role="alert">
+							No data, please try again!
+						</div>
+					</th:block>
                 </div>
             </div>
         </div>

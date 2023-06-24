@@ -44,7 +44,7 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	Page<Product>findByCateManu(@Param("category") int category,@Param("manufactor") int manufactor,Pageable pageable,@Param("status") Boolean status);
 	
 	@Query("from Product as p where p.name LIKE %:name% and p.status = :status and p.quantity > 0")
-	List<Product> searchByName(@Param("name") String name,@Param("status") Boolean status);
+	Page<Product> searchByName(@Param("name") String name,Pageable pageable,@Param("status") Boolean status);
 	
 //	---------------------
 	@Query("select p from Product p")

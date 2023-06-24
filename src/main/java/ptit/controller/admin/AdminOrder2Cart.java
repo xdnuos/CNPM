@@ -171,8 +171,8 @@ public class AdminOrder2Cart {
 	    	  orderService.saveCart2Order(cart, note,"live");
 	      } catch (Exception e) {
 //	    	 return e.getMessage();
-	    	  attributes.addAttribute("message","Some thing is wrong! Please try again");
-	         return "redirect:/admin/orderConfirmation";
+	    	  attributes.addAttribute("Fmessage","Some thing is wrong! Please try again");
+	         return "redirect:/admin";
 	      }
 
 	      // Remove Cart from Session.
@@ -183,7 +183,7 @@ public class AdminOrder2Cart {
 	      
 	      sessionStatus.setComplete();
 	      
-	      attributes.addAttribute("message","Create order complete!");
+	      attributes.addAttribute("Smessage","Create order complete!");
 	      return "redirect:/admin";
 	   }
 	   

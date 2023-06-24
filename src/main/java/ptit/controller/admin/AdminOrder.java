@@ -28,26 +28,30 @@ public class AdminOrder {
 	@Autowired
 	OrderService orderService;
 	
-	@GetMapping(value="/admin/order")
-	public String OrderIndex(Model model,
-            @RequestParam Optional<Integer> page,
-            @RequestParam Optional<Integer> size) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(15);
-
-        Page<Order> orderPage = orderService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
-
-        model.addAttribute("orderPage", orderPage);
-
-        int totalPages = orderPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
-		return "/admin/order";
-	}
+//	@GetMapping(value="/admin/order")
+//	public String OrderIndex(Model model,
+//            @RequestParam Optional<Integer> page,
+//            @RequestParam Optional<Integer> size,
+//            @RequestParam(value="startDate",defaultValue = "") String startDate,
+//            @RequestParam(value="endDate",defaultValue = "") String endDate) {
+//        int currentPage = page.orElse(1);
+//        int pageSize = size.orElse(15);
+//
+//        Page<Order> orderPage = orderService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+//
+//        model.addAttribute("orderPage", orderPage);
+//
+//        int totalPages = orderPage.getTotalPages();
+//        if (totalPages > 0) {
+//            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+//                    .boxed()
+//                    .collect(Collectors.toList());
+//            model.addAttribute("pageNumbers", pageNumbers);
+//        }
+//        model.addAttribute("startDate", startDate);
+//        model.addAttribute("endDate", endDate);
+//		return "/admin/order";
+//	}
 	
 	@GetMapping(value="/admin/orderDetail")
 	public String orderDetail(Model model,
@@ -61,22 +65,32 @@ public class AdminOrder {
 		return "/admin/orderDetail";
 	}
 	
-	@PostMapping(value="/admin/order")
+	@GetMapping(value="/admin/order")
 	public String filterOrder(Model model,
-			@RequestParam("startDate") String start,
-			@RequestParam("endDate") String end) throws ParseException {
-
+            @RequestParam Optional<Integer> page,
+            @RequestParam Optional<Integer> size,
+			@RequestParam(value="startDate",defaultValue = "1970-01-01") String start,
+			@RequestParam(value="endDate",defaultValue = "2099-12-31") String end,
+			@RequestParam(value="search",defaultValue = "") String search) throws ParseException {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
 		List<Order> order = orderService.findByTimeDate(end,start);
-		Page<Order> orderPage = orderService.convertListToPage(order, 1, 5);
-		 model.addAttribute("orderPage", orderPage);
-	        int totalPages = orderPage.getTotalPages();
-	        if (totalPages > 0) {
-	            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+		if (!search.equals("")) {
+			order = orderService.findOrder(search);
+		}
+		Page<Order> orderPage = orderService.convertListToPage(order, currentPage, pageSize);
+		model.addAttribute("orderPage", orderPage);
+	    int totalPages = orderPage.getTotalPages();
+	    if (totalPages > 0) {
+	    	List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
 	                    .boxed()
 	                    .collect(Collectors.toList());
 	            model.addAttribute("pageNumbers", pageNumbers);
 	        }
-			return "/admin/order";
+	    model.addAttribute("startDate", start);
+	    model.addAttribute("endDate", end);
+	    model.addAttribute("search", search);
+		return "/admin/order";
 	}
 //	@PostMapping("/admin/order")
 //	public String findOrder(Model model,@RequestParam("search") String text) {

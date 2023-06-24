@@ -19,4 +19,7 @@ public interface CustomerDAO extends JpaRepository<Customer, Long>{
 
 	@Query("Select count(*) from Customer as c where c.phone = :phone")
 	Integer checkPhone(@Param("phone") String phone);
+	
+	@Query("from Customer as c where CAST(c.customerID AS string) LIKE %:searchValueParam% or c.fullname LIKE %:searchValueParam% or c.phone LIKE %:searchValueParam%")
+	List<Customer> findCustomer(@Param("searchValueParam") String searchValue);
 }
