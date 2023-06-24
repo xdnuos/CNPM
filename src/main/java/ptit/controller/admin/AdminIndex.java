@@ -1,5 +1,6 @@
 package ptit.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,26 +47,34 @@ public class AdminIndex {
 	public String index(Model model,
         @RequestParam Optional<Integer> page,
         @RequestParam Optional<Integer> size,
-        @RequestParam(value="name",defaultValue = "none") String name,
-        @RequestParam(value="price",defaultValue = "none") String price,
+        @RequestParam(value="name",defaultValue = "asc") String name,
+        @RequestParam(value="price",defaultValue = "asc") String price,
         @RequestParam(value="category",defaultValue = "-1") int category,
-        @RequestParam(value="manufactor",defaultValue = "-1") int manufactor,
+        @RequestParam(value="manufacturer",defaultValue = "-1") int manufactor,
         @RequestParam(value = "Smessage",required = false) String Smessage,
         @RequestParam(value = "Fmessage",required = false) String Fmessage) {
     int currentPage = page.orElse(1);
     int pageSize = size.orElse(8);
     
     Sort sort = null;
+    List<Sort.Order> orders = new ArrayList<>();
+
     if (!name.equals("none")) {
-        sort = name.equals("asc") ? Sort.by("name").ascending() : Sort.by("name").descending();
+        Sort.Order nameOrder = name.equals("asc") ? Sort.Order.asc("name") : Sort.Order.desc("name");
+        orders.add(nameOrder);
     }
 
     if (!price.equals("none")) {
-        Sort priceSort = price.equals("asc") ? Sort.by("price").ascending() : Sort.by("price").descending();
-        sort = sort == null ? priceSort : sort.and(priceSort);
+        Sort.Order priceOrder = price.equals("asc") ? Sort.Order.asc("price") : Sort.Order.desc("price");
+        orders.add(priceOrder);
+    }
+
+    if (!orders.isEmpty()) {
+        sort = Sort.by(orders);
     }
 
     Pageable pageable = sort == null ? PageRequest.of(currentPage - 1, pageSize) : PageRequest.of(currentPage - 1, pageSize, sort);
+
 
     
     Page<Product> productPage = productDAO.findWithPageble(pageable,true);
@@ -91,8 +100,12 @@ public class AdminIndex {
 	model.addAttribute("category",categories);
 	List<Manufacturer> manufacturers = manufactureDAO.findAll();
 	model.addAttribute("manufactor",manufacturers);
+	model.addAttribute("price",price);
+	model.addAttribute("name",name);
 	model.addAttribute("Smessage",Smessage);
 	model.addAttribute("Fmessage",Fmessage);
+	model.addAttribute("selectedManufacturer", manufactor);
+	model.addAttribute("selectedCategory", category);
 	return "admin/index";
 	}
 	
@@ -127,5 +140,13 @@ public class AdminIndex {
 		model.addAttribute("productPage",page);
 		return "admin/index";
 	}
+	
+//	@PostMapping("/admin/filter")
+//	public String filter(Model model,@RequestParam("search") String text) {
+//		List<Product> products = productDAO.searchByName(text,true);
+//		Page<Product> page = productService.convertListToPage(products, 1, 5);
+//		model.addAttribute("productPage",page);
+//		return "admin/index";
+//	}
 	
 }
