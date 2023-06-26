@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -41,12 +43,14 @@ public class Product implements Serializable{
     
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "manufacturerID")
+	@JsonBackReference
     private Manufacturer manufacturer;
     
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "product_category",
     joinColumns = @JoinColumn(name = "productID"),
     inverseJoinColumns = @JoinColumn(name = "categoryID"))
+	@JsonBackReference
     private List<Category> category = new ArrayList<>();
     
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)

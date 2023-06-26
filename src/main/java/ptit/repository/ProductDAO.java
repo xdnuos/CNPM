@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import ptit.DTO.ProductDto;
 import ptit.entity.BestProduct;
 import ptit.entity.Product;
 
@@ -69,4 +70,8 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	
 	@Query("SELECT p.quantity FROM Product p WHERE p.id = :id")
 	Integer getProductQty(@Param("id") Long id);
+	
+	@Query("SELECT new ptit.DTO.ProductDto(p.name, p.price) FROM Product p WHERE p.name LIKE %:keyword%")
+	List<ProductDto> search(@Param("keyword") String keyword);
+
 }

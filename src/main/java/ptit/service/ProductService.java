@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import ptit.DTO.ProductDto;
 import ptit.entity.Product;
 
 public interface ProductService {
@@ -17,5 +18,6 @@ public interface ProductService {
  List<Product> findProductCategoryALL(long categoryID);
  Product findProductByName(String name);
  Page<Product> convertListToPage(List<Product> productList, int pageNumber, int pageSize);
+List<ProductDto> searchProducts(String keyword);
  
 }

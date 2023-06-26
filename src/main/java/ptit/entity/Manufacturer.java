@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="manufacturer")
 public class Manufacturer implements Serializable {
@@ -21,6 +23,7 @@ public class Manufacturer implements Serializable {
 	private String name;
 	
 	@OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL)
+	@JsonManagedReference
     private List<Product> product = new ArrayList<>();
 
 	public int getManufacturerID() {

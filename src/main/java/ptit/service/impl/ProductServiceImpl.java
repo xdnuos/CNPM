@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ptit.DTO.ProductDto;
 import ptit.entity.Manufacturer;
 import ptit.entity.Product;
 import ptit.repository.ProductDAO;
@@ -81,5 +82,12 @@ public class ProductServiceImpl implements ProductService{
                 PageRequest.of(pageNumber, pageSize), productList.size());
 
         return page;
+    }
+	
+	@Override
+    public List<ProductDto> searchProducts(String keyword) {
+        // Thực hiện tìm kiếm sản phẩm trong repository
+        List<ProductDto> searchResults = productDAO.search(keyword);
+        return searchResults;
     }
 }
